@@ -13,7 +13,7 @@ This starter pack includes a basic setup for setiing up . To start building your
 
 1. Install the required packages.
     ```sh
-    cd react-tailwind-css-starter-pack
+    cd studyNotion
     npm install
     ```
 
