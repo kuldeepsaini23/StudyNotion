@@ -7,7 +7,7 @@ import { FaArrowRight } from 'react-icons/fa'
 const InstructorSection = () => {
   return (
     <div className='mt-16'>
-      <div className='flex flex-row gap-20 items-center'>
+      <div className='flex flex-col md:flex-row gap-20 items-center'>
 
         <div className='w-[50%]'>
             <img

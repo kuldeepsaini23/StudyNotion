@@ -9,6 +9,7 @@ import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import InstructorSection from "../components/core/HomePage/InstructorSection";
 import Footer from "../components/common/Footer";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
 
 const Home = () => {
   return (
@@ -119,6 +120,8 @@ const Home = () => {
             codeColor={"text-yellow-25"}
           />
         </div>
+
+        <ExploreMore/>
       </section>
 
       {/* Section 2 */}
@@ -128,7 +131,7 @@ const Home = () => {
           <div className='w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-5 mx-auto'>
             <div className="h-[150px]"></div>
 
-            <div className="flex gap-7 text-white">
+            <div className="flex flex-col md:flex-row gap-7 text-white">
               <CTAButton active={true} linkto={"/signup"}>
                 <div className="flex items-center gap-3">
                   Explore Full Catlog
@@ -145,7 +148,7 @@ const Home = () => {
 
         <div className='mx-auto w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-7'>
 
-          <div className='flex flex-row gap-5 mb-10 mt-[95px]'>
+          <div className='flex flex-col md:flex-row gap-5 mb-10 mt-[95px] justify-center items-center w-[200%]      sm:w-full'>
             <div className='text-4xl font-semibold w-[45%]'>
               Get the Skills you need for a
               <HighlightText text={"Job that is in demand"} />

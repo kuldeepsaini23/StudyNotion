@@ -19,21 +19,24 @@ const LearningLanguageSection = () => {
             Using spin making learning multiple languages easy. with 20+ languages realistic voice-over, progress tracking, custom schedule and more.
             </div>
 
-            <div className='flex flex-row items-center justify-center mt-5'>
+            <div className='flex flex-col md:flex-row items-center justify-center mt-5'>
                 <img 
                     src = {know_your_progress}
                     alt = "KNowYourProgressImage"
-                    className='object-contain -mr-32 '
+                    className='object-contain md:-mr-32 '
+                    loading='lazy'
                 />
                 <img 
                     src = {compare_with_others}
                     alt = "KNowYourProgressImage"
                     className='object-contain'
+                    loading='lazy'
                 />
                 <img 
                     src = {plan_your_lesson}
                     alt = "KNowYourProgressImage"
-                    className='object-contain -ml-36'
+                    className='object-contain md:-ml-36'
+                    loading='lazy'
                 />
             </div>
 
