@@ -10,13 +10,13 @@ const CodeBlocks = ({
   ctabtn1,
   ctabtn2,
   codeblocks,
-  backgroundGradient,
+  codeblockName,
   codeColor,
 }) => {
   return (
     <div className={`flex flex-col ${position} my-20 justify-between gap-10`}>
       {/* Section-1  */}
-      <div className="w-[50%] flex flex-col gap-8">
+      <div className="w-[100%] lg:w-[50%] flex flex-col gap-8">
         {heading}
         <div className="text-richblack-300 font-bold">{subheading}</div>
 
@@ -35,9 +35,11 @@ const CodeBlocks = ({
       </div>
 
       {/* Section-2 */}
-      <div className="h-fit flex w-[100%] lg:w-[500px]">
+      <div className="h-fit code-border flex flex-row py-3 text-[10px] sm:text-sm leading-[18px] sm:leading-6 relative w-[100%] lg:w-[470px]">
+
+        <div className={`${codeblockName} absolute`}></div>
         {/* Hw Bg gradient */}
-        <div className="text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold">
+        <div className="text-center flex flex-col w-[10%] select-none text-richblack-400 font-inter font-bold ">
           <p>1</p>
           <p>2</p>
           <p>3</p>
@@ -51,7 +53,7 @@ const CodeBlocks = ({
           <p>11</p>
         </div>
 
-        <div className={`w-[90%] flex flex-col gap-2 font-bold font-mono ${codeColor}`}>
+        <div className={`w-[90%] flex flex-col gap-2 font-bold font-mono ${codeColor} pr-1`}>
           <TypeAnimation
             sequence={[codeblocks,10000, ""]}
             repeat={Infinity}

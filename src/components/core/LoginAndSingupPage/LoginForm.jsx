@@ -43,7 +43,7 @@ const LoginForm = () => {
           onChange={changeHandler}
           placeholder="Enter Password"
           name="password"
-          className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]'
+          className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px] border-b-[0.001rem] border-richblack-5'
         />
        <span onClick={() => setShowPassword((prev) => !prev)}
       className="absolute right-3 top-[38px] cursor-pointer">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import frameImage from "../../../assets/Images/frame.png";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
@@ -10,19 +10,13 @@ const Template = ({
   desc1,
   desc2,
   image,
-  formtype,
-  setIsLoggedIn,
-  getAccountType,
+  formtype
 }) => {
-  const [accountType, setAccountType] = useState("student");
 
-  function sendData() {
-    console.log(accountType);
-    getAccountType(accountType);
-  }
+
 
   return (
-    <div className="flex justify-between w-11/12 max-w-[1160px] py-12 mx-auto gap-x-12 gap-y-0">
+    <div className="mx-auto flex w-11/12 max-w-maxContent flex-col-reverse justify-around items-center gap-y-12 py-12 md:flex-row md:gap-y-0 md:gap-x-12 mt-10">
       <div className="w-11/12 max-w-[450px]">
         <h1 className="text-richblack-5 font-semibold text-[1.875rem] leading-[2.375rem]">
           {title}
@@ -34,40 +28,10 @@ const Template = ({
           <span className="text-blue-100 italic">{desc2}</span>
         </p>
 
-        {/* Student Instructor tab */}
-        <div className="flex bg-richblack-800 p-1 gap-x-1 my-6 rounded-full max-w-max">
-          <button
-            className={`${
-              accountType === "student"
-                ? "bg-richblack-900 text-richblack-5"
-                : "bg-transparent text-richblack-200"
-            } py-2 px-5 rounded-full transition-all duration-200`}
-            onClick={() => {
-              setAccountType("student");
-              sendData();
-            }}
-          >
-            Student
-          </button>
-
-          <button
-            className={`${
-              accountType === "instructor"
-                ? " bg-richblack-900 text-richblack-5"
-                : "bg-transparent text-richblack-200"
-            } py-2 px-5 rounded-full transition-all duration-200`}
-            onClick={() => {
-              setAccountType("instructor");
-              sendData();
-            }}
-          >
-            Instructor
-          </button>
-        </div>
         {formtype === "signup" ? (
-          <SignupForm setIsLoggedIn={setIsLoggedIn} />
+          <SignupForm />
         ) : (
-          <LoginForm setIsLoggedIn={setIsLoggedIn} />
+          <LoginForm />
         )}
 
         <div className="flex w-full items-center my-4 gap-x-2">
@@ -80,7 +44,7 @@ const Template = ({
 
         <button className="w-full flex justify-center items-center rounded-[8px] font-medium text-richblack-100 border border-richblack-700 px-[12px] py-[8px] gap-x-2 mt-6 hover:bg-richblue-5 hover:text-richblack-900 transition-all duration-200">
           <FcGoogle />
-          <p>Sign Up with Google</p>
+          <p>{formtype=== "signup" ? "Sign Up" : "Sign In"} with Google</p>
         </button>
 
         <button
@@ -88,7 +52,7 @@ const Template = ({
          transition-all duration-200"
         >
           <BsFacebook color="#4267B2" />
-          <p>Sign Up with Facebook</p>
+          <p>{formtype=== "signup" ? "Sign Up" : "Sign In"} with Facebook</p>
         </button>
       </div>
 
