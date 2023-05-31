@@ -64,7 +64,7 @@ const TimelineSection = () => {
             <div className="flex gap-5 items-center lg:px-14 px-7">
               <p className="text-3xl font-bold w-[75px]">250</p>
               <p className="text-caribbeangreen-300 text-sm w-[75px]">
-                TYpe of Courses
+                Type of Courses
               </p>
             </div>
           </div>

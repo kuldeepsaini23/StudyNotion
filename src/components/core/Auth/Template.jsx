@@ -10,7 +10,7 @@ const Template = ({
   desc1,
   desc2,
   image,
-  formtype
+  formType
 }) => {
 
 
@@ -28,7 +28,7 @@ const Template = ({
           <span className="text-blue-100 italic">{desc2}</span>
         </p>
 
-        {formtype === "signup" ? (
+        {formType === "signup" ? (
           <SignupForm />
         ) : (
           <LoginForm />
@@ -44,7 +44,7 @@ const Template = ({
 
         <button className="w-full flex justify-center items-center rounded-[8px] font-medium text-richblack-100 border border-richblack-700 px-[12px] py-[8px] gap-x-2 mt-6 hover:bg-richblue-5 hover:text-richblack-900 transition-all duration-200">
           <FcGoogle />
-          <p>{formtype=== "signup" ? "Sign Up" : "Sign In"} with Google</p>
+          <p>{formType=== "signup" ? "Sign Up" : "Sign In"} with Google</p>
         </button>
 
         <button
@@ -52,14 +52,14 @@ const Template = ({
          transition-all duration-200"
         >
           <BsFacebook color="#4267B2" />
-          <p>{formtype=== "signup" ? "Sign Up" : "Sign In"} with Facebook</p>
+          <p>{formType=== "signup" ? "Sign Up" : "Sign In"} with Facebook</p>
         </button>
       </div>
 
-      <div className="relative w-11/12 max-w-[450px]">
+      <div className="relative mx-auto w-11/12 max-w-[450px] md:mx-0">
         <img
           src={frameImage}
-          alt="Frame"
+          alt="Pattern"
           width={558}
           height={504}
           loading="lazy"
@@ -67,11 +67,11 @@ const Template = ({
 
         <img
           src={image}
-          alt="Frame"
+          alt="students"
           width={558}
           height={504}
           loading="lazy"
-          className="absolute -top-4 right-4"
+          className="absolute -top-4 right-4 z-10"
         />
       </div>
     </div>

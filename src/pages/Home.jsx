@@ -8,7 +8,7 @@ import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import InstructorSection from "../components/core/HomePage/InstructorSection";
-import Footer from "../components/common/Footer";
+// import Footer from "../components/common/Footer";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
 
 const Home = () => {
@@ -56,14 +56,14 @@ const Home = () => {
         </div>
 
         {/* Code Section-1 */}
-        <div className="flex lg:flex-row my-20 justify-between flex-col lg:gap-10 gap-10">
+        <div>
           <CodeBlocks
             position={"lg:flex-row"}
             heading={
               <div className="text-4xl font-semibold">
                 Unlock Your
-                <HighlightText text={"Coding Potential"} />
-                with out online courses
+                <HighlightText text={"coding potential"} />
+                with our online courses
               </div>
             }
             subheading={
