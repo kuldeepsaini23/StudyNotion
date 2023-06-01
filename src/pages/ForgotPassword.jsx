@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {getPasswordResetToken} from "../services/operations/authAPI"
 
 const ForgotPassword = () => {
   const [emailSent, setEmailSent] = useState(false);
@@ -11,7 +12,7 @@ const ForgotPassword = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(getPasswordresetResetToken);
+    dispatch(getPasswordResetToken(email,setEmailSent));
   };
 
   return (
@@ -46,7 +47,7 @@ const ForgotPassword = () => {
             )}
 
             <button type="submit">
-              {!emailSent ? "Reset Password" : "Resend Password"}
+              {!emailSent ? "Reset Password" : "Resend Email"}
             </button>
           </form>
 
@@ -55,6 +56,7 @@ const ForgotPassword = () => {
               <p>Back To Login</p>
             </Link>
           </div>
+          
         </div>
       )}
     </div>

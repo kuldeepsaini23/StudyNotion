@@ -17,7 +17,7 @@ const CourseCard = ({ cardData, currentCard, setCurrentCard }) => {
     >
       <div class="border-b-[2px] border-richblack-400 border-dashed h-[80%] p-6 flex flex-col gap-3">
         <div
-          class={` ${
+          className={` ${
             currentCard === heading ? "text-richblack-800" : "text-richblack-25"
           }  font-semibold text-[20px] transition-all duration-20 group-hover:text-richblack-800`}
         >
