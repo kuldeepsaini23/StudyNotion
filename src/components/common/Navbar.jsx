@@ -14,7 +14,7 @@ const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const { totalItems } = useSelector((state) => state.cart);
-  // console.log(token);
+  // console.log("Token From slice", token);
   // console.log("from local storage", localStorage.getItem("token"));
 
   //* For color of tabs in navbar
@@ -26,7 +26,7 @@ const Navbar = () => {
   const fetchSubLinks = async () => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      console.log("Printing Data", result);
+      // console.log("Printing Data", result);
       setSubLinks(result?.data?.data);
     } catch (error) {
       console.log("could not fetch the category list");

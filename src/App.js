@@ -9,6 +9,7 @@ import Error from "./pages/Error";
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
+import  About  from "./pages/About";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="*" element={<Error />} />
         <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
         <Route
           path="signup"
           element={

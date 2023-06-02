@@ -15,7 +15,7 @@ const CourseCard = ({ cardData, currentCard, setCurrentCard }) => {
       } transition-all duration-200 hover:bg-richblack-5 hover:text-richblue-500 group`}
       onClick={() => setCurrentCard(heading)}
     >
-      <div class="border-b-[2px] border-richblack-400 border-dashed h-[80%] p-6 flex flex-col gap-3">
+      <div className="border-b-[2px] border-richblack-400 border-dashed h-[80%] p-6 flex flex-col gap-3">
         <div
           className={` ${
             currentCard === heading ? "text-richblack-800" : "text-richblack-25"
@@ -23,15 +23,15 @@ const CourseCard = ({ cardData, currentCard, setCurrentCard }) => {
         >
           {heading}
         </div>
-        <div class="text-richblack-400">{description}</div>
+        <div className="text-richblack-400">{description}</div>
       </div>
 
-      <div class="flex justify-between text-blue-300 px-6 py-3 font-medium">
-        <div class="flex items-center gap-2 text-[16px]">
+      <div className="flex justify-between text-blue-300 px-6 py-3 font-medium">
+        <div className="flex items-center gap-2 text-[16px]">
           <HiUsers/>
           <p>{level}</p>
         </div>
-        <div class="flex items-center gap-2 text-[16px]">
+        <div className="flex items-center gap-2 text-[16px]">
           <ImTree/>
           <p>{lessionNumber} Lession</p>
         </div>

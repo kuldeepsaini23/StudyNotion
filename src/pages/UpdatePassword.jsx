@@ -5,6 +5,7 @@ import { resetPassword } from "../services/operations/authAPI";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast"
+import { IoArrowBack } from "react-icons/io5";
 
 const UpdatePassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,17 +41,17 @@ const UpdatePassword = () => {
   };
 
   return (
-    <div>
+    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="min-h-screen w-full flex flex-col gap-3 text-richblack-5 justify-center items-center">
-          <h1>Choose new Password</h1>
-          <p>Almost done. Enter your new password and youre all set.</p>
+        <div className="max-w-[500px] p-4 lg:p-8">
+          <h1 className="text-3xl font-semibold text-richblack-5">Choose new Password</h1>
+          <p className="my-4 text-xl font-semibold text-richblack-100">Almost done. Enter your new password and youre all set.</p>
 
           <form onSubmit={handleOnSubmit}>
             <label className="relative">
-              <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+              <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-100">
                 New Password <sup className="text-pink-200">*</sup>
               </p>
               <input
@@ -63,7 +64,7 @@ const UpdatePassword = () => {
                 style={{
                   boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
                 }}
-                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
+                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 border-b-[0.001rem] border-richblack-5"
               />
               <span
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -76,7 +77,7 @@ const UpdatePassword = () => {
                 )}
               </span>
             </label>
-            <label className="relative">
+            <label className="relative mt-3 block">
               <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
                 Confirm Password <sup className="text-pink-200">*</sup>
               </p>
@@ -90,7 +91,7 @@ const UpdatePassword = () => {
                 style={{
                   boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
                 }}
-                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
+                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 border-b-[0.001rem] border-richblack-5"
               />
               <span
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
@@ -104,14 +105,18 @@ const UpdatePassword = () => {
               </span>
             </label>
 
-            <button type="submit">
+            <button type="submit"
+            className="w-full mt-6 rounded-[8px] bg-yellow-50 py-[12px] px-[12px] font-medium text-richblack-900">
               Reset Password
             </button>
           </form>
 
-          <div>
+          <div className="mt-6 flex items-center justify-between">
             <Link to="/login">
-              <p>Back To Login</p>
+              <p className="flex items-center gap-x-2 text-richblack-5">
+                <IoArrowBack />
+                Back To Login
+              </p>
             </Link>
           </div>
 

@@ -37,13 +37,13 @@ const TimelineSection = () => {
           {timeline.map((element, index) => {
             return (
               <div className="flex flex-col lg:gap-3" key={index}>
-                <div class="flex gap-6">
-                  <div class="w-[52px] h-[52px] bg-white rounded-full flex justify-center items-center shadow-[#00000012] shadow-[0_0_62px_0]">
+                <div className="flex gap-6">
+                  <div className="w-[52px] h-[52px] bg-white rounded-full flex justify-center items-center shadow-[#00000012] shadow-[0_0_62px_0]">
                     <img src={element.Logo} alt="logo" loading="lazy" />
                   </div>
                   <div>
-                    <h2 class="font-semibold text-[18px]">{element.heading}</h2>
-                    <p class="text-base">{element.Description}</p>
+                    <h2 className="font-semibold text-[18px]">{element.heading}</h2>
+                    <p className="text-base">{element.Description}</p>
                   </div>
                 </div>
               </div>
