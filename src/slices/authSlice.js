@@ -17,7 +17,7 @@ const authSlice = createSlice({
       state.loading = value.payload;
     },
     setToken(state, value){
-      return state.token = value.payload;
+       state.token = value.payload;
     },
   },
 });
