@@ -44,7 +44,7 @@ function SignupForm() {
       toast.error("Passwords Do Not Match")
       return
     }
-    console.log(accountType)
+
     const signupData = {
       ...formData,
       accountType,
