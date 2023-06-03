@@ -1,5 +1,9 @@
 [
     {
+        "country": "India",
+        "code": "+91"
+    },
+    {
         "country": "Afghanistan",
         "code": "+93"
     },
@@ -294,10 +298,6 @@
     {
         "country": "Iceland",
         "code": "+354"
-    },
-    {
-        "country": "India",
-        "code": "+91"
     },
     {
         "country": "Indonesia",

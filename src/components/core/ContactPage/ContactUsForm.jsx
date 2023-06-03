@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { apiConnector } from "../../../services/apiconnector";
 import { contactusEndpoint } from "../../../services/apis";
 import CountryCode from "../../../data/countrycode.json";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const ContactUsForm = () => {
   const [loading, setLoading] = useState(false);
@@ -14,11 +15,17 @@ const ContactUsForm = () => {
   } = useForm();
 
   const submitContactForm = async (data) => {
-    console.log("Loggin data", data);
+  
+    const { countrycode, email, firstName, lastaName, message, phoneNo } = data;
+    console.log("Loggin data",  countrycode, email, firstName, lastaName, message, phoneNo);
     try {
       setLoading(true);
-      // const response = await apiConnector("POST", contactusEndpoint.CONTACT_US_API,data);
-      const response = { staus: "okay" };
+      const response = await apiConnector(
+        "POST",
+       `http://localhost:4000/api/v1/reach/contact`,
+        {countrycode, email, firstName, lastaName, message, phoneNo}
+      );
+      console.log("heello")
       console.log("logging Data", response);
       setLoading(false);
     } catch (error) {
@@ -31,8 +38,8 @@ const ContactUsForm = () => {
     if (isSubmitSuccessful) {
       reset({
         email: "",
-        firstname: "",
-        lastname: "",
+        firstName: "",
+        lastaName: "",
         message: "",
         phoneNo: "",
       });
@@ -47,31 +54,35 @@ const ContactUsForm = () => {
       <div className="flex flex-col gap-5 lg:flex-row">
         {/* First Name */}
         <div className="flex flex-col gap-2 lg:w-[48%]">
-          <label htmlFor="firstname" className="lable-style">
-            First Name
+          <label htmlFor="firstName" className="lable-style">
+            First Name<sup className="text-pink-200">*</sup>
           </label>
           <input
             type="text"
-            name="firstname"
-            id="firstname"
+            name="firstName"
+            id="firstName"
             placeholder="Enter First Name"
-            {...register("firstname", { required: true })}
+            {...register("firstName", { required: true })}
             className="form-style"
           />
-          {errors.firstname && <span>Please enter your name</span>}
+          {errors.firstName && (
+            <span className="-mt-1 text-[12px] text-yellow-100">
+              Please enter your First name.
+            </span>
+          )}
         </div>
 
         {/* Last Name */}
         <div className="flex flex-col gap-2 lg:w-[48%]">
-          <label htmlFor="lastname" className="lable-style">
+          <label htmlFor="lastaName" className="lable-style">
             Last Name{" "}
           </label>
           <input
             type="text"
-            name="lastname"
-            id="lastname"
+            name="lastaName"
+            id="lastaName"
             placeholder="Enter Last Name"
-            {...register("lastname")}
+            {...register("lastaName")}
             className="form-style"
           />
           {/* Not mandatory so no erro is shown */}
@@ -81,7 +92,7 @@ const ContactUsForm = () => {
       {/*Email*/}
       <div className="flex flex-col gap-2">
         <label htmlFor="email" className="lable-style">
-          Email
+          Email<sup className="text-pink-200">*</sup>
         </label>
         <input
           type="email"
@@ -91,25 +102,30 @@ const ContactUsForm = () => {
           {...register("email", { required: true })}
           className="form-style"
         />
-        {errors.email && <span>Please enter your email</span>}
+        {errors.email && (
+          <span className="-mt-1 text-[12px] text-yellow-100">
+            Please enter your Email Address.
+          </span>
+        )}
       </div>
 
       {/* /* Country Code and Phone no */}
 
       <div className="flex flex-col gap-2">
-        <label className="w-full mt-[10px]" htmlFor="phonenumber">
+        <label className="lable-style" htmlFor="phonenumber">
           <p className="text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]">
             Phone Number<sup className="text-pink-200">*</sup>
           </p>
         </label>
 
-        <div>
+        <div className="flex gap-5">
           {/* Dropdown */}
-          <div>
+          <div className="flex w-[81px] flex-col gap-2">
             <select
               name="dropdown"
               id="dropdown"
               {...register("countrycode", { required: true })}
+              className="form-style"
             >
               {CountryCode.map((element, index) => {
                 return (
@@ -122,23 +138,26 @@ const ContactUsForm = () => {
           </div>
 
           {/* phone number */}
-          <div>
+          <div className="flex w-[calc(100%-90px)] flex-col gap-2">
             <input
               type="number"
               name="phonenumber"
               id="phonenumber"
               placeholder="12345 67890"
-              className="text-black"
+              className="form-style"
               {...register("phoneNo", {
-                required: { vale: true, message: "Please Enter Phone Number" },
-                maxLength: { value: 10, message: "Invalid Phone Number" },
-                minLength: { value: 10, message: "Invalid Phone Number" },
+                required: {
+                  value: true,
+                  message: "Please Enter Your Phone Number",
+                },
+                maxLength: { value: 11, message: "Invalid Phone Number" },
+                minLength: { value: 8, message: "Invalid Phone Number" },
               })}
             />
           </div>
         </div>
         {errors.phoneNo && (
-          <span>
+          <span className="-mt-1 text-[12px] text-yellow-100">
             {errors.phoneNo.message}
           </span>
         )}
@@ -147,7 +166,7 @@ const ContactUsForm = () => {
       {/*Message*/}
       <div className="flex flex-col gap-2">
         <label htmlFor="message" className="lable-style">
-          Message
+          Message<sup className="text-pink-200">*</sup>
         </label>
         <textarea
           name="emmessageail"
@@ -158,14 +177,18 @@ const ContactUsForm = () => {
           {...register("message", { required: true })}
           className="form-style"
         />
-        {errors.message && <span>Please enter your Message</span>}
+        {errors.message && (
+          <span className="-mt-1 text-[12px] text-yellow-100">
+            Please enter your Message
+          </span>
+        )}
       </div>
 
       <button
         type="submit"
         className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
       >
-        Send Message
+        {loading ? "Sending..." : "Send Message"}
       </button>
     </form>
   );
