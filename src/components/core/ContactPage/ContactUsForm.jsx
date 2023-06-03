@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { apiConnector } from "../../../services/apiconnector";
-import { contactusEndpoint } from "../../../services/apis";
 import CountryCode from "../../../data/countrycode.json";
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useDispatch, useSelector } from "react-redux";
+import {contactUsForm} from "../../../services/operations/contactAPI";
+
 
 const ContactUsForm = () => {
-  const [loading, setLoading] = useState(false);
+  
+  const { loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -17,34 +21,24 @@ const ContactUsForm = () => {
   const submitContactForm = async (data) => {
   
     const { countrycode, email, firstName, lastaName, message, phoneNo } = data;
-    console.log("Loggin data",  countrycode, email, firstName, lastaName, message, phoneNo);
-    try {
-      setLoading(true);
-      const response = await apiConnector(
-        "POST",
-       `http://localhost:4000/api/v1/reach/contact`,
-        {countrycode, email, firstName, lastaName, message, phoneNo}
-      );
-      console.log("heello")
-      console.log("logging Data", response);
-      setLoading(false);
-    } catch (error) {
-      console.log("Error: ", error.message);
-      setLoading(false);
-    }
+    dispatch(contactUsForm(countrycode, email, firstName, lastaName, message, phoneNo))
+    
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset({
-        email: "",
-        firstName: "",
-        lastaName: "",
-        message: "",
-        phoneNo: "",
-      });
+      if(loading === false ){
+        reset({
+          email: "",
+          firstName: "",
+          lastaName: "",
+          message: "",
+          phoneNo: "",
+        });
+      }
+      
     }
-  }, [reset, isSubmitSuccessful]);
+  }, [reset, isSubmitSuccessful, loading]);
 
   return (
     <form
