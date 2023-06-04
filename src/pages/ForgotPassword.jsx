@@ -5,6 +5,8 @@ import { getPasswordResetToken } from "../services/operations/authAPI";
 import { IoArrowBack } from "react-icons/io5";
 import HighlightText from "../components/core/HomePage/HighlightText";
 
+//*Generate Password Token and Send email 
+
 const ForgotPassword = () => {
   const [emailSent, setEmailSent] = useState(false);
   const [email, setEmail] = useState("");
