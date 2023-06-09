@@ -3,11 +3,12 @@ import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { Link, NavLink, useLocation, matchPath } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
 import { useSelector } from "react-redux";
-import { AiOutlineShoppingCart, AiOutlineDown } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import ProfileDropDown from "../core/Auth/ProfileDropDown";
 import { apiConnector } from "../../services/apiconnector";
 import { categories } from "../../services/apis";
+import {ACCOUNT_TYPE} from "../../utils/constants"
 
 const Navbar = () => {
   //* Redux hooks
@@ -104,9 +105,9 @@ const Navbar = () => {
 
         {/*login signup and dashboard  */}
         <div className="flex gap-x-4 items-center">
-          {user && user?.acountType !== "Instructor" && (
+          {user && user?.acountType === ACCOUNT_TYPE.STUDENT && ( 
             <Link to="/dashboard/cart" className="relative">
-              <AiOutlineShoppingCart color="white" />
+              <AiOutlineShoppingCart className="text-2xl text-richblack-100"/>
               {totalItems > 0 && <span>{totalItems}</span>}
             </Link>
           )}

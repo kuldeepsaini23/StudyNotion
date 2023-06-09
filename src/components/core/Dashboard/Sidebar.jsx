@@ -48,7 +48,7 @@ const Sidebar = () => {
           <button
             onClick={()=>{ setConfirmationModal({
               text1:"Are you Sure ?",
-              text2:"You will be logged out of your Account",
+              text2:"You will be logged out of your account.",
               btn1Text:"Logout",
               btn1Handler:()=> dispatch(logout(navigate)),
               btn2Text:"Cancel",
