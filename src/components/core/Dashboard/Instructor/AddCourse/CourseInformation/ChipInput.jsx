@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -16,6 +17,7 @@ const ChipInput = ({ name, label, register, errors, setValue }) => {
 
   useEffect(()=>{
     setValue(name, requirementList)
+
   },[requirementList])
 
 

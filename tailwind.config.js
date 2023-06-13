@@ -125,6 +125,9 @@ module.exports = {
       },
     },
     extend: {
+      transitionDuration: {
+        '2': '2000ms',
+      },
       maxWidth: {
         maxContent: "1260px",
         maxContentTab: "650px"

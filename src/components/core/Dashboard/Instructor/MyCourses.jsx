@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { COURSE_STATUS } from "../../../utils/constants";
-import { useSelector } from "react-redux";
-import { fetchInstructorCourses } from "../../../services/operations/courseDetailsAPI";
-import IconBtn from "../../common/IconBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchInstructorCourses } from "../../../../services/operations/courseDetailsAPI";
+import IconBtn from "../../../common/IconBtn";
 import { GrFormAdd } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
+import {FiEdit2} from "react-icons/fi"
+import {RiDeleteBin6Line} from "react-icons/ri"
+import { setEditCourse } from "../../../../slices/courseSlice";
+import ConfirmationModal from "../../../common/ConfirmationModal";
 
 const MyCourses = () => {
   const { token } = useSelector((state) => state.auth);
   const [instructorCourses, setInstructorCourses] = useState();
+  const [confirmationModal, setConfirmationModal] = useState(null);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate()
 
   const getinstructorCourses = async () => {
     try {
@@ -24,11 +32,12 @@ const MyCourses = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+    console.log(instructorCourses)
   return (
     <div>
       <div className="mb-14 flex items-center justify-between">
         <h1 className="text-3xl text-richblack-50">My Courses</h1>
-        <IconBtn text="Add Course">
+        <IconBtn text="Add Course" onclick={()=>navigate("/dashboard/add-course")}>
           <GrFormAdd fontSize={25} />
         </IconBtn>
       </div>
@@ -63,14 +72,21 @@ const MyCourses = () => {
 
           <tbody>
             {/* Cards yha se shru ho rhe hh */}
-            {instructorCourses.map((course, index) => (
+            {instructorCourses.map((item, index) => (
               <tr
                 key={index}
                 className="flex gap-x-10 border-b border-richblack-800 px-6 py-8"
               >
                 {/* 1st grid */}
                 <td className="flex flex-1 gap-x-4 pivoted">
-                  Courses
+                  <img src={item.thumbnail} alt={item.courseName} className="h-[148px] w-[ww0px] rounded-lg object-cover"/>
+                  <div className="flex flex-col justify-between">
+                    <p className="text-lg font-semibold text-richblack-5">{item.courseName}</p>
+                    <p className="text-xs text-richblack-300">{item.courseDescription}</p>
+                    {/* Pending */}
+                    <p></p>
+                    <p></p>
+                  </div>
                 </td>
                 {/* 2nd grid */}
                 <td className="text-left text-sm font-medium uppercase text-richblack-100 pivoted">
@@ -78,17 +94,32 @@ const MyCourses = () => {
                 </td>
                 {/* 3rd grid */}
                 <td className="text-left text-sm font-medium uppercase text-richblack-100 pivoted">
-                  Price
+                 ₹{item.price}
                 </td>
                 {/* 4th grid */}
                 <td className="text-left text-sm font-medium uppercase text-richblack-100 pivoted">
-                  Actions
+                  <button title="Edit" className="px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300">
+                    <FiEdit2 fontSize={20} onClick={()=>{navigate("/dashboard/add-course"); dispatch(setEditCourse(true))}}/>
+                  </button>
+                  <button title="Delete" className="px-1 transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
+                    onClick={()=>{ setConfirmationModal({
+                      text1:"Do you want to delete this course?",
+                      text2:"All the data related to this course will be deleted",
+                      btn1Text:"Delete",
+                      btn1Handler:()=> dispatch(navigate("/")),
+                      btn2Text:"Cancel",
+                      btn2Handler:()=> setConfirmationModal(null),
+                    })}}
+                    >
+                    <RiDeleteBin6Line fontSize={20}/>
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+      {confirmationModal && <ConfirmationModal modalData={confirmationModal}/>}
     </div>
   );
 };

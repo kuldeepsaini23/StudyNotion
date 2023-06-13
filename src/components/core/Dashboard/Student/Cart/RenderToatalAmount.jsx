@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import IconBtn from '../../../common/IconBtn'
+import IconBtn from '../../../../common/IconBtn'
 
 const RenderToatalAmount = () => {
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import {HiChatBubbleLeftRight} from "react-icons/hi2"
 import {BiWorld} from "react-icons/bi"
-import {IoMdCall} from "react-icons/io"
 import {FcCallback} from "react-icons/fc"
 
 const InfoSectionData = [
@@ -33,7 +32,7 @@ const InfoSection = () => {
           InfoSectionData.map((element, index)=>(
             <div key={index} className='flex flex-col gap-[2px] p-3 text-sm text-richblack-200'>
               <div className='flex flex-row items-center gap-3'>
-                {element. icon}
+                {element.icon}
                 <h1 className='text-lg font-semibold text-richblack-5'>{element.heading}</h1>
               </div>
               <p className='font-medium'>{element.desc1}</p>

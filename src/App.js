@@ -15,12 +15,12 @@ import MyProfile from "./components/core/Dashboard/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import Setting from "./components/core/Dashboard/Settings"
-import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
-import Cart from "./components/core/Dashboard/Cart";
+import EnrolledCourses from "./components/core/Dashboard/Student/EnrolledCourses";
+import Cart from "./components/core/Dashboard/Student/Cart";
 import {ACCOUNT_TYPE} from "./utils/constants"
 import { useSelector } from "react-redux";
-import MyCourses from "./components/core/Dashboard/MyCourses";
-import AddCourse from "./components/core/Dashboard/AddCourse";
+import MyCourses from "./components/core/Dashboard/Instructor/MyCourses";
+import AddCourse from "./components/core/Dashboard/Instructor/AddCourse"
 
 
 function App() {

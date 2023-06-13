@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   addCourseDetails,
   editCourseDetails,
   fetchCourseCategories,
-} from "../.../../../../../../services/operations/courseDetailsAPI";
+} from "../../.../../../../../../services/operations/courseDetailsAPI";
 import { HiOutlineCurrencyRupee } from "react-icons/hi";
 import ChipInput from "./ChipInput";
 import Upload from "./Upload";
 import RequirementField from "./RequirementField";
-import IconBtn from "../../../../common/IconBtn";
+import IconBtn from "../../../../../common/IconBtn";
 import { toast } from "react-hot-toast";
-import {COURSE_STATUS} from "../../../../../utils/constants"
-import {setStep, setCourse} from "../../../../../slices/courseSlice"
+import {COURSE_STATUS} from "../../../../../../utils/constants"
+import {setStep, setCourse} from "../../../../../../slices/courseSlice"
 
 const CourseInformationForm = () => {
   const {
@@ -25,12 +25,13 @@ const CourseInformationForm = () => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
 
   const { course, editCourse } = useSelector(
     (state) => state.course
   );
+  console.log(course)
 
   const [loading, setLoading] = useState(false);
   const [courseCategories, setCourseCategories] = useState([]);
@@ -53,10 +54,11 @@ const CourseInformationForm = () => {
       setValue("courseBenefits", course.whatYouWillLearn);
       setValue("courseCategory", course.category);
       setValue("courseRequirements", course.instructions);
-      setValue("courseImage", course.thumbnail);
+      setValue("courseImage", course.thumbnailImage);
     }
 
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //data edit hua hh ya nhi
@@ -66,12 +68,12 @@ const CourseInformationForm = () => {
       currentValues.courseTitle !== course.courseName ||
       currentValues.courseShortDesc !== course.courseDescription ||
       currentValues.coursePrice !== course.price ||
-      // currentValues.courseTags.toString() !== course.tag.toString() ||
+      currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory._id !== course.category._id ||
       currentValues.courseRequirements.toString() !==
-      course.instructions.toString()
-      // currentValues.courseImage !== course.thumbnail
+      course.instructions.toString() ||
+      currentValues.courseImage !== course.thumbnailImage
     )
       return true;
     else return false;
@@ -97,9 +99,9 @@ const CourseInformationForm = () => {
         if (currentValues.coursePrice !== course.price) {
           formData.append("price", data.coursePrice);
         }
-        // if (currentValues.courseTags.toString() !== course.tag.toString()) {
-        //   formData.append("tag", JSON.stringify(data.courseTags));
-        // }
+        if (currentValues.courseTags.toString() !== course.tag.toString()) {
+          formData.append("tag", JSON.stringify(data.courseTags));
+        }
         if (currentValues.courseBenefits !== course.whatYouWillLearn) {
           formData.append("whatYouWillLearn", data.courseBenefits);
         }
@@ -112,9 +114,9 @@ const CourseInformationForm = () => {
         ) {
           formData.append( "instructions",JSON.stringify(data.courseRequirements));
         }
-        // if (currentValues.courseImage !== course.thumbnail) {
-        //   formData.append("thumbnail", data.courseImage);
-        // }
+        if (currentValues.courseImage !== course.thumbnailImage) {
+          formData.append("thumbnailImage", data.courseImage);
+        }
 
         setLoading(true);
         const result = await editCourseDetails(formData, token);
@@ -136,17 +138,17 @@ const CourseInformationForm = () => {
     formData.append("courseName", data.courseTitle);
     formData.append("courseDescription", data.courseShortDesc);
     formData.append("price", data.coursePrice);
-    // formData.append("tag", JSON.stringify(data.courseTags));
+    formData.append("tag", JSON.stringify(data.courseTags));
     formData.append("whatYouWillLearn", data.courseBenefits);
     formData.append("category", data.courseCategory);
     formData.append("instructions",JSON.stringify(data.courseRequirements));
-    // formData.append("thumbnail", data.courseImage);
+    formData.append("thumbnailImage", data.courseImage);
     formData.append("status", COURSE_STATUS.DRAFT)
 
     setLoading(true)
     const result = await addCourseDetails(formData, token);
     if(result){
-      setStep(2)
+      dispatch(setStep(2))
       dispatch(setCourse(result))
     }
     setLoading(false)
@@ -256,7 +258,7 @@ const CourseInformationForm = () => {
       </div>
 
       {/* For Tags a Custom Component (trying to made)*/}
-      {/* <ChipInput
+      <ChipInput
         name="courseTags"
         label="Tags"
         placeholder="Enter tags and Press enter"
@@ -264,16 +266,16 @@ const CourseInformationForm = () => {
         errors={errors}
         setValue={setValue}
         getValue={getValue}
-      /> */}
+      />
 
       {/* Upload Component Its like change picture component (made by me) */}
-      {/* <Upload
+      <Upload
         name="courseImage"
         label="Course Thumbnail"
         register={register}
         errors={errors}
         setValue={setValue}
-      /> */}
+      />
 
       {/* Benefits of the Course */}
       <div className="flex flex-col space-y-2">

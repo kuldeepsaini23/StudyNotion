@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CountryCode from "../../../data/countrycode.json";
 import 'react-loading-skeleton/dist/skeleton.css'

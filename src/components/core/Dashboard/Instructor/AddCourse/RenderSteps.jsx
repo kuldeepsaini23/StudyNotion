@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import {FaCheck} from "react-icons/fa"
 import CourseInformationForm from './CourseInformation/CourseInformationForm'
+import CourseBuilderForm from './CourseBuilderForm/CourseBuilderForm'
 
 const Rendersteps = () => {
 
@@ -37,7 +38,9 @@ return (
                 step === item.id
                   ? 'bg-yellow-900 border-yellow-50 text-yellow-50'
                   : 'border-richblack-700 bg-richblack-800 text-richblack-300'
-              }`}
+              } transition-all duration-2 ${step > item.id
+                  ? 'bg-yellow-50 text-yellow-900'
+                  : ''}`}
             >
               {step > item.id ? <FaCheck /> : item.id}
             </button>
@@ -48,7 +51,7 @@ return (
             <div
               className={`h-[calc(34px/2)] w-[33%] border-dashed border-b-2 border-richblack-500 ${
                 step === item.id + 1 ? 'border-yellow-50' : 'border-richblack-700'
-              }`}
+              } transition-all duration-2`}
               key={item.title}
             ></div>
           )}
@@ -67,8 +70,8 @@ return (
 
     {/* Forms for 3 different steps */}
     {step === 1 && <CourseInformationForm />}
-    {/* {step === 3 && <CourseBuilderForm />}
-      {step === 3 && <PublishCourse />} */}
+    {step === 2 && <CourseBuilderForm />}
+    {/*   {step === 3 && <PublishCourse />} */}
   </>
 );
 

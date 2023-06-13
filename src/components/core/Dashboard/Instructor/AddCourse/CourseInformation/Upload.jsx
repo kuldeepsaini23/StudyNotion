@@ -6,12 +6,17 @@ const Upload = ({ name, label, register, errors, setValue }) => {
   const [previewSource, setPreviewSource] = useState(null);
 
   const fileInputRef = useRef(null);
+  console.log("before handle click", fileInputRef)
 
   const handleClick = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      console.log("Inside handle click", fileInputRef)
+      fileInputRef.current.click();
+    }
   };
 
   const handleFileChange = (e) => {
+    console.log("After handle click", fileInputRef)
     const file = e.target.files[0];
     console.log(file);
     if (file) {
@@ -43,6 +48,7 @@ const Upload = ({ name, label, register, errors, setValue }) => {
 
   useEffect(()=>{
     setValue(name, imageFile)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[imageFile])
 
   return (
