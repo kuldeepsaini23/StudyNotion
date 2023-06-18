@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import IconBtn from "../../../../../common/IconBtn";
 import { GrFormAdd } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { BiRightArrow } from "react-icons/bi";
+import {BiRightArrowCircle } from "react-icons/bi";
 import {
   setCourse,
   setEditCourse,
@@ -22,7 +22,7 @@ const CourseBuilderForm = () => {
     register,
     handleSubmit,
     setValue,
-    getValue,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -107,11 +107,11 @@ const CourseBuilderForm = () => {
   };
 
   return (
-    <div className="text-3xl text-white">
-      <p>Course Builder</p>
+    <div className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6">
+      <p className="text-2xl font-semibold text-richblue-5">Course Builder</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="rounded-md border-richblack-700 bg-richblack-800 p-6 space-y-8 border-[1px]"
+        className="rounded-md border-richblack-700 bg-richblack-800 p-6 space-y-4 border-[1px]"
       >
         <div className="flex flex-col space-y-2">
           <label htmlFor="sectionName" className="text-sm text-richblack-5">
@@ -131,14 +131,13 @@ const CourseBuilderForm = () => {
         </div>
 
         {/* Button */}
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-end">
           <IconBtn
             type="submit"
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}
-            customClasses={"text-lg"}
           >
-            <GrFormAdd fontSize={25} className="text-yellow-50" />
+            <GrFormAdd className="text-yellow-50" fontSize={20}/>
           </IconBtn>
 
           {editSectionName && (
@@ -154,19 +153,20 @@ const CourseBuilderForm = () => {
       </form>
 
       {/*Nested View  */}
-      {course.courseContent.length > 0 && (
-        <div className="flex flex-col gap-5">
-          <NestedView
-            hadnleChangeEditSectionName={hadnleChangeEditSectionName}
-          />
-          <div className="flex gap-4">
-            <button onclick={gotoBack}>Back</button>
-            <IconBtn text="Next" onclick={gotoNext}>
-              <BiRightArrow />
-            </IconBtn>
-          </div>
-        </div>
+      {course?.courseContent.length > 0 && (
+        <NestedView hadnleChangeEditSectionName={hadnleChangeEditSectionName} />
       )}
+
+      {/* Buttons */}
+      <div className="flex justify-end gap-x-3">
+        <button onClick={gotoBack} className="flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900">
+          Back
+        </button>
+        <IconBtn text="Next" onclick={gotoNext}>
+          <BiRightArrowCircle />
+        </IconBtn>
+      </div>
+
     </div>
   );
 };
