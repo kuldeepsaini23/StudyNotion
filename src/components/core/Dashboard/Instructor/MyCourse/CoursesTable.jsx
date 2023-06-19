@@ -4,13 +4,14 @@ import { deleteCourse, fetchInstructorCourses } from "../../../../../services/op
 import { useNavigate } from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi"
 import { RiDeleteBin6Line } from "react-icons/ri"
-import { setCourse} from "../../../../../slices/courseSlice";
 import ConfirmationModal from "../../../../common/ConfirmationModal";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { COURSE_STATUS } from "../../../../../utils/constants";
 import {BsClockFill} from "react-icons/bs"
 import {AiFillCheckCircle} from "react-icons/ai"
+import {formatDate} from "../../../../../services/formatDate" 
+
 
 const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
 
@@ -20,13 +21,14 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
 
   const navigate = useNavigate()
 
+  const TRUNCATE_LENGTH = 30
+
   const handleEdit = (courseId) => {
     navigate(`/dashboard/edit-course/${courseId}`);
   }
 
   const handleCourseDelete = async (courseId) => {
     setLoading(true)
-
     await deleteCourse({ courseId: courseId }, token);
     const result = await fetchInstructorCourses(token);
     if (result) {
@@ -78,9 +80,17 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
                   <img src={courseData.thumbnail} alt={courseData.courseName} className="h-[148px] w-[ww0px] rounded-lg object-cover" />
                   <div className="flex flex-col justify-between">
                     <p className="text-lg font-semibold text-richblack-5">{courseData.courseName}</p>
-                    <p className="text-xs text-richblack-300">{courseData.courseDescription}</p>
+                    <p className="text-xs text-richblack-300">
+                      {courseData.courseDescription.split(" ").length >
+                        TRUNCATE_LENGTH
+                          ? courseData.courseDescription
+                              .split(" ")
+                              .slice(0, TRUNCATE_LENGTH)
+                              .join(" ") + "..."
+                          : courseData.courseDescription}
+                    </p>
                     {/* Created */}
-                    <p className="text-[12px] text-white">Created: </p>
+                    <p className="text-[12px] text-white">Created: {formatDate(courseData.createdAt)}</p>
                     {/* CourseStateus */}
                     {
                       courseData.status === COURSE_STATUS.DRAFT ? (

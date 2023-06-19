@@ -15,7 +15,7 @@ const ConfirmationModal = ({ modalData }) => {
         <div className="flex items-center gap-x-4">
           {/* yes button */}
           <IconBtn
-            onClick={modalData?.btn1Handler}
+            onclick={modalData?.btn1Handler}
             text={modalData?.btn1Text}
           /> 
           {/* cancel button */}

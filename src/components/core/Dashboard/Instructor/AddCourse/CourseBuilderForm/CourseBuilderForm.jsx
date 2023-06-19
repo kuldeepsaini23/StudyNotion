@@ -22,7 +22,6 @@ const CourseBuilderForm = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm();
 
@@ -119,6 +118,7 @@ const CourseBuilderForm = () => {
           </label>
           <input
             id="sectionName"
+            disabled={loading}
             placeholder="Add section name"
             {...register("sectionName", { required: true })}
             className="w-full form-style"
@@ -134,6 +134,7 @@ const CourseBuilderForm = () => {
         <div className="flex gap-4 items-end">
           <IconBtn
             type="submit"
+            disabled={loading}
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}
           >
@@ -162,7 +163,7 @@ const CourseBuilderForm = () => {
         <button onClick={gotoBack} className="flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900">
           Back
         </button>
-        <IconBtn text="Next" onclick={gotoNext}>
+        <IconBtn text="Next" onclick={gotoNext} disabled={loading}>
           <BiRightArrowCircle />
         </IconBtn>
       </div>

@@ -1,9 +1,9 @@
 import React, {  useEffect } from "react";
 import { useForm } from "react-hook-form";
-import CountryCode from "../../../data/countrycode.json";
+import CountryCode from "../../data/countrycode.json";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useDispatch, useSelector } from "react-redux";
-import {contactUsForm} from "../../../services/operations/contactAPI";
+import {contactUsForm} from "../../services/operations/contactAPI"
 
 
 const ContactUsForm = () => {

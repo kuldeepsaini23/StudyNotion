@@ -1,8 +1,8 @@
 import React from "react";
-import ContactFormSection from "../components/core/ContactPage/ContactFormSection";
+import ContactFormSection from "../components/ContactPage/ContactFormSection";
 import ReviewSlider from "../components/common/ReviewSlider";
 import Footer from "../components/common/Footer";
-import InfoSection from "../components/core/ContactPage/InfoSection";
+import InfoSection from "../components/ContactPage/InfoSection";
 const Contact = () => {
   return (
     <div>

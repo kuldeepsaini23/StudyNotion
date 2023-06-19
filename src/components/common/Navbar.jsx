@@ -27,7 +27,7 @@ const Navbar = () => {
   const fetchSubLinks = async () => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      // console.log("Printing Data", result);
+      console.log("Printing Data", result);
       setSubLinks(result?.data?.data);
     } catch (error) {
       console.log("could not fetch the category list");
@@ -65,7 +65,9 @@ const Navbar = () => {
                       <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
 
                       {subLinks.length ? (
-                        subLinks.map((subLinks, index) => {
+                        subLinks?.filter(
+                                (subLink) => subLink?.courses?.length > 0
+                              )?.map((subLinks, index) => {
                           const courseLink = subLinks.name
                             .split(" ")
                             .join("-")

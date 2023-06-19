@@ -4,15 +4,13 @@ import { fetchInstructorCourses } from "../../../../../services/operations/cours
 import IconBtn from "../../../../common/IconBtn";
 import { GrFormAdd } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
-import CourseTable from "./CourseTable";
+import CourseTable from "./CoursesTable";
 
 const MyCourses = () => {
   const { token } = useSelector((state) => state.auth);
   const [instructorCourses, setInstructorCourses] = useState([]);
 
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     const getinstructorCourses = async () => {

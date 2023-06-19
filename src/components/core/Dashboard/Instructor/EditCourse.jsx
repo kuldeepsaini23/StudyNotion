@@ -38,9 +38,9 @@ export default function EditCourse() {
   }
 
   return (
-    <div className="flex w-full items-start gap-x-6 flex-col">
+    <div>
       <h1 className="mb-14 text-3xl font-medium text-richblack-5">Edit Course</h1>
-      <div className="flex-1 justify-center items-center w-full">
+      <div className="mx-auto max-w-[600px]">
         {
           course ? (<RenderSteps/>) : (
             <div className="w-full border-richblack-600 border-[2px] flex justify-center items-center py-14">

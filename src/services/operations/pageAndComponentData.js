@@ -1,4 +1,3 @@
-import React from 'react'
 import { toast } from 'react-hot-toast'
 import { apiConnector } from '../apiconnector'
 import {catalogData} from "../apis"
@@ -10,11 +9,13 @@ export const  getCatalogPageData = async(categoryId)=> {
   try{
     //calling api
     const response = await apiConnector("POST", catalogData.CATALOGPAGEDATA_API, {categoryId:categoryId})
-    console.log("Catalog COURSES API RESPONSE............", response)
-    if(response?.data?.success)
+    // console.log("Catalog COURSES API RESPONSE............", response)
+    if(!response?.data?.success)
       throw new Error("Could not fetch category page Details")
 
-      const result = response?.data?.data;
+      result = response?.data;
+      console.log(result)
+      // toast.success("Catalog Data Fetched Successfully")
 
   }catch(error){
     console.log("CATALOG PAGE DATA API ERROR.....", error);
