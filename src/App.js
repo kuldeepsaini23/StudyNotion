@@ -23,6 +23,8 @@ import MyCourses from "./components/core/Dashboard/Instructor/MyCourse/MyCourses
 import AddCourse from "./components/core/Dashboard/Instructor/AddCourse"
 import EditCourse from "./components/core/Dashboard/Instructor/EditCourse";
 import Catalog from "./pages/Catalog";
+import AddCategory from "./components/core/Dashboard/Admin/AddCategory/Index";
+import AllCourses from "./components/core/Dashboard/Admin/AllCourses/Index";
 
 
 function App() {
@@ -66,6 +68,16 @@ function App() {
                 <Route path="dashboard/my-courses" element={<MyCourses/>}/>
                 <Route path="dashboard/add-course" element={<AddCourse/>}/>
                 <Route path="dashboard/edit-course/:courseId" element={<EditCourse/>}/>
+              </>
+            )
+          }
+
+          {
+            user?.accountType === ACCOUNT_TYPE.ADMIN && (
+              <>
+                
+                <Route path="dashboard/add-category" element={<AddCategory/>}/>
+                <Route path="dashboard/all-courses" element={<AllCourses/>}/>
               </>
             )
           }

@@ -128,8 +128,7 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
                     onClick={() => {
                       setConfirmationModal({
                         text1: "Do you want to delete These courses?",
-                        text2:
-                          "All The data related to These courses will be deleted",
+                        text2:"All The data related to These courses will be deleted",
                         btn1Text: "Delete",
                         btn1Handler: !loading
                           ? () => handleSelectedCourseDelete()
