@@ -23,7 +23,7 @@ export async function createCategory(token, formData) {
     toast.success("Category Created");
   } catch (error) {
     console.log("Creating Category ERROR....", error);
-    toast.error("Failed To Create Category");
+    toast.error(error?.response?.data?.message);
   }
   toast.dismiss(toastId);
   return result;
@@ -47,7 +47,7 @@ export async function updateCategory(formData, token) {
     toast.success(response.data.message);
   } catch (error) {
     console.log("Updating Category ERROR....", error);
-    toast.error("Failed To update Category");
+    toast.error(error?.response?.data?.message);
   }
   toast.dismiss(toastId);
   return result;
@@ -68,7 +68,7 @@ export async function deleteCategory(data, token) {
     toast.success(response.data.message);
   } catch (error) {
     console.log("Deleting Category ERROR....", error);
-    toast.error("Failed To Delete Category");
+    toast.error(error?.response?.data?.message);
   }
   toast.dismiss(toastId);
 }

@@ -74,9 +74,9 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
     }
   };
 
-  setTimeout(() => {
-    console.log("All the added CourseId for Deletion", checkbox);
-  }, 1000);
+  // setTimeout(() => {
+  //   console.log("All the added CourseId for Deletion", checkbox);
+  // }, 1000);
 
   return (
     <>
