@@ -210,7 +210,7 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
                 </Td>
                 {/* 2nd grid */}
                 <Td className="text-left text-sm font-medium uppercase text-richblack-100 pivoted">
-                  Duration
+                  
                 </Td>
                 {/* 3rd grid */}
                 <Td className="text-left text-sm font-medium uppercase text-richblack-100 pivoted">

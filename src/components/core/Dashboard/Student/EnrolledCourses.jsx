@@ -32,7 +32,7 @@ const EnrolledCourses = () => {
       {!enrolledCourses ? (
         <div>Loading.....</div>
       ) : !enrolledCourses.length ? (
-        <p className="grid h-[10vh] w-full place-content-center text-richblack-5 text-5xl">You have not enrolled in any course yet</p>
+        <p className="grid h-[10vh] w-full place-content-center text-richblack-5 lg:text-3xl text-xl border-[1px] border-richblack-5 p-10 m-10">You have not enrolled in any course yet</p>
       ) : (
         <div className="my-8 text-richblack-5">
 
@@ -73,9 +73,9 @@ const EnrolledCourses = () => {
                 </div>
               </div>
               <div className="w-1/4 px-2 py-3">
-                {/* {course?.totalDuration} */}
+                {course?.totalDuration}
                 {/*TODO Change this*/}
-                {course?.courseContent?.[0]?.subSection?.[0]?.timeDuration}
+                
               </div>
               <div className="flex w-1/5 flex-col gap-2 px-2 py-3">
                 <p>Progress: {course.progressPercentage || 0}%</p>

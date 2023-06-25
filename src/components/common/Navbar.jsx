@@ -27,7 +27,7 @@ const Navbar = () => {
   const fetchSubLinks = async () => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      console.log("Printing Data", result);
+      // console.log("Printing Data", result);
       setSubLinks(result?.data?.data);
     } catch (error) {
       console.log("could not fetch the category list");
@@ -43,7 +43,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex h-14 items-center border-b-[1px] border-b-richblack-700">
+    <div className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
+      location.pathname !== "/" ? "bg-richblack-800" : ""
+    } transition-all duration-200`}>
       <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto">
         {/* image adding */}
         <Link to="/">

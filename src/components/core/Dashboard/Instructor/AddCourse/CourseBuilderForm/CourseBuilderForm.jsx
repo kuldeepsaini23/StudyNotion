@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import IconBtn from "../../../../../common/IconBtn";
-import { GrFormAdd } from "react-icons/gr";
+import { BsPlusCircleDotted } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import {BiRightArrowCircle } from "react-icons/bi";
 import {
@@ -138,7 +138,7 @@ const CourseBuilderForm = () => {
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}
           >
-            <GrFormAdd className="text-yellow-50" fontSize={20}/>
+            <BsPlusCircleDotted className="text-yellow-50" fontSize={20}/>
           </IconBtn>
 
           {editSectionName && (

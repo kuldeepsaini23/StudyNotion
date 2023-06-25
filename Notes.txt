@@ -1,0 +1,5 @@
+Created at in Coursetable Instructor my courses
+Duration in--> Enrolled Course
+Photo/Video --> cloudinary 
+
+create a Instructor profile page
