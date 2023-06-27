@@ -1,5 +1,7 @@
 Created at in Coursetable Instructor my courses
 Duration in--> Enrolled Course
-Photo/Video --> cloudinary 
+Photo/Video --> cloudinary delete after course delete
 
 create a Instructor profile page
+
+update course progreess handler

@@ -27,6 +27,8 @@ import AddCategory from "./components/core/Dashboard/Admin/AddCategory/Index";
 import AllCourses from "./components/core/Dashboard/Admin/AllCourses/Index";
 import CourseDetails from "./pages/CourseDetails";
 import InstructorProfile from "./pages/InstructorProfile";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 
 function App() {
 
@@ -43,6 +45,8 @@ function App() {
         <Route path="catalog/:catalogName" element={<Catalog/>}/>
         <Route path="courses/:courseId" element={<CourseDetails/>}/>
         <Route path="instructor/:instructorId" element={<InstructorProfile/>}/>
+
+        {/* Dashboard */}
 
         <Route
           element={
@@ -129,6 +133,20 @@ function App() {
             </OpenRoute>
           }
         />
+
+        {/* View courses Route */}
+        <Route element={<PrivateRoute><ViewCourse/></PrivateRoute>}>
+          {
+            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <>
+                <Route
+                  path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                  element={<VideoDetails/>}
+                />
+              </>
+            )
+          }
+        </Route>
       </Routes>
     </div>
   );

@@ -106,7 +106,7 @@ const CourseDetails = () => {
   
 
   if (loading || !courseData) {
-    return <div>Loading....</div>;
+    return <div className="spinner"></div>;
   }
 
   if (!courseData.success) {

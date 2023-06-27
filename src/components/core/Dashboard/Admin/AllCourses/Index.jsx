@@ -124,7 +124,7 @@ export default function AllCourses() {
 
       {/*  All Courses */}
       {!allCourses ? (
-        <div>Loading.....</div>
+        <div className="spinner"></div>
       ) : (
         <div className="my-8 text-richblack-5">
           <div className="flex rounded-t-lg bg-richblack-500 items-center">

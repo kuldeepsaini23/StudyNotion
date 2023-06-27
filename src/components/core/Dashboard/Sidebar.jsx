@@ -17,7 +17,7 @@ const Sidebar = () => {
   const [confirmationModal, setConfirmationModal] = useState(null);
 
   if (profileLoading || authLoading) {
-    return <div className="mt-10">loading......</div>;
+    return <div className="spinner"></div>;
   }
 
   return (

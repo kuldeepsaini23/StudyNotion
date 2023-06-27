@@ -81,7 +81,7 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
   return (
     <>
       {!instructorCourses ? (
-        <div>Loading.....</div>
+        <div className="spinner"></div>
       ) : !instructorCourses.length ? (
         <p className="grid h-[10vh] w-full place-content-center text-richblack-5 lg:text-3xl">
           You have not enrolled in any Course yet

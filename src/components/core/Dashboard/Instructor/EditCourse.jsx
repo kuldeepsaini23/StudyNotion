@@ -31,8 +31,8 @@ export default function EditCourse() {
 
   if(loading){
     return(
-      <div>
-        Loading...
+      <div className="grid flex-1 place-items-center">
+       <div className="spinner"></div>
       </div>
     )
   }
