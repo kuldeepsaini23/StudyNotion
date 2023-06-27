@@ -12,12 +12,14 @@ import { MdOutlineLanguage } from "react-icons/md";
 import CourseDetailsCard from "../components/core/Course/CourseDetailsCard";
 import {AiOutlineDown} from "react-icons/ai"
 import {IoIosVideocam} from "react-icons/io"
+import Footer from "../components/common/Footer"
+import CourseSlider from "../components/core/Catalog/CourseSlider";
 
 const CourseDetails = () => {
   const { user } = useSelector((state) => state.profile);
   const { token } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.profile);
-  const { paymentLoading } = useSelector((state) => state.course);
+  // const { paymentLoading } = useSelector((state) => state.course);
   const [confirmationModal, setConfirmationModal] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,6 +71,7 @@ const CourseDetails = () => {
   const [isActive, setIsActive] = useState(Array(0));
 
   const handleActive = (id) => {
+    // console.log("Handle Active: ", id)
     //Toggle code
     setIsActive(
       !isActive.includes(id)
@@ -85,6 +88,22 @@ const CourseDetails = () => {
 
     setTotalNoOfLectures(lectures);
   }, [courseData]);
+
+
+  //Instructor Other courses
+    
+    const [otherCourses, setOtherCourses] = useState([])
+
+    useEffect(()=>{
+      //TODO Doubt here
+      const filteredCourses = courseData?.data?.courseDetails?.instructor?.courses?.filter((course) => {
+       
+        return(course._id !== courseId)
+      });
+      console.log("Filtered Course: ", filteredCourses)
+      setOtherCourses(filteredCourses)
+    },[courseData, courseId])
+  
 
   if (loading || !courseData) {
     return <div>Loading....</div>;
@@ -107,6 +126,12 @@ const CourseDetails = () => {
     studentsEnrolled,
     createdAt,
   } = courseData?.data?.courseDetails;
+
+
+  // setTimeout(()=>{
+  //   console.log(isActive)
+  // },5000)
+  
 
   return (
     <>
@@ -143,17 +168,17 @@ const CourseDetails = () => {
                 {/* Rating stars */}
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
                 {/* Numer of reviews */}
-                <span>{`(${ratingAndReviews.length} Reviews)`}</span>
+                <a href="#reviews" className="underline hover:text-yellow-50">{`(${ratingAndReviews.length} Reviews)`}</a>
                 {/* Number of students enrolled in this course*/}
                 <span>{`(${studentsEnrolled.length} Student Enrolled)`}</span>
               </div>
 
               {/* Instructor Name */}
-              <div>
+              <a href="#instructor">
                 <p>
-                  Created By {`${instructor.firstName} ${instructor.lastName}`}
+                  Created By <span className="underline hover:text-yellow-50">{`${instructor.firstName} ${instructor.lastName}`}</span>
                 </p>
-              </div>
+              </a>
 
               {/* Created at and language */}
               <div className="flex flex-wrap gap-5 text-lg">
@@ -228,7 +253,7 @@ const CourseDetails = () => {
                     <div className="flex cursor-pointer items-start justify-between bg-opacity-20 px-7  py-6 transition-[0.3s]">
                       {/* section name and arrow */}
                       <div className="flex items-center gap-2">
-                        <AiOutlineDown/>
+                        <AiOutlineDown className={`${isActive.includes(lecture._id) ? "rotate-180" : "rotate-0"} transition-all duration-500`}/>
                         <p>{lecture.sectionName}</p>
                       </div>
 
@@ -241,7 +266,7 @@ const CourseDetails = () => {
                   </div>
 
                   {/* Display afetr clicking arrow button */}
-                  <div className="relative h-[108px] overflow-hidden bg-richblack-900 transition-[height] duration-[0.35s] ease-[ease]">
+                  <div className={`relative overflow-y-auto bg-richblack-900 transition-[height] duration-[0.50s] ease-[ease] ${isActive.includes(lecture._id) ? "h-[88px]" : "h-0"}`} >
                     <div className="text-textHead flex flex-col gap-2 px-7 py-6 font-semibold">  
                     {
                       lecture?.subSection?.map((subSection,index)=>(
@@ -269,7 +294,7 @@ const CourseDetails = () => {
           })}
 
           {/* Instructor Deatils */}
-          <div className="mb-12 py-4">
+          <div className="mb-12 py-4" id="instructor">
             <p className="text-[28px] font-semibold">Author</p>
     
               
@@ -280,9 +305,9 @@ const CourseDetails = () => {
                   alt="Author"
                   className="h-14 w-14 rounded-full object-cover"
               />
-              <p className="text-lg">
+              <button className="text-lg text-yellow-100 underline capitalize" onClick={()=> navigate(`/instructor/${instructor._id}`)}>
                 {instructor.firstName} {instructor.lastName}
-              </p>
+              </button>
              </div>
 
             <p className="text-richblack-50">{instructor.additionalDetails?.about}</p>
@@ -294,7 +319,28 @@ const CourseDetails = () => {
 
       </div>
 
+      {/* Section 3 */}
+      <div className="w-full flex flex-col gap-5 mb-10 text-richblack-5">
+        {/* Reviews from student for this course */}
+        <div id="reviews">
+          <h2 className='text-center text-4xl font-semibold'>Reviews from Students</h2>
+        </div>
+
+
+        {/* Other courses from instructor */}
+        <div className="mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+          <h2 className='text-center text-4xl font-semibold mt-4'>More Courses by {`${instructor.firstName} ${instructor.lastName}`}</h2>
+            <div className="py-8">
+              {otherCourses?.length>0 && <CourseSlider Courses={otherCourses}/>}
+            </div>
+           
+        </div>
+      </div>
+
       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
+
+
+      <Footer/>
     </>
   );
 };

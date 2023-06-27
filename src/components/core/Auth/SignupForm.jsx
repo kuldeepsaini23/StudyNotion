@@ -40,9 +40,60 @@ function SignupForm() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
+
+
     if (password !== confirmPassword) {
       toast.error("Passwords Do Not Match")
-      return
+      setFormData({
+        password: "",
+        confirmPassword: "",
+      })
+      return;
+    }
+
+    const uppercaseRegExp   = /(?=.*?[A-Z])/;
+    const lowercaseRegExp   = /(?=.*?[a-z])/;
+    const digitsRegExp      = /(?=.*?[0-9])/;
+    const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+    const minLengthRegExp   = /.{6,}/;
+
+
+    const uppercasePassword = uppercaseRegExp.test(password);
+    const lowercasePassword =   lowercaseRegExp.test(password);
+    const digitsPassword =      digitsRegExp.test(password);
+    const specialCharPassword = specialCharRegExp.test(password);
+    const minLengthPassword =   minLengthRegExp.test(password);
+
+    if(!minLengthPassword){
+      setFormData({
+        password: "",
+        confirmPassword: "",
+      })
+     return toast.error("Password Too Short")
+    }else if(!uppercasePassword){
+      setFormData({
+        password: "",
+        confirmPassword: "",
+      })
+     return toast.error("Atleast have one Uppercase")
+    }else if(!lowercasePassword){
+      setFormData({
+        password: "",
+        confirmPassword: "",
+      })
+     return toast.error("Atleast have one Lowercase")
+    }else if(!digitsPassword){
+      setFormData({
+        password: "",
+        confirmPassword: "",
+      })
+     return toast.error("Atleast have one digit")
+    }else if(!specialCharPassword){
+      setFormData({
+        password: "",
+        confirmPassword: "",
+      })
+     return toast.error("Atleast have one special charater")
     }
 
     const signupData = {

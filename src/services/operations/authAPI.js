@@ -34,7 +34,7 @@ export function sendOtp(email, navigate) {
       navigate("/verify-email");
     } catch (error) {
       console.log("SENDOTP API ERROR............", error);
-      toast.error("Could Not Send OTP");
+      toast.error(error?.response?.data?.message);
     }
     dispatch(setLoading(false));
     toast.dismiss(toastId);
@@ -151,7 +151,7 @@ export function getPasswordResetToken(email, setEmailSent) {
       setEmailSent(true);
     } catch (error) {
       console.log("RESET PASSWORD TOKEN ERROR");
-      toast.error("Failed To Send Reset Email")
+      toast.error(error?.response?.data?.message)
     }
     toast.dismiss(toastId);
     dispatch(setLoading(false));

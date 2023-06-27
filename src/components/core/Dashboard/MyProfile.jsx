@@ -63,6 +63,15 @@ const MyProfile = () => {
         <p className="text-richblack-400 text-sm font-medium">
           {user?.additionalDetails?.about || "Write Something about yourself"}
         </p>
+
+        {
+          user?.socials.length>0 && (
+          <div className="flex w-full flex-col gap-y-5">
+            <p className="text-lg font-semibold text-richblack-5">Socials</p>
+            <p className="text-richblack-400 text-sm font-medium">{ "Write Something about yourself"}</p>
+          </div>
+          )
+        }
       </div>
 
       {/* Section 3 */}
