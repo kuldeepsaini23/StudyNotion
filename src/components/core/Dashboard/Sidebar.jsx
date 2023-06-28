@@ -17,7 +17,11 @@ const Sidebar = () => {
   const [confirmationModal, setConfirmationModal] = useState(null);
 
   if (profileLoading || authLoading) {
-    return <div className="spinner"></div>;
+    return(
+      <div className="grid flex-1 place-items-center">
+       <div className="spinner"></div>
+      </div>
+    );
   }
 
   return (

@@ -188,72 +188,74 @@ const VideoDetails = () => {
   };
 
   return (
-    <div>
-      {!videoData ? (
-        <div>No Data Found</div>
-      ) : (
-        <Player
-          ref={playerRef}
-          aspectRatio="16:9"
-          onEnded={() => setVideoEnded(true)}
-          src={videoData.videoUrl}
-        >
-          {
-            videoEnded && (
-              <div>
-               {/*Mark as read button */}
-                {
-                  !completedLectures.includes(subSectionId) && (
-                    <IconBtn
-                      disabled={loading}
-                      onclick={()=>handleLectureCompletion()}
-                      text={!loading ? "Mark As Completed" : "Loading..."}
-                    />
-                  )
-                }
+    <div className="mx-6">
+      <div className="flex flex-col gap-5 text-white">
+        {!videoData ? (
+          <div className="mt-5 text-3xl font-semibold">No Data Found</div>
+        ) : (
+          <Player
+            ref={playerRef}
+            aspectRatio="16:9"
+            onEnded={() => setVideoEnded(true)}
+            src={videoData.videoUrl}
+          >
+            {
+              videoEnded && (
+                <div>
+                {/*Mark as read button */}
+                  {
+                    !completedLectures.includes(subSectionId) && (
+                      <IconBtn
+                        disabled={loading}
+                        onclick={()=>handleLectureCompletion()}
+                        text={!loading ? "Mark As Completed" : "Loading..."}
+                      />
+                    )
+                  }
 
-                {/* Rewatch Button */}
-                <IconBtn
-                  disabled={loading}
-                  onclick={()=>{
-                    if(playerRef.current){
-                      playerRef.current?.seek(0);
-                      setVideoEnded(false);
+                  {/* Rewatch Button */}
+                  <IconBtn
+                    disabled={loading}
+                    onclick={()=>{
+                      if(playerRef.current){
+                        playerRef.current?.seek(0);
+                        setVideoEnded(false);
+                      }
+                    }}
+                    text="Rewatch"
+                  />
+
+                  {/* prev */}
+                  <div className="mt-10 flex min-h-[250px] justify-center gap-x-4 text-xl">
+                    {
+                      !isFirstVideo() && (
+                        <button disabled={loading} onClick={goToPrevVideo} className="blackButton">
+                          Prev
+                        </button>
+                      )
                     }
-                  }}
-                  text="Rewatch"
-                />
+                  </div>
 
-                {/* prev */}
-                <div>
-                  {
-                    !isFirstVideo() && (
-                      <button disabled={loading} onClick={goToPrevVideo} className="blackButton">
-                        Prev
-                      </button>
-                    )
-                  }
+                  {/* Next */}
+                  <div>
+                    {
+                      !isLastVideo() && (
+                        <button disabled={loading} onClick={goToNextVideo} className="blackButton">
+                          Next
+                        </button>
+                      )
+                    }
+                  </div>
+
                 </div>
+              )
+            }
+          </Player>
+        )}
 
-                {/* Next */}
-                <div>
-                  {
-                    !isLastVideo() && (
-                      <button disabled={loading} onClick={goToNextVideo} className="blackButton">
-                        Next
-                      </button>
-                    )
-                  }
-                </div>
-
-              </div>
-            )
-          }
-        </Player>
-      )}
-
-      <h1>{videoData?.title}</h1>
-      <p>{videoData?.description}</p>
+        <h1 className="mt-5 text-3xl font-semibold">{videoData?.title}</h1>
+        <p className="pt-2 pb-6">{videoData?.description}</p>
+      </div>  
     </div>
   );
 };

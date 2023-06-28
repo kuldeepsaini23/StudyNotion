@@ -106,7 +106,11 @@ const CourseDetails = () => {
   
 
   if (loading || !courseData) {
-    return <div className="spinner"></div>;
+    return (
+      <div className="grid flex-1 place-items-center">
+       <div className="spinner"></div>
+      </div>
+    );
   }
 
   if (!courseData.success) {
