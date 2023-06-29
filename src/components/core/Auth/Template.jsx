@@ -2,8 +2,8 @@ import React from "react";
 import frameImg from "../../../assets/Images/frame.png";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
+// import { FcGoogle } from "react-icons/fc";
+// import { BsFacebook } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
 const Template = ({

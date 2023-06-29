@@ -1,10 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import IconBtn from "../../../../common/IconBtn";
 import { GrFormAdd } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../../../services/formatDate";
-import { deleteCourse, getAllCourses } from "../../../../../services/operations/courseDetailsAPI";
+import {
+  deleteCourse,
+  getAllCourses,
+} from "../../../../../services/operations/courseDetailsAPI";
 import ConfirmationModal from "../../../../common/ConfirmationModal";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { COURSE_STATUS } from "../../../../../utils/constants";
@@ -45,10 +49,10 @@ export default function AllCourses() {
   const fetchAllcourses = async () => {
     try {
       let result = await getAllCourses();
-  
-      setAllCourses(result);
-      
-      // console.log(result);
+      if (result) {
+        setAllCourses(result);
+        console.log("fetchAllcourses ",result);
+      }
     } catch (error) {
       console.log(error);
       console.log("Unable to fetch All Courses");
@@ -61,52 +65,36 @@ export default function AllCourses() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const categoryValue = getValues("courseCategory");
-
   const filterCourses = () => {
+    const categoryValue = getValues("courseCategory");
+    console.log("Category Value: ", categoryValue);
+
     if (categoryValue === "All") {
       return setCategoryCourses([]);
     }
-    // console.log("Category Value: ", categoryValue);
 
+    console.log("It is inside filtered courses", allCourses)
     const filterCourse = allCourses.filter((course) => {
-      // console.log(
-      //   "Type of category Value: ",
-      //   typeof categoryValue,
-      //   "Course Category: ",
-      //   typeof course.category
-      // );
       return course.category === categoryValue;
     });
 
-    if(filterCourse.length===0){
-      // console.log("hello it is zero")
-      return setCategoryCourses(["Theend"])
+    if (filterCourse.length === 0) {
+      setCategoryCourses(["Theend"]);
+    } else {
+      setCategoryCourses(filterCourse);
     }
 
-    // for (const course of allCourses) {
-    //   console.log("Course.Category: ", course.category);
-    // }
-    setCategoryCourses(filterCourse);
+    console.log(filterCourse);
   };
 
-  useEffect(() => {
-    if (categoryValue) {
-      filterCourses();
-    }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryValue,allCourses]);
-
-
-  //Look at it tommorrow going to All after deleting and also onChange
   const handleCourseDelete = async (courseId) => {
     setLoading(true);
     await deleteCourse({ courseId: courseId }, token);
-    fetchAllcourses();
+    await fetchAllcourses();
     setLoading(false);
+    filterCourses();
   };
-
 
   return (
     <>
@@ -130,11 +118,13 @@ export default function AllCourses() {
           <div className="flex rounded-t-lg bg-richblack-500 items-center">
             <form className="flex px-5 py-3 w-[60%]">
               <select
-                {...register("courseCategory", { required: true })}
-                defaultValue=""
+                {...register("courseCategory", {
+                  required: true,
+                  onChange: filterCourses,
+                })}
                 id="courseCategory"
+                name="courseCategory" // Add this line
                 className="form-style w-1/2"
-                onClick={filterCourses}
               >
                 <option value="All">All</option>
                 {!loading &&
@@ -160,7 +150,6 @@ export default function AllCourses() {
               {categoryCourses.length > 0 && categoryCourses[0] !== "Theend" ? (
                 <>
                   {categoryCourses.map((course, i, arr) => {
-                  
                     return (
                       <div
                         className={`flex items-center border border-richblack-700 ${
@@ -171,9 +160,7 @@ export default function AllCourses() {
                         <div
                           className="flex w-[60%] cursor-pointer items-center gap-4 px-5 py-3"
                           onClick={() => {
-                            // navigate(
-                            //   `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
-                            // )
+                            navigate(`/courses/${course?._id}`);
                           }}
                         >
                           <img
@@ -206,10 +193,19 @@ export default function AllCourses() {
                             )}
                           </div>
                         </div>
+                        {/* Instructor */}
                         <div className="w-1/4 px-2 py-3">
-                          {course?.instructor?.firstName}{" "}
-                          {course?.instructor?.lastName}
+                          <button
+                            className="text-lg uppercase hover:underline hover:stroke-yellow-50"
+                            onClick={() =>
+                              navigate(`/instructor/${course?.instructor?._id}`)
+                            }
+                          >
+                            {course?.instructor?.firstName}{" "}
+                            {course?.instructor?.lastName}
+                          </button>
                         </div>
+                        {/* Actions */}
                         <div className="flex gap-2 px-2 py-3 text-right">
                           <button
                             title="Delete"
@@ -221,8 +217,10 @@ export default function AllCourses() {
                                   "All The data related to This course will be deleted",
                                 btn1Text: "Delete",
                                 btn1Handler: !loading
-                                ? () => {handleCourseDelete(course._id, course.category)} 
-                                : () => {},
+                                  ? () => {
+                                      handleCourseDelete(course._id);
+                                    }
+                                  : () => {},
                                 btn2Text: "Cancel",
                                 btn2Handler: !loading
                                   ? () => setConfirmationModal(null)
@@ -239,87 +237,102 @@ export default function AllCourses() {
                 </>
               ) : (
                 <>
-                  {categoryCourses[0]==="Theend" ? (
-                    <p className="grid h-[10vh] w-full place-content-center text-richblack-5 xl:text-3xl text-xl">No Course in this Category</p>
-                  ):(
+                  {categoryCourses[0] === "Theend" ? (
+                    <p className="grid h-[10vh] w-full place-content-center text-richblack-5 xl:text-3xl text-xl">
+                      No Course in this Category
+                    </p>
+                  ) : (
                     <>
-                  {allCourses.map((course, i, arr) => {
-                  
-                    return(
-                      <div
-                      className={`flex items-center border border-richblack-700 ${
-                        i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
-                      }`}
-                      key={i}
-                    >
-                      <div
-                        className="flex w-[60%] cursor-pointer items-center gap-4 px-5 py-3"
-                        onClick={() => {
-                          // navigate(
-                          //   `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
-                          // )
-                        }}
-                      >
-                        <img
-                          src={course.thumbnail}
-                          alt="course_img"
-                          className="h-[148px] w-[ww0px] rounded-lg object-cover"
-                        />
-                        <div className="flex flex-col justify-between gap-y-3">
-                          <p className="text-lg font-semibold text-richblack-5">
-                            {course.courseName}
-                          </p>
-                          <p className="text-base text-richblack-100 font-semibold">
-                            Price: {course.price}
-                          </p>
-                          {/* Created */}
-                          <p className="text-[12px] text-white">
-                            Created: {formatDate(course.createdAt)}
-                          </p>
-                          {/* CourseStateus */}
-                          {course.status === COURSE_STATUS.DRAFT ? (
-                            <p className="text-pink-50 flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium">
-                              <BsClockFill className="flex h-3 w-3 items-center justify-center rounded-full" />
-                              DRAFTED
-                            </p>
-                          ) : (
-                            <p className="text-caribbeangreen-300 flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium">
-                              <AiFillCheckCircle className="flex h-3 w-3 items-center justify-center rounded-full" />
-                              PUBLISHED
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="w-1/4 px-2 py-3">
-                        {course?.instructor?.firstName}{" "}
-                        {course?.instructor?.lastName}
-                      </div>
-                      <div className="flex gap-2 px-2 py-3 text-right">
-                        <button
-                          title="Delete"
-                          className="px-1 Transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
-                          onClick={() => {
-                            setConfirmationModal({
-                              text1: "Do you want to delete This course?",
-                              text2:
-                                "All The data related to This course will be deleted",
-                              btn1Text: "Delete",
-                              btn1Handler: !loading ? () => {} : () => {},
-                              btn2Text: "Cancel",
-                              btn2Handler: !loading
-                                ? () => setConfirmationModal(null)
-                                : () => {},
-                            });
-                          }}
-                        >
-                          <RiDeleteBin5Line fontSize={20} />
-                        </button>
-                      </div>
-                    </div>
-                    )
-                   }
-                  )}
-                </>
+                      {allCourses.map((course, i, arr) => {
+                        return (
+                          <div
+                            className={`flex items-center border border-richblack-700 ${
+                              i === arr.length - 1
+                                ? "rounded-b-lg"
+                                : "rounded-none"
+                            }`}
+                            key={i}
+                          >
+                            <div
+                              className="flex w-[60%] cursor-pointer items-center gap-4 px-5 py-3"
+                              onClick={() => {
+                                navigate(`/courses/${course?._id}`);
+                              }}
+                            >
+                              <img
+                                src={course.thumbnail}
+                                alt="course_img"
+                                className="h-[148px] w-[ww0px] rounded-lg object-cover"
+                              />
+                              <div className="flex flex-col justify-between gap-y-3">
+                                <p className="text-lg font-semibold text-richblack-5">
+                                  {course.courseName}
+                                </p>
+                                <p className="text-base text-richblack-100 font-semibold">
+                                  Price: {course.price}
+                                </p>
+                                {/* Created */}
+                                <p className="text-[12px] text-white">
+                                  Created: {formatDate(course.createdAt)}
+                                </p>
+                                {/* CourseStateus */}
+                                {course.status === COURSE_STATUS.DRAFT ? (
+                                  <p className="text-pink-50 flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium">
+                                    <BsClockFill className="flex h-3 w-3 items-center justify-center rounded-full" />
+                                    DRAFTED
+                                  </p>
+                                ) : (
+                                  <p className="text-caribbeangreen-300 flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium">
+                                    <AiFillCheckCircle className="flex h-3 w-3 items-center justify-center rounded-full" />
+                                    PUBLISHED
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                            {/* Instruvtor Name */}
+                            <div className="w-1/4 px-2 py-3">
+                              <button
+                                className="text-lg uppercase hover:underline hover:stroke-yellow-50"
+                                onClick={() =>
+                                  navigate(
+                                    `/instructor/${course?.instructor?._id}`
+                                  )
+                                }
+                              >
+                                {course?.instructor?.firstName}{" "}
+                                {course?.instructor?.lastName}
+                              </button>
+                            </div>
+                            {/* Actions */}
+                            <div className="flex gap-2 px-2 py-3 text-right">
+                              <button
+                                title="Delete"
+                                className="px-1 Transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
+                                onClick={() => {
+                                  setConfirmationModal({
+                                    text1: "Do you want to delete This course?",
+                                    text2:
+                                      "All The data related to This course will be deleted",
+                                    btn1Text: "Delete",
+                                    btn1Handler: !loading
+                                      ? () => {
+                                          handleCourseDelete(course._id);
+                                        }
+                                      : () => {},
+                                    btn2Text: "Cancel",
+                                    btn2Handler: !loading
+                                      ? () => setConfirmationModal(null)
+                                      : () => {},
+                                  });
+                                }}
+                              >
+                                <RiDeleteBin5Line fontSize={20} />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </>
                   )}
                 </>
               )}

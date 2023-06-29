@@ -17,7 +17,7 @@ const VideoDetails = () => {
     courseSectionData,
     courseEntireData,
     completedLectures,
-    totalNoOfLectures,
+    // totalNoOfLectures,
   } = useSelector((state) => state.viewCourse);
 
   const playerRef = useRef();
@@ -45,7 +45,7 @@ const VideoDetails = () => {
         );
         console.log("VIDEO DATTA>>>>>>>", filteredVideoData);
 
-        setVideoData(filteredVideoData[0]);
+        setVideoData(filteredVideoData?.[0]);
         setVideoEnded(false);
       }
     };
@@ -199,63 +199,62 @@ const VideoDetails = () => {
             onEnded={() => setVideoEnded(true)}
             src={videoData.videoUrl}
           >
-            {
-              videoEnded && (
-                <div>
+            {videoEnded && (
+              <div className="absolute inset-0 z-[100] grid h-full place-content-center font-inter">
                 {/*Mark as read button */}
-                  {
-                    !completedLectures.includes(subSectionId) && (
-                      <IconBtn
-                        disabled={loading}
-                        onclick={()=>handleLectureCompletion()}
-                        text={!loading ? "Mark As Completed" : "Loading..."}
-                      />
-                    )
-                  }
-
-                  {/* Rewatch Button */}
+                {!completedLectures.includes(subSectionId) && (
                   <IconBtn
                     disabled={loading}
-                    onclick={()=>{
-                      if(playerRef.current){
-                        playerRef.current?.seek(0);
-                        setVideoEnded(false);
-                      }
-                    }}
-                    text="Rewatch"
+                    onclick={() => handleLectureCompletion()}
+                    text={!loading ? "Mark As Completed" : "Loading..."}
                   />
+                )}
 
-                  {/* prev */}
+                {/* Rewatch Button */}
+                <IconBtn
+                  disabled={loading}
+                  onclick={() => {
+                    if (playerRef.current) {
+                      playerRef.current?.seek(0);
+                      setVideoEnded(false);
+                    }
+                  }}
+                  text="Rewatch"
+                />
+
+                {/* prev */}
+                {!isFirstVideo() && (
                   <div className="mt-10 flex min-h-[250px] justify-center gap-x-4 text-xl">
-                    {
-                      !isFirstVideo() && (
-                        <button disabled={loading} onClick={goToPrevVideo} className="blackButton">
-                          Prev
-                        </button>
-                      )
-                    }
+                    <button
+                      disabled={loading}
+                      onClick={goToPrevVideo}
+                      className="blackButton"
+                    >
+                      Prev
+                    </button>
                   </div>
+                )}
 
-                  {/* Next */}
-                  <div>
-                    {
-                      !isLastVideo() && (
-                        <button disabled={loading} onClick={goToNextVideo} className="blackButton">
-                          Next
-                        </button>
-                      )
-                    }
+                {/* Next */}
+                {!isLastVideo() && (
+                  <div className="mt-10 flex min-h-[250px] justify-center gap-x-4 text-xl">
+                    <button
+                      disabled={loading}
+                      onClick={goToNextVideo}
+                      className="blackButton"
+                    >
+                      Next
+                    </button>
                   </div>
-
-                </div>
-              )
-            }
+                )}
+              </div>
+            )}
           </Player>
         )}
 
         <h1 className="mt-5 text-3xl font-semibold">{videoData?.title}</h1>
         <p className="pt-2 pb-6">{videoData?.description}</p>
-      </div>  
+      </div>
     </div>
   );
 };

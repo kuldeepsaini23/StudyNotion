@@ -15,7 +15,7 @@ const EnrolledCourses = () => {
       //calling course handler with api
       const response = await getUserEnrolledCourses(token);
       setEnrolledCourses(response); //this is Course details 
-      console.log("Emrolled COURSES.........",response)
+      // console.log("Emrolled COURSES.........",response)
     } catch (error) {
       console.log("Unable to fetch Enrolled Courses");
     }
@@ -30,7 +30,9 @@ const EnrolledCourses = () => {
     <div>
       <div className="text-3xl text-richblack-50">Enrolled Courses</div>
       {!enrolledCourses ? (
-        <div className="spinner"></div>
+        <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+          <div className="spinner"></div>
+        </div>
       ) : !enrolledCourses.length ? (
         <p className="grid h-[10vh] w-full place-content-center text-richblack-5 lg:text-3xl text-xl border-[1px] border-richblack-5 p-10 m-10">You have not enrolled in any course yet</p>
       ) : (

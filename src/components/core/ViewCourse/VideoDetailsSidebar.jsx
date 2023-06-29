@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import IconBtn from "../../common/IconBtn";
+import { AiOutlineDown } from "react-icons/ai";
+
 
 const VideoDetailsSidebar = ({ setReviewModal }) => {
   const [activeStatus, setActiveStatus] = useState("");
@@ -79,14 +81,16 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
                 {/* name */}
                 <div className="w-[70%] font-semibold">{section.sectionName}</div>
 
-                <div className="flex items-center gap-3">{/* Arrow Icon */}</div>
+                <div className="flex items-center gap-3">
+                  <AiOutlineDown className={`${activeStatus.includes(section._id) ? "rotate-180" : "rotate-0"} transition-all duration-500`}/>
+                </div>
               </div>
 
               {/* Subsections */}
               <div className="transition-[height] duration-500 ease-in-out">
                 {activeStatus === section?._id && (
                   <>
-                    {section?.map((topic, index) => (
+                    {section?.subSection?.map((topic, index) => (
                       <div
                         key={index}
                         onClick={() =>

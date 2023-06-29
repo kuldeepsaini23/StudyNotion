@@ -61,7 +61,7 @@ function App() {
 
 
           {
-            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            (user?.accountType === ACCOUNT_TYPE.STUDENT || ACCOUNT_TYPE.ADMIN )&& (
               <>
                 <Route path="dashboard/enrolled-courses" element={<EnrolledCourses/>}/>
                 <Route path="dashboard/cart" element={<Cart/>}/>

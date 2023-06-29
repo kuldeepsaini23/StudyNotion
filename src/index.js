@@ -14,12 +14,13 @@ const store = configureStore({
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // ! Changed React.Strict mode to ract fragment
+  <React.Fragment>
     <Provider store={store}>
       <BrowserRouter>
         <App />
         <Toaster/>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
+  </React.Fragment>
 );
