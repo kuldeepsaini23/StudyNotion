@@ -66,7 +66,7 @@ const CourseDetailsCard = ({
           <button className="yellowButton"
             onClick={
               user && course?.studentsEnrolled.includes(user?._id)
-                ? () => "/dashboard/enrolled-courses"
+                ? () => navigate("/dashboard/enrolled-courses")
                 : handleBuyCourse
             }
           >

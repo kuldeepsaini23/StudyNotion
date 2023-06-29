@@ -118,7 +118,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch){
       throw new Error(response.data.message);
     }
     console.log("PAYMENT VERIFY RESPONSE....",response);
-    toast.success("Payment Successfull, you are added to the course")
+    toast.success("Payment Successfull")
     navigate("/dashboard/enrolled-courses");
     dispatch(resetCart());
 

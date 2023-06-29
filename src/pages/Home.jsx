@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import HighlightText from "../components/core/HomePage/HighlightText";
@@ -10,16 +10,43 @@ import LearningLanguageSection from "../components/core/HomePage/LearningLanguag
 import InstructorSection from "../components/core/HomePage/InstructorSection";
 import Footer from "../components/common/Footer";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
+import ReviewSlider from "../components/common/ReviewSlider";
+
+import { apiConnector } from "../services/apiconnector";
+import { ratingsEndpoints } from "../services/apis";
 
 const Home = () => {
+  // DATA for reviews Slider
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    const fecthAllReviews = async () => {
+      try {
+        const response = await apiConnector(
+          "GET",
+          ratingsEndpoints.REVIEWS_DETAILS_API
+        );
+
+        if (response) {
+          if (!response.data.success) {
+            throw new Error(response.data.message);
+          }
+          setReviews(response?.data?.data);
+          // console.log("REVIEWS_DETAILS_API RESPONSE.....",response)
+        }
+      } catch (error) {
+        console.log("ERROR IN GETTING ALL REVIEWS....", error);
+      }
+    };
+
+    fecthAllReviews();
+  }, []);
+
   return (
     <div>
       {/* Section 1 */}
       <section className="relative mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 text-white">
         <Link to={"/signup"}>
-          <div
-            className="group mx-auto mt-16 w-fit rounded-full bg-richblack-800 p-1 font-bold text-richblack-200 drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] transition-all duration-200 hover:scale-95 hover:drop-shadow-none"
-          >
+          <div className="group mx-auto mt-16 w-fit rounded-full bg-richblack-800 p-1 font-bold text-richblack-200 drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] transition-all duration-200 hover:scale-95 hover:drop-shadow-none">
             <div className="flex flex-row items-center gap-2 rounded-full px-10 py-[10px] transition-all duration-200 group-hover:bg-richblack-900">
               <p>Become an Instructor</p>
               <FaArrowRight />
@@ -50,7 +77,12 @@ const Home = () => {
         </div>
 
         <div className="mx-3 my-7 shadow-blue-200 shadow-[10px_-5px_50px_-5px]">
-          <video className="shadow-[20px_20px_rgba(255,255,255)]" muted loop autoPlay>
+          <video
+            className="shadow-[20px_20px_rgba(255,255,255)]"
+            muted
+            loop
+            autoPlay
+          >
             <source src={Banner} type="video/mp4" />
           </video>
         </div>
@@ -122,14 +154,13 @@ const Home = () => {
           />
         </div>
 
-        <ExploreMore/>
+        <ExploreMore />
       </section>
 
       {/* Section 2 */}
       <div className="bg-pure-greys-5 text-richblack-700">
         <div className="homepage_bg h-[320px]">
-
-          <div className='mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8'>
+          <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
             <div className="lg:h-[150px]"></div>
 
             <div className="flex flex-row gap-7 text-white lg:mt-8">
@@ -147,46 +178,44 @@ const Home = () => {
           </div>
         </div>
 
-        <div className='mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 '>
-
-          <div className='mb-10 mt-[-100px] flex flex-col justify-between gap-7 lg:mt-20 lg:flex-row lg:gap-0'>
-            <div className='text-4xl font-semibold lg:w-[45%] '>
+        <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 ">
+          <div className="mb-10 mt-[-100px] flex flex-col justify-between gap-7 lg:mt-20 lg:flex-row lg:gap-0">
+            <div className="text-4xl font-semibold lg:w-[45%] ">
               Get the Skills you need for a
               <HighlightText text={"Job that is in demand"} />
             </div>
 
-            <div className='flex flex-col items-start gap-10 lg:w-[40%]'>
-              <div className='text-[16px]'>
-                The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills.
+            <div className="flex flex-col items-start gap-10 lg:w-[40%]">
+              <div className="text-[16px]">
+                The modern StudyNotion is the dictates its own terms. Today, to
+                be a competitive specialist requires more than professional
+                skills.
               </div>
               <CTAButton active={true} linkto={"/signup"}>
-                <div>
-                  Learn more
-                </div>
+                <div>Learn more</div>
               </CTAButton>
             </div>
-
           </div>
 
-          <TimelineSection/>
+          <TimelineSection />
 
-          <LearningLanguageSection/>
+          <LearningLanguageSection />
         </div>
-
       </div>
 
       {/* Section 3 */}
-      <div className='relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white'>
+      <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+        <InstructorSection />
 
-            <InstructorSection />
-
-            <h2 className='text-center text-4xl font-semibold mt-8'>Review from Other Learners</h2>
-            {/* Review Slider here */}
+        <h2 className="text-center text-4xl font-semibold mt-8">
+          Reviews from Other Learners
+        </h2>
+        {/* Review Slider here */}
+        <ReviewSlider reviews={reviews} />
       </div>
 
-
       {/* Footer */}
-        <Footer/>
+      <Footer />
     </div>
   );
 };

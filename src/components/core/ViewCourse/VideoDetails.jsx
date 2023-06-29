@@ -171,7 +171,7 @@ const VideoDetails = () => {
   };
 
   const handleLectureCompletion = async () => {
-    //dummy code
+
     setLoading(true);
 
     //TODO Write this handler
@@ -205,7 +205,7 @@ const VideoDetails = () => {
                 {!completedLectures.includes(subSectionId) && (
                   <IconBtn
                     disabled={loading}
-                    onclick={() => handleLectureCompletion()}
+                    onclick={() => handleLectureCompletion(courseEntireData._id, videoData._id)}
                     text={!loading ? "Mark As Completed" : "Loading..."}
                   />
                 )}
