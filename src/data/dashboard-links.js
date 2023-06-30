@@ -65,10 +65,25 @@ export const sidebarLinks = [
   },
   {
     id: 10,
-    name: "All Courses",
+    name: "All Users",
     path: "/dashboard/all-users",
     type: ACCOUNT_TYPE.ADMIN,
     icon: "VscPerson",
+  },
+
+  {
+    id: 11,
+    name: "Bugs",
+    path: "/dashboard/all-bugs",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscBug",
+  },
+  {
+    id: 12,
+    name: "Requests/Contact",
+    path: "/dashboard/user-contact",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscInbox",
   },
   
 ];

@@ -12,8 +12,8 @@ const ReviewSlider = ({reviews}) => {
   // const truncateWords = 15;
 
   return (
-    <div className='text-white w-[400px]'>
-      <div className='h-[190px] max-w-maxContent'>
+    <div className='text-white'>
+      <div className='my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent'>
         <Swiper
           slidesPerView={4}
           spaceBetween={24}
@@ -23,11 +23,11 @@ const ReviewSlider = ({reviews}) => {
             delay:2500,
           }}
           modules={[FreeMode, Autoplay, Pagination, Navigation]}
-          className='w-full'
+          className='w-[900px]'
         >
           {
-            reviews.map((review, index)=>(
-              <SwiperSlide key={index}>
+            reviews?.map((review, index)=>(
+              <SwiperSlide key={index} className='flex flex-col gap-3 bg-richblack-800 p-3 text-[14px] text-richblack-25'>
                 <img src={review?.user?.image ? review?.user?.image : `https://`} alt='Profile Pic'
                   className='h-9 w-9 object-cover rounded-full'
                 />

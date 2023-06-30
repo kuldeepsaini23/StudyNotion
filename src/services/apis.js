@@ -14,6 +14,8 @@ export const profileEndpoints = {
   GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
   GET_USER_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourses",
   GET_INSTRUCTOR_PROFILE_API: BASE_URL + "/profile/userProfile",
+  GET_ALL_USERS_DATA_API: BASE_URL + "/profile/allUserData",
+  DELETE_ACCOUNT_BY_ADMIN:BASE_URL + "/profile/deleteAccountByAdmin",
 };
 
 // STUDENTS ENDPOINTS

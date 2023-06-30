@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import Home from "./pages/Home";
@@ -14,13 +14,13 @@ import Contact from "./pages/Contact";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
-import Setting from "./components/core/Dashboard/Settings"
+import Setting from "./components/core/Dashboard/Settings";
 import EnrolledCourses from "./components/core/Dashboard/Student/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Student/Cart";
-import {ACCOUNT_TYPE} from "./utils/constants"
+import { ACCOUNT_TYPE } from "./utils/constants";
 import { useSelector } from "react-redux";
 import MyCourses from "./components/core/Dashboard/Instructor/MyCourse/MyCourses";
-import AddCourse from "./components/core/Dashboard/Instructor/AddCourse"
+import AddCourse from "./components/core/Dashboard/Instructor/AddCourse";
 import EditCourse from "./components/core/Dashboard/Instructor/EditCourse";
 import Catalog from "./pages/Catalog";
 import AddCategory from "./components/core/Dashboard/Admin/AddCategory/Index";
@@ -29,11 +29,72 @@ import CourseDetails from "./pages/CourseDetails";
 import InstructorProfile from "./pages/InstructorProfile";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
+import AllUsers from "./components/core/Dashboard/Admin/AllUsers/Index";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
+import { useRef } from "react";
+
 
 function App() {
+  const { user } = useSelector((state) => state.profile);
 
-  const {user} = useSelector((state)=>state.profile)
+  const navigate = useNavigate();
+  const location = useLocation();
+  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
 
+  const displayToast = () => {
+    toast.info("🪲 Click Here!! To report Bug To help us to make your experience better", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      onClick: () => {
+        navigate("/contact");
+      },
+    });
+  };
+
+  useEffect(() => {
+
+    if (location.pathname === "/view-course/:courseId/section/:sectionId/sub-section/:subSectionId" ||
+        location.pathname === "dashboard/enrolled-courses" || location.pathname === "dashboard/add-course" ) {
+      return; // Do not display the toast on the excluded route
+    }
+
+    // Clear previous interval
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    //setTimeout
+    timeoutRef.current = setTimeout(displayToast, 1000);
+
+    // Set new interval
+    if(user){
+      intervalRef.current = setInterval(displayToast, 5 * 60 * 1000);
+    }else{
+      intervalRef.current = setInterval(displayToast, 10 * 60 * 1000);
+    }
+   
+
+    // Clear interval on component unmount
+    return () => {
+      clearTimeout(timeoutRef.current)
+      clearInterval(intervalRef.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar />
@@ -42,55 +103,57 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="catalog/:catalogName" element={<Catalog/>}/>
-        <Route path="courses/:courseId" element={<CourseDetails/>}/>
-        <Route path="instructor/:instructorId" element={<InstructorProfile/>}/>
+        <Route path="catalog/:catalogName" element={<Catalog />} />
+        <Route path="courses/:courseId" element={<CourseDetails />} />
+        <Route
+          path="instructor/:instructorId"
+          element={<InstructorProfile />}
+        />
 
         {/* Dashboard */}
 
         <Route
           element={
             <PrivateRoute>
-              <Dashboard/>
+              <Dashboard />
             </PrivateRoute>
           }
         >
-         {/* Nested Routing */}
-          <Route path="dashboard/my-profile" element={<MyProfile />}/>
-          <Route path="dashboard/settings" element={<Setting />}/>
+          {/* Nested Routing */}
+          <Route path="dashboard/my-profile" element={<MyProfile />} />
+          <Route path="dashboard/settings" element={<Setting />} />
 
+          {(user?.accountType === ACCOUNT_TYPE.STUDENT ||
+            ACCOUNT_TYPE.ADMIN) && (
+            <>
+              <Route
+                path="dashboard/enrolled-courses"
+                element={<EnrolledCourses />}
+              />
+              <Route path="dashboard/cart" element={<Cart />} />
+            </>
+          )}
 
-          {
-            (user?.accountType === ACCOUNT_TYPE.STUDENT || ACCOUNT_TYPE.ADMIN )&& (
-              <>
-                <Route path="dashboard/enrolled-courses" element={<EnrolledCourses/>}/>
-                <Route path="dashboard/cart" element={<Cart/>}/>
-              </>
-            )
-          }
-          
-          {
-            user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
-              <>
-                <Route path="dashboard/my-courses" element={<MyCourses/>}/>
-                <Route path="dashboard/add-course" element={<AddCourse/>}/>
-                <Route path="dashboard/edit-course/:courseId" element={<EditCourse/>}/>
-              </>
-            )
-          }
+          {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+            <>
+              <Route path="dashboard/my-courses" element={<MyCourses />} />
+              <Route path="dashboard/add-course" element={<AddCourse />} />
+              <Route
+                path="dashboard/edit-course/:courseId"
+                element={<EditCourse />}
+              />
+            </>
+          )}
 
-          {
-            user?.accountType === ACCOUNT_TYPE.ADMIN && (
-              <>
-                
-                <Route path="dashboard/add-category" element={<AddCategory/>}/>
-                <Route path="dashboard/all-courses" element={<AllCourses/>}/>
-              </>
-            )
-          }
+          {user?.accountType === ACCOUNT_TYPE.ADMIN && (
+            <>
+              <Route path="dashboard/add-category" element={<AddCategory />} />
+              <Route path="dashboard/all-courses" element={<AllCourses />} />
+              <Route path="dashboard/all-users" element={<AllUsers />} />
+            </>
+          )}
         </Route>
 
-        
         <Route
           path="signup"
           element={
@@ -135,19 +198,24 @@ function App() {
         />
 
         {/* View courses Route */}
-        <Route element={<PrivateRoute><ViewCourse/></PrivateRoute>}>
-          {
-            user?.accountType === ACCOUNT_TYPE.STUDENT && (
-              <>
-                <Route
-                  path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
-                  element={<VideoDetails/>}
-                />
-              </>
-            )
+        <Route
+          element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
           }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
+              />
+            </>
+          )}
         </Route>
       </Routes>
+      <ToastContainer/>
     </div>
   );
 }

@@ -116,7 +116,9 @@ export default function AllCourses() {
 
       {/*  All Courses */}
       {!allCourses ? (
-        <div className="spinner"></div>
+        <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+          <div className="spinner"></div>
+        </div>
       ) : (
         <div className="my-8 text-richblack-5">
           <div className="flex rounded-t-lg bg-richblack-500 items-center">
