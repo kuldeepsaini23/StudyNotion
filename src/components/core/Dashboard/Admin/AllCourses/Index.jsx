@@ -65,6 +65,10 @@ export default function AllCourses() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    filterCourses();
+  }, [allCourses]);
+
   const filterCourses = () => {
     const categoryValue = getValues("courseCategory");
     console.log("Category Value: ", categoryValue);
@@ -93,7 +97,7 @@ export default function AllCourses() {
     await deleteCourse({ courseId: courseId }, token);
     await fetchAllcourses();
     setLoading(false);
-    filterCourses();
+  
   };
 
   return (
@@ -125,6 +129,8 @@ export default function AllCourses() {
                 id="courseCategory"
                 name="courseCategory" // Add this line
                 className="form-style w-1/2"
+                value={getValues("courseCategory")}
+                
               >
                 <option value="All">All</option>
                 {!loading &&

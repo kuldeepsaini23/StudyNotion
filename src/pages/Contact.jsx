@@ -1,9 +1,39 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ContactFormSection from "../components/ContactPage/ContactFormSection";
 import ReviewSlider from "../components/common/ReviewSlider";
 import Footer from "../components/common/Footer";
 import InfoSection from "../components/ContactPage/InfoSection";
+import { apiConnector } from "../services/apiconnector";
+import { ratingsEndpoints } from "../services/apis";
+
 const Contact = () => {
+
+ // DATA for reviews Slider
+ const [reviews, setReviews] = useState([]);
+ useEffect(() => {
+   const fecthAllReviews = async () => {
+     try {
+       const response = await apiConnector(
+         "GET",
+         ratingsEndpoints.REVIEWS_DETAILS_API
+       );
+
+       if (response) {
+         if (!response.data.success) {
+           throw new Error(response.data.message);
+         }
+         setReviews(response?.data?.data);
+         // console.log("REVIEWS_DETAILS_API RESPONSE.....",response)
+       }
+     } catch (error) {
+       console.log("ERROR IN GETTING ALL REVIEWS....", error);
+     }
+   };
+
+   fecthAllReviews();
+ }, []);
+
+
   return (
     <div>
     
@@ -18,7 +48,7 @@ const Contact = () => {
         <h1 className="text-center text-4xl font-semibold mt-8">
           Reviews from other learners
         </h1>
-        <ReviewSlider />
+        <ReviewSlider reviews={reviews}/>
       </section>
 
       {/* Section 3 */}

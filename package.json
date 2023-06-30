@@ -15,6 +15,7 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "react-loading-skeleton": "^3.3.1",
+    "react-markdown": "^8.0.7",
     "react-otp-input": "^3.0.2",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.0.5",

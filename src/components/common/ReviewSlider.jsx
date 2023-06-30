@@ -9,7 +9,7 @@ import { FaStar } from "react-icons/fa";
 
 const ReviewSlider = ({reviews}) => {
   
-  const truncateWords = 15;
+  // const truncateWords = 15;
 
   return (
     <div className='text-white w-[400px]'>
