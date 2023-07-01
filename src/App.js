@@ -76,7 +76,7 @@ function App() {
     }
 
     //setTimeout
-    timeoutRef.current = setTimeout(displayToast, 1000);
+    timeoutRef.current = setTimeout(displayToast, 10000);
 
     // Set new interval
     if(user){
