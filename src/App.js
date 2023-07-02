@@ -34,65 +34,66 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import { useRef } from "react";
+import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instructor";
 
 
 function App() {
   const { user } = useSelector((state) => state.profile);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const intervalRef = useRef(null);
-  const timeoutRef = useRef(null);
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  // const intervalRef = useRef(null);
+  // const timeoutRef = useRef(null);
 
-  const displayToast = () => {
-    toast.info("🪲 Click Here!! To report Bug To help us to make your experience better", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      onClick: () => {
-        navigate("/contact");
-      },
-    });
-  };
+  // const displayToast = () => {
+  //   toast.info("🪲 Click Here!! To report Bug To help us to make your experience better", {
+  //     position: "top-right",
+  //     autoClose: 5000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //     theme: "dark",
+  //     onClick: () => {
+  //       navigate("/contact");
+  //     },
+  //   });
+  // };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (location.pathname === "/view-course/:courseId/section/:sectionId/sub-section/:subSectionId" ||
-        location.pathname === "dashboard/enrolled-courses" || location.pathname === "dashboard/add-course" ) {
-      return; // Do not display the toast on the excluded route
-    }
+  //   if (location.pathname === "/view-course/:courseId/section/:sectionId/sub-section/:subSectionId" ||
+  //       location.pathname === "dashboard/enrolled-courses" || location.pathname === "dashboard/add-course" ) {
+  //     return; // Do not display the toast on the excluded route
+  //   }
 
-    // Clear previous interval
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+  //   // Clear previous interval
+  //   if (timeoutRef.current) {
+  //     clearTimeout(timeoutRef.current);
+  //   }
+  //   if (intervalRef.current) {
+  //     clearInterval(intervalRef.current);
+  //   }
 
-    //setTimeout
-    timeoutRef.current = setTimeout(displayToast, 10000);
+  //   //setTimeout
+  //   timeoutRef.current = setTimeout(displayToast, 10000);
 
-    // Set new interval
-    if(user){
-      intervalRef.current = setInterval(displayToast, 5 * 60 * 1000);
-    }else{
-      intervalRef.current = setInterval(displayToast, 10 * 60 * 1000);
-    }
+  //   // Set new interval
+  //   if(user){
+  //     intervalRef.current = setInterval(displayToast, 5 * 60 * 1000);
+  //   }else{
+  //     intervalRef.current = setInterval(displayToast, 10 * 60 * 1000);
+  //   }
    
 
-    // Clear interval on component unmount
-    return () => {
-      clearTimeout(timeoutRef.current)
-      clearInterval(intervalRef.current);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // Clear interval on component unmount
+  //   return () => {
+  //     clearTimeout(timeoutRef.current)
+  //     clearInterval(intervalRef.current);
+  //   };
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   
   return (
@@ -138,6 +139,7 @@ function App() {
             <>
               <Route path="dashboard/my-courses" element={<MyCourses />} />
               <Route path="dashboard/add-course" element={<AddCourse />} />
+              <Route path="dashboard/instructor" element={<Instructor />} />
               <Route
                 path="dashboard/edit-course/:courseId"
                 element={<EditCourse />}
