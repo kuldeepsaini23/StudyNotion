@@ -4,7 +4,7 @@ import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import CourseSlider from "../components/core/Catalog/CourseSlider"
+import CourseSlider from "../components/core/Catalog/CourseSlider";
 import ConfirmationModal from "../components/common/ConfirmationModal";
 import Footer from "../components/common/Footer";
 import RatingStars from "../components/common/RatingStars";
@@ -32,7 +32,7 @@ function CourseDetails() {
   // Declear a state to save the course details
   const [response, setResponse] = useState(null);
   const [confirmationModal, setConfirmationModal] = useState(null);
-  const [reviews, setReviews] = useState([])
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     // Calling fetchCourseDetails fucntion to fetch the details
@@ -52,13 +52,13 @@ function CourseDetails() {
   // Calculating Avg Review count
   const [avgReviewCount, setAvgReviewCount] = useState(0);
   useEffect(() => {
-    let allReviews = []
+    let allReviews = [];
     const count = GetAvgRating(response?.data?.courseDetails.ratingAndReviews);
-    response?.data?.courseDetails.ratingAndReviews.forEach((review)=>{
-      allReviews = [...allReviews, review]
-    })
+    response?.data?.courseDetails.ratingAndReviews.forEach((review) => {
+      allReviews = [...allReviews, review];
+    });
     setAvgReviewCount(count);
-    setReviews(allReviews)
+    setReviews(allReviews);
   }, [response, reviews]);
   // console.log("avgReviewCount: ", avgReviewCount)
 
@@ -88,13 +88,12 @@ function CourseDetails() {
 
   const [otherCourses, setOtherCourses] = useState([]);
 
-
   useEffect(() => {
     //TODO Doubt here
     const filteredCourses =
-      response?.data?.courseDetails?.instructor?.courses?.filter((course) => (
-         course._id !== courseId
-      ));
+      response?.data?.courseDetails?.instructor?.courses?.filter(
+        (course) => course._id !== courseId
+      );
     // console.log("Filtered Course: ", filteredCourses);
     setOtherCourses(filteredCourses);
   }, [response, courseId]);
@@ -174,12 +173,19 @@ function CourseDetails() {
               <div className="text-md flex flex-wrap items-center gap-2">
                 <span className="text-yellow-25">{avgReviewCount}</span>
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
-                <span>{`(${ratingAndReviews.length} reviews)`}</span>
+                <a
+                  href="#reviews"
+                  className="hover:underline text-yellow-100 hover:text-yellow-50"
+                >{`(${ratingAndReviews.length} reviews)`}</a>
                 <span>{`${studentsEnrolled.length} students enrolled`}</span>
               </div>
               <div>
                 <p className="">
-                  Created By {`${instructor.firstName} ${instructor.lastName}`}
+                  Created By{" "}
+                  <a
+                    href="#instructor"
+                    className="hover:text-yellow-50 hover:underline"
+                  >{`${instructor.firstName} ${instructor.lastName}`}</a>
                 </p>
               </div>
               <div className="flex flex-wrap gap-5 text-lg">
@@ -189,7 +195,7 @@ function CourseDetails() {
                 </p>
                 <p className="flex items-center gap-2">
                   {" "}
-                  <HiOutlineGlobeAlt /> English
+                  <HiOutlineGlobeAlt /> English/Hindi
                 </p>
               </div>
             </div>
@@ -261,7 +267,7 @@ function CourseDetails() {
             </div>
 
             {/* Author Details */}
-            <div className="mb-12 py-4" onClick={()=>navigate(`/instructor/${instructor._id}`)}>
+            <div id="instructor" className="mb-12 py-4">
               <p className="text-[28px] font-semibold">Author</p>
               <div className="flex items-center gap-4 py-4">
                 <img
@@ -273,7 +279,10 @@ function CourseDetails() {
                   alt="Author"
                   className="h-14 w-14 rounded-full object-cover"
                 />
-                <p className="text-lg">{`${instructor.firstName} ${instructor.lastName}`}</p>
+                <button
+                  className="text-lg hover:underline text-caribbeangreen-200"
+                  onClick={() => navigate(`/instructor/${instructor._id}`)}
+                >{`${instructor.firstName} ${instructor.lastName}`}</button>
               </div>
               <p className="text-richblack-50">
                 {instructor?.additionalDetails?.about}
@@ -290,7 +299,7 @@ function CourseDetails() {
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
-          <ReviewSlider reviews={reviews}/>
+          <ReviewSlider reviews={reviews} />
         </div>
 
         {/* Other courses from instructor */}

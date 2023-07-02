@@ -3,7 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { markLectureAsComplete } from "../../../services/operations/courseDetailsAPI";
 import { updateCompletedLectures } from "../../../slices/viewCourseSlice";
-import { Player } from "video-react";
+import {
+  BigPlayButton,
+  ControlBar,
+  CurrentTimeDisplay,
+  ForwardControl,
+  PlayToggle,
+  PlaybackRateMenuButton,
+  Player,
+  ReplayControl,
+  TimeDivider,
+  VolumeMenuButton,
+} from "video-react";
 // import "~video-react/styles/scss/video-react";
 import IconBtn from "../../common/IconBtn";
 // import {AiOutlinePlayCircle} from "react-icons/ai"
@@ -187,17 +198,36 @@ const VideoDetails = () => {
   };
 
   return (
-    <div className="mx-6">
+    <div className="mx-6 overflow-auto">
       <div className="flex flex-col gap-5 text-white">
-        {!videoData ? (
-          <div className="mt-5 text-3xl font-semibold">No Data Found</div>
-        ) : (
+        {videoData ? (
           <Player
             ref={playerRef}
             aspectRatio="16:9"
             onEnded={() => setVideoEnded(true)}
             src={videoData.videoUrl}
+            className=""
           >
+            <BigPlayButton position="center" />
+
+            <ControlBar>
+              {/*Forwar and backward buttons  */}
+              <ReplayControl seconds={10} order={1.1} />
+              <ForwardControl seconds={30} order={1.2} />
+
+              {/* Current display time */}
+              <CurrentTimeDisplay order={4.1} />
+
+              {/* Divider Sign */}
+              <TimeDivider order={4.2} />
+
+              {/* Speed of the Video */}
+              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+
+              {/* volume */}
+              <VolumeMenuButton />
+            </ControlBar>
+
             {videoEnded && (
               <div
                 className="absolute inset-0 z-[100] grid h-full place-content-center font-inter"
@@ -259,6 +289,12 @@ const VideoDetails = () => {
               </div>
             )}
           </Player>
+        ) : (
+          <div className="p-8 w-1/2 mx-auto mt-10 flex justify-center items-center border-[1px] border-richblack-5 rounded-xl">
+            <p className="mt-5 text-3xl font-semibold text-center">
+              No Data Found
+            </p>
+          </div>
         )}
 
         <h1 className="mt-5 text-3xl font-semibold">{videoData?.title}</h1>
