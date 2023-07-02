@@ -21,7 +21,7 @@ export default function AddCategory() {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
       setCategorie(result?.data?.data);
-      console.log("Categories in category section", result?.data?.data);
+      // console.log("Categories in category section", result?.data?.data);
     } catch (error) {
       console.log("could not fetch the category list", error);
     }
@@ -39,7 +39,7 @@ export default function AddCategory() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("Form Data - ", data);
+    // console.log("Form Data - ", data);
     let result;
 
     if (editCategory) {
@@ -55,7 +55,7 @@ export default function AddCategory() {
     } else {
       result = await createCategory(token, data);
     }
-    console.log(result)
+    // console.log(result)
 
     //update Values
     if (result) {

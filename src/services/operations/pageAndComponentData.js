@@ -14,7 +14,7 @@ export const  getCatalogPageData = async(categoryId)=> {
       throw new Error("Could not fetch category page Details")
 
       result = response?.data;
-      console.log(result)
+      // console.log(result);
       // toast.success("Catalog Data Fetched Successfully")
 
   }catch(error){

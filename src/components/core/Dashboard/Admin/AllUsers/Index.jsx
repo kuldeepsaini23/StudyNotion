@@ -24,7 +24,7 @@ export default function AllUsers() {
     const res = await allUserData(token);
     if (res) {
       setUsersData(res);
-      console.log(res);
+      // console.log(res);
     }
     setLoading(false);
   };

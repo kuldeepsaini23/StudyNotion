@@ -95,7 +95,7 @@ function CourseDetails() {
       response?.data?.courseDetails?.instructor?.courses?.filter((course) => (
          course._id !== courseId
       ));
-    console.log("Filtered Course: ", filteredCourses);
+    // console.log("Filtered Course: ", filteredCourses);
     setOtherCourses(filteredCourses);
   }, [response, courseId]);
 

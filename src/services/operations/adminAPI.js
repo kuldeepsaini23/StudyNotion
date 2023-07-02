@@ -14,7 +14,7 @@ export async function createCategory(token, formData) {
     const response = await apiConnector("POST", CREATE_CATEGORY_API, formData, {
       Authorization: `Bearer ${token}`,
     });
-    console.log("Create Category RESPONSE....", response);
+    // console.log("Create Category RESPONSE....", response);
 
     if (!response.data.success) {
       throw new Error(response.data.message);
@@ -38,7 +38,7 @@ export async function updateCategory(formData, token) {
     const response = await apiConnector("POST", UPDATE_CATEGORY_API, formData, {
       Authorization: `Bearer ${token}`,
     });
-    console.log("Update Category RESPONSE....", response);
+    // console.log("Update Category RESPONSE....", response);
 
     if (!response.data.success) {
       throw new Error(response.data.message);
@@ -61,7 +61,7 @@ export async function deleteCategory(data, token) {
     const response = await apiConnector("DELETE", DELETE_CATEGORY_API, data, {
       Authorization: `Bearer ${token}`,
     });
-    console.log("Deleting Category RESPONSE....", response);
+    // console.log("Deleting Category RESPONSE....", response);
 
     if (!response.data.success) {
       throw new Error(response.data.message);
@@ -83,7 +83,7 @@ export async function allUserData(token) {
     const response = await apiConnector("GET", GET_ALL_USERS_DATA_API, null,{
       Authorization: `Bearer ${token}`,
     });
-    console.log("GETING ALL USERS DATA RESPONSE....", response);
+    // console.log("GETING ALL USERS DATA RESPONSE....", response);
 
     if (!response.data.success) {
       throw new Error(response.data.message);
@@ -108,7 +108,7 @@ export async function deleteAccountByAdmin(userId, token) {
     const response = await apiConnector("DELETE", DELETE_ACCOUNT_BY_ADMIN, {userId},{
       Authorization: `Bearer ${token}`,
     });
-    console.log("DELEETE ACCOUNT BY ADMIN API RESPONSE....", response);
+    // console.log("DELEETE ACCOUNT BY ADMIN API RESPONSE....", response);
 
     if (!response.data.success) {
       throw new Error(response.data.message);

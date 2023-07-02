@@ -51,11 +51,10 @@ export default function AllCourses() {
       let result = await getAllCourses();
       if (result) {
         setAllCourses(result);
-        console.log("fetchAllcourses ",result);
+        // console.log("fetchAllcourses ",result);
       }
     } catch (error) {
-      console.log(error);
-      console.log("Unable to fetch All Courses");
+      console.log("Unable to fetch All Courses", error);
     }
   };
 
@@ -71,13 +70,13 @@ export default function AllCourses() {
 
   const filterCourses = () => {
     const categoryValue = getValues("courseCategory");
-    console.log("Category Value: ", categoryValue);
+    // console.log("Category Value: ", categoryValue);
 
     if (categoryValue === "All") {
       return setCategoryCourses([]);
     }
 
-    console.log("It is inside filtered courses", allCourses)
+    // console.log("It is inside filtered courses", allCourses)
     const filterCourse = allCourses.filter((course) => {
       return course.category === categoryValue;
     });
@@ -88,7 +87,7 @@ export default function AllCourses() {
       setCategoryCourses(filterCourse);
     }
 
-    console.log(filterCourse);
+    // console.log(filterCourse);
   };
 
 

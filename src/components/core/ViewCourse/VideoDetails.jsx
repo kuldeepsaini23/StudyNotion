@@ -44,7 +44,7 @@ const VideoDetails = () => {
         const filteredVideoData = filteredData?.[0]?.subSection?.filter(
           (topic) => topic._id === subSectionId
         );
-        console.log("VIDEO DATTA>>>>>>>", filteredVideoData);
+        // console.log("VIDEO DATTA>>>>>>>", filteredVideoData);
 
         setVideoData(filteredVideoData?.[0]);
         setVideoEnded(false);

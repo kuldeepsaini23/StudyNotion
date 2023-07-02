@@ -45,7 +45,7 @@ export async function buyCourse(token, courses, userDeatils, navigate, dispatch)
     if(!orderResponse.data.success){
       throw new Error(orderResponse.data.message);
     }
-    console.log("PAYMENT CAPTURING RESPONSE....",orderResponse);
+    // console.log("PAYMENT CAPTURING RESPONSE....",orderResponse);
 
     //options
     const options = {
@@ -117,7 +117,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch){
     if(!response.data.success){
       throw new Error(response.data.message);
     }
-    console.log("PAYMENT VERIFY RESPONSE....",response);
+    // console.log("PAYMENT VERIFY RESPONSE....",response);
     toast.success("Payment Successfull")
     navigate("/dashboard/enrolled-courses");
     dispatch(resetCart());

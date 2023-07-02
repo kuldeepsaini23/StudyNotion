@@ -17,7 +17,7 @@ const UpdatePassword = () => {
   const { register, handleSubmit, formState: { errors }} = useForm();
 
   const submitPasswordForm = async (data)=>{
-   // console.log("password Data - ", data)
+   // .log("password Data - ", data)
    try {
     await changePassword(token, data)
   } catch (error) {
