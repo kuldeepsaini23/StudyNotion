@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BannerImage1 from "../assets/Images/aboutus1.webp";
 import BannerImage2 from "../assets/Images/aboutus2.webp";
 import BannerImage3 from "../assets/Images/aboutus3.webp";
@@ -10,8 +10,36 @@ import LearningGrid from "../components/core/About/LearningGrid";
 import ContactFormSection from "../components/core/About/ContactFormSection";
 import ReviewSlider from "../components/common/ReviewSlider";
 import Footer from "../components/common/Footer";
+import { ratingsEndpoints } from "../services/apis";
+import { apiConnector } from "../services/apiconnector";
 
 const About = () => {
+
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    const fecthAllReviews = async () => {
+      try {
+        const response = await apiConnector(
+          "GET",
+          ratingsEndpoints.REVIEWS_DETAILS_API
+        );
+
+        if (response) {
+          if (!response.data.success) {
+            throw new Error(response.data.message);
+          }
+          setReviews(response?.data?.data);
+          // console.log("REVIEWS_DETAILS_API RESPONSE.....",response)
+        }
+      } catch (error) {
+        console.log("ERROR IN GETTING ALL REVIEWS....", error);
+      }
+    };
+
+    fecthAllReviews();
+  }, []);
+
+
   return (
     <div>
       {/* Section 1 */}
@@ -130,7 +158,7 @@ const About = () => {
       {/* Section 6 */}
       <section className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
         <h1 className="text-center text-4xl font-semibold mt-8">Reviews from other learners</h1>
-        <ReviewSlider/>
+        <ReviewSlider reviews={reviews}/>
       </section>
 
       {/* Section 7 */}

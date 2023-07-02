@@ -87,7 +87,7 @@ export async function getInstructorDetails(instructorId) {
       throw new Error(response.data.message)
     }
     result = response.data.data
-    toast.success("Sucess")
+
 
   } catch (error) {
     console.log("GET_INSTRUCTOR_PROFILE_API API ERROR............", error)
@@ -117,7 +117,7 @@ export async function getInstructorData(token) {
       throw new Error(response.data.message)
     }
     result = response.data.courses
-    toast.success("Sucess")
+  
 
   }catch(error){
     console.log("GET_INSTRUCTOR_API ERROR....", error)

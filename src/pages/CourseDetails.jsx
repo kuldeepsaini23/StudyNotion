@@ -15,6 +15,7 @@ import { fetchCourseDetails } from "../services/operations/courseDetailsAPI";
 import { buyCourse } from "../services/operations/studentFeatureAPI";
 import GetAvgRating from "../utils/avgRating";
 import Error from "./Error";
+import ReviewSlider from "../components/common/ReviewSlider";
 
 function CourseDetails() {
   const { user } = useSelector((state) => state.profile);
@@ -31,6 +32,8 @@ function CourseDetails() {
   // Declear a state to save the course details
   const [response, setResponse] = useState(null);
   const [confirmationModal, setConfirmationModal] = useState(null);
+  const [reviews, setReviews] = useState([])
+
   useEffect(() => {
     // Calling fetchCourseDetails fucntion to fetch the details
     (async () => {
@@ -49,9 +52,14 @@ function CourseDetails() {
   // Calculating Avg Review count
   const [avgReviewCount, setAvgReviewCount] = useState(0);
   useEffect(() => {
+    let allReviews = []
     const count = GetAvgRating(response?.data?.courseDetails.ratingAndReviews);
+    response?.data?.courseDetails.ratingAndReviews.forEach((review)=>{
+      allReviews = [...allReviews, review]
+    })
     setAvgReviewCount(count);
-  }, [response]);
+    setReviews(allReviews)
+  }, [response, reviews]);
   // console.log("avgReviewCount: ", avgReviewCount)
 
   // // Collapse all
@@ -80,12 +88,13 @@ function CourseDetails() {
 
   const [otherCourses, setOtherCourses] = useState([]);
 
+
   useEffect(() => {
     //TODO Doubt here
     const filteredCourses =
-      response?.data?.courseDetails?.instructor?.courses?.filter((course) => {
-        return course._id !== courseId;
-      });
+      response?.data?.courseDetails?.instructor?.courses?.filter((course) => (
+         course._id !== courseId
+      ));
     console.log("Filtered Course: ", filteredCourses);
     setOtherCourses(filteredCourses);
   }, [response, courseId]);
@@ -252,7 +261,7 @@ function CourseDetails() {
             </div>
 
             {/* Author Details */}
-            <div className="mb-12 py-4">
+            <div className="mb-12 py-4" onClick={()=>navigate(`/instructor/${instructor._id}`)}>
               <p className="text-[28px] font-semibold">Author</p>
               <div className="flex items-center gap-4 py-4">
                 <img
@@ -281,6 +290,7 @@ function CourseDetails() {
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
+          <ReviewSlider reviews={reviews}/>
         </div>
 
         {/* Other courses from instructor */}

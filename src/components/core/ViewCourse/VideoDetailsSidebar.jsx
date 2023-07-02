@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import IconBtn from "../../common/IconBtn";
 import { AiOutlineDown } from "react-icons/ai";
+import {MdOutlineArrowBackIosNew} from "react-icons/md"
 
 
 const VideoDetailsSidebar = ({ setReviewModal }) => {
@@ -56,7 +57,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
           {/* for buttons */}
           <div className="flex w-full items-center justify-between ">
             <div onClick={() => navigate("/dashboard/enrolled-courses")} className="flex h-[35px] w-[35px] items-center justify-center rounded-full bg-richblack-100 p-1 text-richblack-700 hover:scale-90">
-              Back
+              <MdOutlineArrowBackIosNew className="text-xl font-bold"/>
             </div>
 
             <IconBtn text="Add Review" onclick={() => setReviewModal(true)} />

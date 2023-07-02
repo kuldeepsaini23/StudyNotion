@@ -6,6 +6,7 @@ import { updateCompletedLectures } from "../../../slices/viewCourseSlice";
 import { Player } from "video-react";
 // import "~video-react/styles/scss/video-react";
 import IconBtn from "../../common/IconBtn";
+// import {AiOutlinePlayCircle} from "react-icons/ai"
 
 const VideoDetails = () => {
   const { token } = useSelector((state) => state.auth);
@@ -171,15 +172,13 @@ const VideoDetails = () => {
   };
 
   const handleLectureCompletion = async () => {
-
     setLoading(true);
 
-    //TODO Write this handler
     const res = await markLectureAsComplete(
       { courseId: courseId, subSectionId: subSectionId },
       token
     );
-    // update state in redux
+
     if (res) {
       dispatch(updateCompletedLectures(subSectionId));
     }
@@ -200,13 +199,25 @@ const VideoDetails = () => {
             src={videoData.videoUrl}
           >
             {videoEnded && (
-              <div className="absolute inset-0 z-[100] grid h-full place-content-center font-inter">
-                {/*Mark as read button */}
+              <div
+                className="absolute inset-0 z-[100] grid h-full place-content-center font-inter"
+                style={{
+                  "background-image":
+                    "linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1))",
+                }}
+              >
+                {/* Mark as read button */}
                 {!completedLectures.includes(subSectionId) && (
                   <IconBtn
                     disabled={loading}
-                    onclick={() => handleLectureCompletion(courseEntireData._id, videoData._id)}
+                    onclick={() =>
+                      handleLectureCompletion(
+                        courseEntireData._id,
+                        videoData._id
+                      )
+                    }
                     text={!loading ? "Mark As Completed" : "Loading..."}
+                    customClasses={`text-xl max-w-max px-4 mx-auto`}
                   />
                 )}
 
@@ -215,16 +226,17 @@ const VideoDetails = () => {
                   disabled={loading}
                   onclick={() => {
                     if (playerRef.current) {
-                      playerRef.current?.seek(0);
+                      playerRef.current.seek(0);
                       setVideoEnded(false);
                     }
                   }}
                   text="Rewatch"
+                  customClasses={`text-xl max-w-max px-4 mx-auto mt-2`}
                 />
 
-                {/* prev */}
-                {!isFirstVideo() && (
-                  <div className="mt-10 flex min-h-[250px] justify-center gap-x-4 text-xl">
+                {/* Next and Prev button */}
+                <div className="mt-10 flex min-w-[250px] justify-center gap-x-4 text-xl">
+                  {!isFirstVideo() && (
                     <button
                       disabled={loading}
                       onClick={goToPrevVideo}
@@ -232,12 +244,9 @@ const VideoDetails = () => {
                     >
                       Prev
                     </button>
-                  </div>
-                )}
+                  )}
 
-                {/* Next */}
-                {!isLastVideo() && (
-                  <div className="mt-10 flex min-h-[250px] justify-center gap-x-4 text-xl">
+                  {!isLastVideo() && (
                     <button
                       disabled={loading}
                       onClick={goToNextVideo}
@@ -245,8 +254,8 @@ const VideoDetails = () => {
                     >
                       Next
                     </button>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
           </Player>
