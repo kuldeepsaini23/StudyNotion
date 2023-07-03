@@ -198,7 +198,7 @@ const VideoDetails = () => {
   };
 
   return (
-    <div className="mx-6 overflow-auto">
+    <div className="mx-6">
       <div className="flex flex-col gap-5 text-white">
         {videoData ? (
           <Player
@@ -214,6 +214,8 @@ const VideoDetails = () => {
               {/*Forwar and backward buttons  */}
               <ReplayControl seconds={10} order={1.1} />
               <ForwardControl seconds={30} order={1.2} />
+
+              <PlayToggle/>
 
               {/* Current display time */}
               <CurrentTimeDisplay order={4.1} />

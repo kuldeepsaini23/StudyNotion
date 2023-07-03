@@ -1,5 +1,6 @@
-Bugs --> Video Page scroll\
-          If I click to go on instructor page going at down arrow
-          
+Bugs --> Review Slider css
+--> Scroll of view course page
+
+
 
 Photo/Video --> cloudinary delete after course delete

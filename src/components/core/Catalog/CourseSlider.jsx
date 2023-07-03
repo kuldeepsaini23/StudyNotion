@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
-import SwiperCore, { Autoplay, FreeMode } from 'swiper';
+import SwiperCore, { Autoplay, FreeMode, Pagination } from 'swiper';
 import CatalogCourseCard from './CatalogCourseCard'
 
 SwiperCore.use([Autoplay]);
@@ -14,19 +14,18 @@ const CourseSlider = ({ Courses }) => {
       {Courses?.length ? (
         <Swiper
           slidesPerView={1}
+          spaceBetween={25}
           loop={true}
-          spaceBetween={50}
-          freeMode={true}
           autoplay={{
             delay: 2500,
-            disableOnInteraction: false,
           }}
-          modules={[FreeMode, Autoplay]}
+          modules={[FreeMode, Pagination, Autoplay]}
           breakpoints={{
-            1024: { slidesPerView: 3 },
-            loop: true,
+            1024: {
+              slidesPerView: 3,
+            },
           }}
-          className='mySwiper'
+          className='max-h-[30rem]'
         >
           {Courses?.map((course, index) => {
             return (
@@ -37,7 +36,7 @@ const CourseSlider = ({ Courses }) => {
           })}
         </Swiper>
       ) : (
-        <p className='text-lg text-richblack-5 font-medium'>No Courses Found</p>
+        <p className='text-xl text-richblack-5 font-medium'>No Courses Found</p>
       )}
     </>
   );

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ACCOUNT_TYPE } from "../../../../utils/constants";
 import IconBtn from "../../../common/IconBtn";
 
 const RequestAccount = () => {
-  const { token } = useSelector((state) => state.auth);
+  // const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const navigate = useNavigate();
 

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import ReactStars from "react-rating-stars-component";
 import IconBtn from '../../common/IconBtn';
 import { createRating } from '../../../services/operations/courseDetailsAPI';
+import {AiOutlineCloseCircle} from "react-icons/ai"
 
 const CourseReviewModal = ({setReviewModal}) => {
 
@@ -41,7 +42,7 @@ const CourseReviewModal = ({setReviewModal}) => {
         <div className='flex items-center justify-between rounded-t-lg bg-richblack-700 p-5'>
           <p className='text-xl font-semibold text-richblack-5'>Add Review</p>
           <button onClick={()=>setReviewModal(false)}>
-            Close
+            <AiOutlineCloseCircle className='text-3xl text-richblack-5'/>
           </button>
         </div>
 
@@ -90,7 +91,7 @@ const CourseReviewModal = ({setReviewModal}) => {
                 Cancel
               </button>
 
-              <IconBtn text="save" type="submit"/>
+              <IconBtn text="Save" type="submit"/>
             </div>
 
           </form>

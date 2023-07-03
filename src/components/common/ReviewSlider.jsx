@@ -22,7 +22,7 @@ const ReviewSlider = ({ reviews }) => {
             delay: 2500,
           }}
           modules={[FreeMode, Autoplay, Pagination, Navigation]}
-          className="w-[900px]"
+          className="w-[1000px]"
         >
           {reviews?.map((review, index) => (
             <SwiperSlide
@@ -53,7 +53,7 @@ const ReviewSlider = ({ reviews }) => {
                       .split(" ")
                       .slice(0, truncateWords)
                       .join(" ")}...`
-                  : review.review}
+                  : `${review.review}`}
               </p>
 
               {/* rating and stars */}

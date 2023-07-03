@@ -121,6 +121,7 @@ function CourseDetails() {
     instructor,
     studentsEnrolled,
     createdAt,
+    language,
   } = response.data?.courseDetails;
 
   const handleBuyCourse = () => {
@@ -195,7 +196,7 @@ function CourseDetails() {
                 </p>
                 <p className="flex items-center gap-2">
                   {" "}
-                  <HiOutlineGlobeAlt /> English/Hindi
+                  <HiOutlineGlobeAlt /> {language}
                 </p>
               </div>
             </div>
@@ -281,8 +282,13 @@ function CourseDetails() {
                 />
                 <button
                   className="text-lg hover:underline text-caribbeangreen-200"
-                  onClick={() => navigate(`/instructor/${instructor._id}`)}
-                >{`${instructor.firstName} ${instructor.lastName}`}</button>
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    navigate(`/instructor/${instructor._id}`);
+                  }}
+                >
+                  {`${instructor.firstName} ${instructor.lastName}`}
+                </button>
               </div>
               <p className="text-richblack-50">
                 {instructor?.additionalDetails?.about}
@@ -299,7 +305,13 @@ function CourseDetails() {
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
-          <ReviewSlider reviews={reviews} />
+          {
+            avgReviewCount ? (<ReviewSlider reviews={reviews} />) : (
+              <div className="w-full mx-auto">
+                <p className="text-center mt-10 text-3xl text-caribbeangreen-200">No Reviews Till Now</p>
+              </div>
+            )
+          }
         </div>
 
         {/* Other courses from instructor */}

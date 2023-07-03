@@ -53,6 +53,7 @@ export default function CourseInformationForm() {
       setValue("courseCategory", course.category)
       setValue("courseRequirements", course.instructions)
       setValue("courseImage", course.thumbnail)
+      setValue("courseLanguage", course.courseLanguage)
     }
     getCategories()
 
@@ -71,7 +72,8 @@ export default function CourseInformationForm() {
       currentValues.courseCategory._id !== course.category._id ||
       currentValues.courseRequirements.toString() !==
         course.instructions.toString() ||
-      currentValues.courseImage !== course.thumbnail
+      currentValues.courseImage !== course.thumbnail ||
+      currentValues.courseLanguage !== course.courseLanguage
     ) {
       return true
     }
@@ -122,6 +124,10 @@ export default function CourseInformationForm() {
         if (currentValues.courseImage !== course.thumbnail) {
           formData.append("thumbnailImage", data.courseImage)
         }
+
+        if(currentValues.courseLanguage !== course.courseLanguage){
+          formData.append("courseLanguage", data.courseLanguage)
+        }
         // console.log("Edit Form data: ", formData)
         setLoading(true)
         const result = await editCourseDetails(formData, token)
@@ -146,6 +152,7 @@ export default function CourseInformationForm() {
     formData.append("status", COURSE_STATUS.DRAFT)
     formData.append("instructions", JSON.stringify(data.courseRequirements))
     formData.append("thumbnailImage", data.courseImage)
+    formData.append("courseLanguage", data.courseLanguage)
     setLoading(true)
     const result = await addCourseDetails(formData, token)
     if (result) {
@@ -247,6 +254,25 @@ export default function CourseInformationForm() {
           </span>
         )}
       </div>
+
+      {/* Course language */}
+      <div className="flex flex-col space-y-2">
+        <label className="text-sm text-richblack-5" htmlFor="courseLanguage">
+          Course Language(ex: English/Hindi) <sup className="text-pink-200">*</sup>
+        </label>
+        <input
+          id="courseLanguage"
+          placeholder="Enter Course Language"
+          {...register("courseLanguage", { required: true })}
+          className="form-style w-full"
+        />
+        {errors.courseLanguage && (
+          <span className="ml-2 text-xs tracking-wide text-pink-200">
+            Course Language is required
+          </span>
+        )}
+      </div>
+
       {/* Course Tags */}
       <ChipInput
         label="Tags"
