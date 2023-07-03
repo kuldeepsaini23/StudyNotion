@@ -34,21 +34,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import { useRef } from "react";
-import { Analytics } from '@vercel/analytics/react';
 import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instructor";
 
 
 function App() {
   const { user } = useSelector((state) => state.profile);
-  const analytics = Analytics('prj_TaKIr87BLPlKKalmlGxY5nVEhBiY');
-
-
-useEffect(() => {
-  analytics.page();
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
-
 
   // const navigate = useNavigate();
   // const location = useLocation();
@@ -228,7 +218,6 @@ useEffect(() => {
         </Route>
       </Routes>
       <ToastContainer/>
-
     </div>
   );
 }
