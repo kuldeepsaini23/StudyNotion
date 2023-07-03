@@ -11,7 +11,7 @@ const ReviewSlider = ({ reviews }) => {
   const truncateWords = 20;
 
   return (
-    <div className="text-white">
+    <div className="text-white w-full">
       <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
           slidesPerView={4}
@@ -22,7 +22,7 @@ const ReviewSlider = ({ reviews }) => {
             delay: 2500,
           }}
           modules={[FreeMode, Autoplay, Pagination, Navigation]}
-          className="w-[1000px]"
+          className="w-full"
         >
           {reviews?.map((review, index) => (
             <SwiperSlide

@@ -17,6 +17,7 @@ import {
 } from "video-react";
 // import "~video-react/styles/scss/video-react";
 import IconBtn from "../../common/IconBtn";
+import { MediaOutlet, MediaPlayer } from "@vidstack/react";
 // import {AiOutlinePlayCircle} from "react-icons/ai"
 
 const VideoDetails = () => {
@@ -199,8 +200,8 @@ const VideoDetails = () => {
 
   return (
     <div className="mx-6">
-      <div className="flex flex-col gap-5 text-white">
-        {videoData ? (
+      {videoData ? (
+        <div className="flex flex-col gap-5 text-white">
           <Player
             ref={playerRef}
             aspectRatio="16:9"
@@ -215,7 +216,7 @@ const VideoDetails = () => {
               <ReplayControl seconds={10} order={1.1} />
               <ForwardControl seconds={30} order={1.2} />
 
-              <PlayToggle/>
+              <PlayToggle />
 
               {/* Current display time */}
               <CurrentTimeDisplay order={4.1} />
@@ -224,7 +225,10 @@ const VideoDetails = () => {
               <TimeDivider order={4.2} />
 
               {/* Speed of the Video */}
-              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+              <PlaybackRateMenuButton
+                rates={[0.75, 1, 1.25, 1.5,1.75,2]}
+                order={7.1}
+              />
 
               {/* volume */}
               <VolumeMenuButton />
@@ -291,17 +295,17 @@ const VideoDetails = () => {
               </div>
             )}
           </Player>
-        ) : (
-          <div className="p-8 w-1/2 mx-auto mt-10 flex justify-center items-center border-[1px] border-richblack-5 rounded-xl">
-            <p className="mt-5 text-3xl font-semibold text-center">
-              No Data Found
-            </p>
-          </div>
-        )}
 
-        <h1 className="mt-5 text-3xl font-semibold">{videoData?.title}</h1>
-        <p className="pt-2 pb-6">{videoData?.description}</p>
-      </div>
+          <h1 className="mt-5 text-3xl font-semibold">{videoData?.title}</h1>
+          <p className="pt-2 pb-6">{videoData?.description}</p>
+        </div>
+      ) : (
+        <div className="p-8 w-1/2 mx-auto mt-10 flex justify-center items-center border-[1px] border-richblack-5 rounded-xl">
+          <p className="mt-5 text-3xl font-semibold text-center">
+            No Data Found
+          </p>
+        </div>
+      )}
     </div>
   );
 };
