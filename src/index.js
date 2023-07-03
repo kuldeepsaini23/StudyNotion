@@ -7,7 +7,7 @@ import {Provider}  from "react-redux";
 import rootReducer from "./reducer"
 import { configureStore } from "@reduxjs/toolkit";
 import { Toaster } from "react-hot-toast";
-import { Analytics } from '@vercel/analytics/react';
+import { inject } from '@vercel/analytics';
 
 const store = configureStore({
   reducer: rootReducer,
@@ -20,7 +20,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
-        <Analytics/>
+        inject(); 
         <Toaster/>
       </BrowserRouter>
     </Provider>

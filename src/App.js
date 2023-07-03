@@ -34,6 +34,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import { useRef } from "react";
+import { inject } from "@vercel/analytics/*";
 import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instructor";
 
 
@@ -218,6 +219,7 @@ function App() {
         </Route>
       </Routes>
       <ToastContainer/>
+      inject();
     </div>
   );
 }
