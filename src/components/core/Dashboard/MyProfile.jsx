@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import IconBtn from "../../common/IconBtn";
 import { RiEditBoxLine } from "react-icons/ri";
 import { formattedDate } from "../../../utils/dateFormatter";
+import { ACCOUNT_TYPE } from "../../../utils/constants";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
@@ -64,17 +65,9 @@ const MyProfile = () => {
           {user?.additionalDetails?.about || "Write Something about yourself"}
         </p>
 
-        {user?.socials.length > 0 && (
-          <div className="flex w-full flex-col gap-y-5">
-            <p className="text-lg font-semibold text-richblack-5">Socials</p>
-            <p className="text-richblack-400 text-sm font-medium">
-              {"Write Something about yourself"}
-            </p>
-          </div>
-        )}
-
         <p className="text-lg text-richblack-5">
-          Account Type: <span className=" font-semibold">{user?.accountType}</span>
+          Account Type:{" "}
+          <span className=" font-semibold">{user?.accountType}</span>
         </p>
       </div>
 
@@ -153,6 +146,51 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+
+      {/* Section 4 Social Media */}
+      {user.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+        <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+          {/* Left part */}
+          <div className="flex w-full items-center justify-between">
+            <p className="text-lg font-semibold text-richblack-5">
+              Social Media Details
+            </p>
+            {/* Right part button */}
+            <IconBtn
+              text="Edit"
+              onclick={() => {
+                navigate("/dashboard/settings");
+              }}
+            >
+              <RiEditBoxLine />
+            </IconBtn>
+          </div>
+
+          <div className="flex max-w-[500px] justify-between">
+            {/* left part */}
+            <div className="flex flex-col gap-y-5">
+              {/* Platform  */}
+              <div>
+                <p className="mb-2 text-sm text-richblack-600">Platform</p>
+                <p className="text-sm font-medium text-richblack-5">
+                  {user?.firstName}
+                </p>
+              </div>
+            </div>
+
+            {/* Right part */}
+            <div className="flex flex-col gap-y-5">
+              {/* Last Name*/}
+              <div>
+                <p className="mb-2 text-sm text-richblack-600">Link</p>
+                <p className="text-sm font-medium text-richblack-5">
+                  {user?.lastName}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

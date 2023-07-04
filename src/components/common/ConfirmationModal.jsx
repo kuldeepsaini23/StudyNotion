@@ -4,7 +4,7 @@ import IconBtn from "./IconBtn";
 const ConfirmationModal = ({ modalData }) => {
   // console.log(modalData)
   return (
-    <div className="fixed inset-0 z-[1000] !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm" onClick={modalData?.btn2Handler} >
+    <div className="fixed inset-0 z-[1000] !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm" >
       <div className="w-11/12 max-w-[350px] rounded-lg border border-richblack-400 bg-richblack-800 p-6">
         {/* heading */}
         <p className="text-2xl font-semibold text-richblack-5">{modalData.text1}</p>

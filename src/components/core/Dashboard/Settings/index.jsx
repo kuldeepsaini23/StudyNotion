@@ -3,8 +3,12 @@ import DeleteAccount from "./DeleteAccount";
 import EditProfile from "./EditProfile";
 import UpdatePassword from "./UpdatePassword";
 import RequestAccount from "./RequestAccount";
+import SocialMedia from "./SocialMedia";
+import { ACCOUNT_TYPE } from "../../../../utils/constants";
+import { useSelector } from "react-redux";
 
 export default function Settings() {
+  const { user } = useSelector((state) => state.profile);
   return (
     <>
       <h1 className="mb-14 text-3xl font-medium text-richblack-5">
@@ -16,6 +20,10 @@ export default function Settings() {
       <EditProfile />
       {/* Request Account */}
       <RequestAccount />
+
+      {/*Social Media only for instructor  */}
+      {user.accountType === ACCOUNT_TYPE.INSTRUCTOR && <SocialMedia />}
+
       {/* Password */}
       <UpdatePassword />
       {/* Delete Account */}

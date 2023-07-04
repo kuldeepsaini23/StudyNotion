@@ -1,6 +1,5 @@
-Bugs --> Review Slider css
---> Scroll of view course page
+Bugs --> 
 
-
+Add socials in Instructor page
 
 Photo/Video --> cloudinary delete after course delete
