@@ -18,8 +18,10 @@ export default function Settings() {
       <ChangeProfilePicture />
       {/* Profile */}
       <EditProfile />
+
       {/* Request Account */}
-      <RequestAccount />
+      {/* {user.accountType === ACCOUNT_TYPE.STUDENT && <RequestAccount/>} */}
+  
 
       {/*Social Media only for instructor  */}
       {user.accountType === ACCOUNT_TYPE.INSTRUCTOR && <SocialMedia />}

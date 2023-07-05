@@ -1,4 +1,4 @@
-Bugs --> 
+Bugs --> instructor profile showing 2 reviews but we have only AiOutlineCloseCircle
 
 Add socials in Instructor page
 

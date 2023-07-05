@@ -301,7 +301,7 @@ function CourseDetails() {
       {/* Section 3 */}
       <div className="w-full flex flex-col gap-5 mb-10 text-richblack-5">
         {/* Reviews from student for this course */}
-        <div id="reviews">
+        <div id="reviews" className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
@@ -319,7 +319,7 @@ function CourseDetails() {
           <h2 className="text-center text-4xl font-semibold mt-4">
             More Courses by {`${instructor.firstName} ${instructor.lastName}`}
           </h2>
-          <div className="py-8">
+          <div className="py-8 w-11/12">
             {otherCourses?.length > 0 && (
               <CourseSlider Courses={otherCourses} />
             )}

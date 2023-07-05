@@ -38,12 +38,10 @@ const RequestAccount = () => {
                 <p className="text-lg text-richblack-100">
                   Wanna Switch Account Type to{" "}
                   <span className="text-richblack-5 font-semibold">
-                    {user.accountType === ACCOUNT_TYPE.STUDENT
-                      ? "Instructor ?"
-                      : "Student ? "
-                    }
+                    Instructor?
                   </span>
                 </p>
+                <p className="text-lg text-pink-200">Note: If you Switch the Account then you will </p>
               </div>
               <div className="flex justify-start gap-2 mt-3">
                 <button

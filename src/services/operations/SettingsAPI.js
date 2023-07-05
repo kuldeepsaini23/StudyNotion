@@ -4,11 +4,15 @@ import { apiConnector } from "../apiconnector"
 import { settingsEndpoints } from "../apis"
 import { logout } from "./authAPI"
 
+
 const {
   UPDATE_DISPLAY_PICTURE_API,
   UPDATE_PROFILE_API,
   CHANGE_PASSWORD_API,
   DELETE_PROFILE_API,
+  CREATE_SOCIAL_API,
+  UPDATE_SOCIAL_API,
+  DELETE_SOCIAL_API
 } = settingsEndpoints
 
 export function updateDisplayPicture(token, formData) {
@@ -111,4 +115,92 @@ export function deleteProfile(token, navigate) {
     toast.dismiss(toastId)
   }
 }
+//  **************************************************************************************************
+// Writing Apis Call for Social Media For Instructor
+//  **************************************************************************************************
+export function createSocial(token, formData) {
+  let result = false;
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...")
+    try {
+      const response = await apiConnector("POST", CREATE_SOCIAL_API, formData, {
+        Authorization: `Bearer ${token}`,
+      })
+      console.log("CREATE_SOCIAL_API API RESPONSE............", response)
 
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+        dispatch(
+          setUser({ ...response.data.data})
+        )
+      localStorage.setItem("user", JSON.stringify(response.data.data))
+      result = true
+
+      toast.success("Social Created Successfully")
+    } catch (error) {
+      console.log("CREATE_SOCIAL_API API ERROR............", error)
+      toast.error("Something Went Wrong")
+    }
+    toast.dismiss(toastId)
+    return result;
+  }
+}
+
+export function updateSocial(data, token) {
+  let result = false;
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...")
+    try {
+      const response = await apiConnector("PUT", UPDATE_SOCIAL_API, data, {
+        Authorization: `Bearer ${token}`,
+      })
+      console.log("UPDATE_SOCIAL_API API RESPONSE............", response)
+
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+        dispatch(
+          setUser({ ...response.data.data})
+        )
+      localStorage.setItem("user", JSON.stringify(response.data.data))
+      result = true
+
+      toast.success("Social Updated Successfully")
+    } catch (error) {
+      console.log("UPDATE_SOCIAL_API API ERROR............", error)
+      toast.error("Something Went Wrong")
+    }
+    toast.dismiss(toastId)
+    return result;
+  }
+}
+
+
+export function deleteSocial(token, data) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...")
+    try {
+      const response = await apiConnector("POST", DELETE_SOCIAL_API,data, {
+        Authorization: `Bearer ${token}`,
+      })
+      console.log("DELETE_SOCIAL_API API RESPONSE............", response)
+
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+        dispatch(
+          setUser({ ...response.data.data})
+        )
+      localStorage.setItem("user", JSON.stringify(response.data.data))
+   
+
+      toast.success("Social Deleted Successfully")
+    } catch (error) {
+      console.log("DELETE_SOCIAL_API API ERROR............", error)
+      toast.error("Something Went Wrong")
+    }
+    toast.dismiss(toastId)
+  
+  }
+}

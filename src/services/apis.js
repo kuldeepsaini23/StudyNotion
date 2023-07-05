@@ -71,6 +71,9 @@ export const settingsEndpoints = {
   UPDATE_PROFILE_API: BASE_URL + "/profile/updateProfile",
   CHANGE_PASSWORD_API: BASE_URL + "/auth/changepassword",
   DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
+  CREATE_SOCIAL_API: BASE_URL + "/profile/createSocial",
+  UPDATE_SOCIAL_API: BASE_URL + "/profile/updateSocial",
+  DELETE_SOCIAL_API: BASE_URL + "/profile/deleteSocial",
 };
 
 // *CONTACT-US API(Maine Kiya hh ye)

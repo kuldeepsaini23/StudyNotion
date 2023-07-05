@@ -18,7 +18,7 @@ import Setting from "./components/core/Dashboard/Settings";
 import EnrolledCourses from "./components/core/Dashboard/Student/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Student/Cart";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MyCourses from "./components/core/Dashboard/Instructor/MyCourse/MyCourses";
 import AddCourse from "./components/core/Dashboard/Instructor/AddCourse";
 import EditCourse from "./components/core/Dashboard/Instructor/EditCourse";
@@ -30,17 +30,25 @@ import InstructorProfile from "./pages/InstructorProfile";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import AllUsers from "./components/core/Dashboard/Admin/AllUsers/Index";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import { useRef } from "react";
 import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instructor";
+import { logout } from "./services/operations/authAPI";
+import { toast } from "react-hot-toast";
 
 
 function App() {
   const { user } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate();
+  setTimeout(()=>{ 
+    dispatch(logout(navigate));
+    toast.error("SessionExpired");
+  },3 * 24 * 60 * 60 * 1000)
+
   // const location = useLocation();
   // const intervalRef = useRef(null);
   // const timeoutRef = useRef(null);

@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IconBtn from "../../common/IconBtn";
 import { RiEditBoxLine } from "react-icons/ri";
 import { formattedDate } from "../../../utils/dateFormatter";
 import { ACCOUNT_TYPE } from "../../../utils/constants";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
@@ -20,15 +21,21 @@ const MyProfile = () => {
       <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
         {/* left Part */}
         <div className="flex items-center gap-x-4">
-          <img
-            src={user?.image}
-            alt={`profile-${user?.firstName}`}
-            className="aspect-square rounded-full object-cover w-[78px]"
-          />
+          <Link to={`/instructor/${user._id}`}>
+            <img
+              src={user?.image}
+              alt={`profile-${user?.firstName}`}
+              className="aspect-square rounded-full object-cover w-[78px]"
+            />
+          </Link>
+
           <div className="space-y-1">
-            <p className="text-lg font-semibold text-richblack-5">
-              {user?.firstName + " " + user?.lastName}
-            </p>
+            <Link to={`/instructor/${user._id}`}>
+              <p className="text-lg font-semibold text-richblack-5 hover:underline hover:text-caribbeangreen-300">
+                {user?.firstName + " " + user?.lastName}
+              </p>
+            </Link>
+
             <p className="text-lg font-semibold text-richblack-5">
               {user?.email}
             </p>
@@ -148,6 +155,7 @@ const MyProfile = () => {
       </div>
 
       {/* Section 4 Social Media */}
+
       {user.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
         <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
           {/* Left part */}
@@ -157,12 +165,16 @@ const MyProfile = () => {
             </p>
             {/* Right part button */}
             <IconBtn
-              text="Edit"
+              text={user?.socials.length > 0 ? "Edit" : "Add"}
               onclick={() => {
                 navigate("/dashboard/settings");
               }}
             >
-              <RiEditBoxLine />
+              {user?.socials.length > 0 ? (
+                <RiEditBoxLine />
+              ) : (
+                <AiOutlinePlusCircle />
+              )}
             </IconBtn>
           </div>
 
@@ -172,9 +184,13 @@ const MyProfile = () => {
               {/* Platform  */}
               <div>
                 <p className="mb-2 text-sm text-richblack-600">Platform</p>
-                <p className="text-sm font-medium text-richblack-5">
-                  {user?.firstName}
-                </p>
+                <div className="flex flex-col gap-6">
+                  {user?.socials.map((social, i) => (
+                    <p className="text-sm font-medium text-richblack-5" key={i}>
+                      {social.name}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -183,9 +199,13 @@ const MyProfile = () => {
               {/* Last Name*/}
               <div>
                 <p className="mb-2 text-sm text-richblack-600">Link</p>
-                <p className="text-sm font-medium text-richblack-5">
-                  {user?.lastName}
-                </p>
+                <div className="flex flex-col gap-6">
+                  {user?.socials.map((social, i) => (
+                    <p className="text-sm font-medium text-richblack-5" key={i}>
+                      {social.link}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

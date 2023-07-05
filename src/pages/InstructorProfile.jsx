@@ -7,6 +7,9 @@ import { Link, useParams } from "react-router-dom";
 import CourseSlider from "../components/core/Catalog/CourseSlider";
 import Footer from "../components/common/Footer";
 import ReviewSlider from "../components/common/ReviewSlider";
+import { useSelector } from "react-redux";
+import { FaGlobe } from "react-icons/fa";
+import * as Icons from "react-icons/fa";
 
 const InstructorProfile = () => {
   const { instructorId } = useParams();
@@ -15,6 +18,8 @@ const InstructorProfile = () => {
   const [toatalEnrolledStudents, setToatalEnrolledStudents] = useState(0);
   const [toatalNoOfReviews, setToatalNoOfReviews] = useState(0);
   const [allInstructorReviews, setAllInstructorReviews] = useState([]);
+
+  const { user } = useSelector((state) => state.profile);
 
   const [loading, setLoading] = useState(false);
 
@@ -114,17 +119,34 @@ const InstructorProfile = () => {
               />
 
               {/* Instruvtor Social media */}
-              <div className="flex flex-col justify-center items-center gap-4">
-                <Link className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded">
-                  Website
-                </Link>
-                <button className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded">
-                  Website
-                </button>
-                <button className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded">
-                  Website
-                </button>
-              </div>
+              {user?.socials.length > 0 && (
+                <div className="flex flex-col justify-center items-center gap-4">
+                  {user?.socials.map((social, i) => {
+                    const iconName =
+                      social.name === "Website"
+                        ? "FaGlobe"
+                        : `Fa${social.name}`;
+                    const Icon = Icons[iconName];
+
+                    return (
+                      <Link
+                        to={social.link}
+                        key={i}
+                        className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded flex gap-3 items-center justify-center"
+                      >
+                        <Icon /> {social.name}
+                      </Link>
+                    );
+                  })}
+
+                  {/* <button className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded">
+                    Website
+                  </button>
+                  <button className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded">
+                    Website
+                  </button> */}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -133,7 +155,10 @@ const InstructorProfile = () => {
       {/* Section 2 */}
       <div className="w-full flex flex-col gap-5 mt-10 mb-5 text-richblack-5">
         {/* Reviews from student for this course */}
-        <div id="reviews">
+        <div
+          id="reviews"
+          className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white"
+        >
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
@@ -145,7 +170,7 @@ const InstructorProfile = () => {
           <h2 className="text-center text-4xl font-semibold mt-4">
             My Courses ({instructorCourses.length})
           </h2>
-          <div className="py-8">
+          <div className="py-8 w-11/12">
             {instructorCourses?.length > 0 && (
               <CourseSlider Courses={instructorCourses} />
             )}
