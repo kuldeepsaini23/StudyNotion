@@ -1,5 +1,6 @@
-Bugs --> instructor profile showing 2 reviews but we have only AiOutlineCloseCircle
-If i delete an course then it is not removing from category
-Instructor --> on clicking delete button of my course delete button didnot mtlb hat tha nhi hh
+Bugs --> 
+Not Now -->instructor profile showing 2 reviews but we have only oen 
+
+
 
 Photo/Video --> cloudinary delete after course delete

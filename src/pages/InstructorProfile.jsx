@@ -8,7 +8,6 @@ import CourseSlider from "../components/core/Catalog/CourseSlider";
 import Footer from "../components/common/Footer";
 import ReviewSlider from "../components/common/ReviewSlider";
 import { useSelector } from "react-redux";
-import { FaGlobe } from "react-icons/fa";
 import * as Icons from "react-icons/fa";
 
 const InstructorProfile = () => {
@@ -60,9 +59,7 @@ const InstructorProfile = () => {
     }
   }, [instructorCourses]);
 
-  if (instructorDetails.accountType !== ACCOUNT_TYPE.INSTRUCTOR) {
-    return <Error />;
-  }
+
 
   if (loading || !instructorDetails) {
     return (
@@ -72,6 +69,11 @@ const InstructorProfile = () => {
     );
   }
 
+  if (instructorDetails.accountType !== ACCOUNT_TYPE.INSTRUCTOR) {
+    return <Error />;
+  }
+
+  // console.log(instructorDetails)
   return (
     <div className="relative">
       {/* Section1 */}
