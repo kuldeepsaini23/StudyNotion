@@ -42,6 +42,7 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
     if (result) {
       setInstructorCourses(result);
     }
+    setConfirmationModal(null)
     setLoading(false);
   };
 
@@ -70,6 +71,7 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
       if (result) {
         setInstructorCourses(result);
       }
+      setConfirmationModal(null)
       setLoading(false);
     }
   };

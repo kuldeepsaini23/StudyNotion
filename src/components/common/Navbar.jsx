@@ -8,7 +8,7 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import ProfileDropDown from "../core/Auth/ProfileDropDown";
 import { apiConnector } from "../../services/apiconnector";
 import { categories } from "../../services/apis";
-import {ACCOUNT_TYPE} from "../../utils/constants"
+import { ACCOUNT_TYPE } from "../../utils/constants";
 
 const Navbar = () => {
   //* Redux hooks
@@ -23,15 +23,21 @@ const Navbar = () => {
 
   //* Api call
   const [subLinks, setSubLinks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchSubLinks = async () => {
-    try {
-      const result = await apiConnector("GET", categories.CATEGORIES_API);
-      // console.log("Printing Data", result);
-      setSubLinks(result?.data?.data);
-    } catch (error) {
-      console.log("could not fetch the category list");
-    }
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await apiConnector("GET", categories.CATEGORIES_API);
+        if (res) {
+          setSubLinks(res.data.data);
+        }
+      } catch (error) {
+        console.log("Could not fetch Categories.", error);
+      }
+      setLoading(false);
+    })();
   };
 
   useEffect(() => {
@@ -43,9 +49,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
-      location.pathname !== "/" ? "bg-richblack-800" : ""
-    } transition-all duration-200`}>
+    <div
+      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
+        location.pathname !== "/" ? "bg-richblack-800" : ""
+      } transition-all duration-200`}
+    >
       <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto">
         {/* image adding */}
         <Link to="/">
@@ -66,26 +74,27 @@ const Navbar = () => {
                     <div className="invisible absolute left-[50%] top-[50%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]">
                       <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
 
-                      {subLinks.length ? (
-                        subLinks?.filter(
-                                (subLink) => subLink?.courses?.length > 0
-                              )?.map((subLinks, index) => {
-                          const courseLink = subLinks.name
-                            .split(" ")
-                            .join("-")
-                            .toLowerCase();
-                          return (
-                            <Link
-                              to={`/catalog/${courseLink}`}
-                              key={index}
-                              className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
-                            >
-                              <p>{subLinks.name}</p>
-                            </Link>
-                          );
-                        })
+                      {loading ? (
+                        <p className="spinner"></p>
+                      ) : subLinks?.length ? (
+                        <>
+                          {subLinks
+                            ?.filter((subLink) => subLink?.courses?.length > 0)
+                            ?.map((subLink, i) => (
+                              <Link
+                                to={`/catalog/${subLink.name
+                                  .split(" ")
+                                  .join("-")
+                                  .toLowerCase()}`}
+                                className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                key={i}
+                              >
+                                <p>{subLink.name}</p>
+                              </Link>
+                            ))}
+                        </>
                       ) : (
-                        <div></div>
+                        <div className="text-center">No Course Found</div>
                       )}
                     </div>
                   </div>
@@ -109,7 +118,7 @@ const Navbar = () => {
 
         {/*login signup and dashboard  */}
         <div className="flex gap-x-4 items-center">
-         {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
+          {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
             <Link to="/dashboard/cart" className="relative">
               <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
               {totalItems > 0 && (
