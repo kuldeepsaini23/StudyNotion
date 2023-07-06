@@ -84,7 +84,7 @@ const CourseTable = ({ instructorCourses, setInstructorCourses }) => {
         <div className="spinner"></div>
       ) : !instructorCourses.length ? (
         <p className="grid h-[10vh] w-full place-content-center text-richblack-5 lg:text-3xl">
-          You have not enrolled in any Course yet
+          You have not Created in any Course yet
         </p>
       ) : (
         <Table className="rounded-xl border border-richblack-800">

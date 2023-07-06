@@ -1,5 +1,4 @@
 Bugs --> instructor profile showing 2 reviews but we have only AiOutlineCloseCircle
-
-Add socials in Instructor page
+If i delete an course then it is not removing from category
 
 Photo/Video --> cloudinary delete after course delete

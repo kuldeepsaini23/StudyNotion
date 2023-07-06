@@ -1,31 +1,34 @@
-import React, { useState } from "react"
-import { useForm } from "react-hook-form"
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { changePassword } from "../../../../services/operations/SettingsAPI"
-import IconBtn from "../../../common/IconBtn"
+import { changePassword } from "../../../../services/operations/SettingsAPI";
+import IconBtn from "../../../common/IconBtn";
 
 const UpdatePassword = () => {
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
-  const [showOldPassword, setShowOldPassword] = useState(false)
-  const [showNewPassword, setShowNewPassword] = useState(false)
-  const {token} = useSelector((state)=>state.auth)
-  const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const { register, handleSubmit, formState: { errors }} = useForm();
+  const submitPasswordForm = async (data) => {
+    // .log("password Data - ", data)
+    try {
+      await changePassword(token, data);
+    } catch (error) {
+      console.log("ERROR MESSAGE - ", error.message);
+    }
+  };
 
-  const submitPasswordForm = async (data)=>{
-   // .log("password Data - ", data)
-   try {
-    await changePassword(token, data)
-  } catch (error) {
-    console.log("ERROR MESSAGE - ", error.message)
-  }
-  }
-
-  return (  
+  return (
     <>
       <form onSubmit={handleSubmit(submitPasswordForm)}>
         <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
@@ -41,7 +44,11 @@ const UpdatePassword = () => {
                 id="oldPassword"
                 placeholder="Enter Current Password"
                 className="form-style"
-                {...register("oldPassword", { required: true })}
+                {...register("oldPassword", {
+                  required: true,
+                  pattern:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$ /,
+                })}
               />
               <span
                 onClick={() => setShowOldPassword((prev) => !prev)}
@@ -69,7 +76,11 @@ const UpdatePassword = () => {
                 id="newPassword"
                 placeholder="Enter New Password"
                 className="form-style"
-                {...register("newPassword", { required: true })}
+                {...register("newPassword", {
+                  required: true,
+                  pattern:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$ /,
+                })}
               />
               <span
                 onClick={() => setShowNewPassword((prev) => !prev)}
@@ -92,7 +103,7 @@ const UpdatePassword = () => {
         <div className="flex justify-end gap-2">
           <button
             onClick={() => {
-              navigate("/dashboard/my-profile")
+              navigate("/dashboard/my-profile");
             }}
             className="cursor-pointer rounded-md bg-richblack-700 py-2 px-5 font-semibold text-richblack-50"
           >
@@ -102,7 +113,7 @@ const UpdatePassword = () => {
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default UpdatePassword
+export default UpdatePassword;

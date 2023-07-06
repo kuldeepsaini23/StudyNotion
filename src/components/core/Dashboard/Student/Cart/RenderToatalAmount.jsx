@@ -28,7 +28,7 @@ const RenderToatalAmount = () => {
       {/* button */}
       <IconBtn
         text="Buy Now"
-        onClick={handleBuyCourse}
+        onclick={handleBuyCourse}
         customClasses={"w-full justify-center"}
       />
 
