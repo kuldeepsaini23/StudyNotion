@@ -27,7 +27,7 @@ const Sidebar = () => {
   return (
     // <div className="lg:inline-block hidden">
     <div>
-      <div className="flex min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] py-10 bg-richblack-800">
+      <div className="hidden md:flex min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] py-10 bg-richblack-800">
         {/* first 3 links */}
         <div className="flex flex-col">
           {sidebarLinks.map((link, index) => {

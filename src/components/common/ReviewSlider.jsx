@@ -14,7 +14,15 @@ const ReviewSlider = ({ reviews }) => {
     <div className="text-white w-full">
       <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
-          slidesPerView={4}
+          slidesPerView={1}
+          breakpoints={{
+            1024: {
+              slidesPerView: 4,
+            },
+            624: {
+              slidesPerView: 2,
+            },
+          }}
           spaceBetween={25}
           loop={true}
           freeMode={true}

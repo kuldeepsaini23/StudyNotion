@@ -8,7 +8,8 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import ProfileDropDown from "../core/Auth/ProfileDropDown";
 import { apiConnector } from "../../services/apiconnector";
 import { categories } from "../../services/apis";
-import {ACCOUNT_TYPE} from "../../utils/constants"
+import { ACCOUNT_TYPE } from "../../utils/constants";
+import NavbarMobile from "./NavbarMobile";
 
 const Navbar = () => {
   //* Redux hooks
@@ -23,22 +24,21 @@ const Navbar = () => {
 
   //* Api call
   const [subLinks, setSubLinks] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const fetchSubLinks = async () => {
-    ;(async () => {
-      setLoading(true)
+    (async () => {
+      setLoading(true);
       try {
-        const res = await apiConnector("GET", categories.CATEGORIES_API)
-        if(res){
-          setSubLinks(res.data.data)
+        const res = await apiConnector("GET", categories.CATEGORIES_API);
+        if (res) {
+          setSubLinks(res.data.data);
         }
-        
       } catch (error) {
-        console.log("Could not fetch Categories.", error)
+        console.log("Could not fetch Categories.", error);
       }
-      setLoading(false)
-    })()
+      setLoading(false);
+    })();
   };
 
   useEffect(() => {
@@ -49,18 +49,31 @@ const Navbar = () => {
     return matchPath({ path: route }, location.pathname);
   };
 
+
+
   return (
-    <div className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
-      location.pathname !== "/" ? "bg-richblack-800" : ""
-    } transition-all duration-200`}>
-      <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto">
+    <div
+      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
+        location.pathname !== "/" ? "bg-richblack-800" : "bg-[#010914]"
+      } transition-all duration-200`}
+    >
+      <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto md:flex-row flex-row-reverse">
         {/* image adding */}
         <Link to="/">
-          <img src={logo} width={160} height={42} loading="lazy" alt="logo" />
+          <img
+            src={logo}
+            width={160}
+            height={42}
+            loading="lazy"
+            alt="logo"
+            className="w-[120px] xs:w-[160px]"
+          />
         </Link>
 
+        {/* Desktop Navbar */}
+
         {/* Main tab */}
-        <nav>
+        <nav className="md:inline-block hidden">
           <ul className="flex gap-x-6 text-richblack-25 hover:cursor-pointer">
             {NavbarLinks.map((link, index) => (
               <li key={index}>
@@ -74,27 +87,25 @@ const Navbar = () => {
                       <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
 
                       {loading ? (
-                          <p className="text-center">Loading...</p>
-                        ) : subLinks?.length ? (
-                          <>
-                            {subLinks
-                              ?.filter(
-                                (subLink) => subLink?.courses?.length > 0
-                              )
-                              ?.map((subLink, i) => (
-                                <Link
-                                  to={`/catalog/${subLink.name
-                                    .split(" ")
-                                    .join("-")
-                                    .toLowerCase()}`}
-                                  className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
-                                  key={i}
-                                >
-                                  <p>{subLink.name}</p>
-                                </Link>
-                              ))}
-                          </>
-                        ) : (
+                        <p className="text-center">Loading...</p>
+                      ) : subLinks?.length ? (
+                        <>
+                          {subLinks
+                            ?.filter((subLink) => subLink?.courses?.length > 0)
+                            ?.map((subLink, i) => (
+                              <Link
+                                to={`/catalog/${subLink.name
+                                  .split(" ")
+                                  .join("-")
+                                  .toLowerCase()}`}
+                                className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                key={i}
+                              >
+                                <p>{subLink.name}</p>
+                              </Link>
+                            ))}
+                        </>
+                      ) : (
                         <div className="text-center">No Course Found</div>
                       )}
                     </div>
@@ -118,8 +129,8 @@ const Navbar = () => {
         </nav>
 
         {/*login signup and dashboard  */}
-        <div className="flex gap-x-4 items-center">
-         {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
+        <div className="md:flex gap-x-4 items-center hidden">
+          {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
             <Link to="/dashboard/cart" className="relative">
               <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
               {totalItems > 0 && (
@@ -146,6 +157,11 @@ const Navbar = () => {
           )}
           {token !== null && <ProfileDropDown />}
         </div>
+
+        {/* Mobile navabr */}
+        <nav className="inline-block md:hidden">
+            <NavbarMobile loading={loading} subLinks={subLinks} matchRoute={matchRoute}/>
+        </nav>
       </div>
     </div>
   );
