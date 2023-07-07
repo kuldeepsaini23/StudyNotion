@@ -1,40 +1,44 @@
-import React from "react"
-import copy from "copy-to-clipboard"
-import { toast } from "react-hot-toast"
-import { BsFillCaretRightFill } from "react-icons/bs"
-import { FaShareSquare } from "react-icons/fa"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import React from "react";
+import copy from "copy-to-clipboard";
+import { toast } from "react-hot-toast";
+import { BsFillCaretRightFill } from "react-icons/bs";
+import { FaBookmark, FaRegBookmark, FaShareSquare } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { addToCart } from "../../../slices/cartSlice"
-import { ACCOUNT_TYPE } from "../../../utils/constants"
+import { addToCart } from "../../../slices/cartSlice";
+import { ACCOUNT_TYPE } from "../../../utils/constants";
+import { useState } from "react";
+import { addToWishlist } from "../../../slices/wishlistSlice";
 
 
 function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
-  const { user } = useSelector((state) => state.profile)
-  const { token } = useSelector((state) => state.auth)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.profile);
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [bookmark, setBookmark] = useState(false);
 
   const {
     thumbnail: ThumbnailImage,
     price: CurrentPrice,
     // _id: courseId,
-  } = course
+  } = course;
 
   const handleShare = () => {
-    copy(window.location.href)
-    toast.success("Link copied to clipboard")
-  }
+    copy(window.location.href);
+    toast.success("Link copied to clipboard");
+  };
 
   const handleAddToCart = () => {
     if (user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR) {
-      toast.error("You are an Instructor. You can't buy a course.")
-      return
+      toast.error("You are an Instructor. You can't buy a course.");
+      return;
     }
     if (token) {
-      dispatch(addToCart(course))
-      return
+      dispatch(addToCart(course));
+      return;
     }
     setConfirmationModal({
       text1: "You are not logged in!",
@@ -43,9 +47,28 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
       btn2Text: "Cancel",
       btn1Handler: () => navigate("/login"),
       btn2Handler: () => setConfirmationModal(null),
-    })
-  }
+    });
+  };
 
+  const handleAddToWishlist = () => {
+    if (user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR) {
+      toast.error("You are an Instructor. You can't buy a course.");
+      return;
+    }
+    if (token) {
+      dispatch(addToWishlist(course));
+      setBookmark(true);
+      return;
+    }
+    setConfirmationModal({
+      text1: "You are not logged in!",
+      text2: "Please login to add To Cart",
+      btn1Text: "Login",
+      btn2Text: "Cancel",
+      btn1Handler: () => navigate("/login"),
+      btn2Handler: () => setConfirmationModal(null),
+    });
+  };
   // console.log("Student already enrolled ", course?.studentsEnroled, user?._id)
 
   return (
@@ -61,8 +84,17 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
         />
 
         <div className="px-4">
-          <div className="space-x-3 pb-4 text-3xl font-semibold">
+          <div className="space-x-3 pb-4 text-3xl font-semibold flex justify-between items-center">
             Rs. {CurrentPrice}
+            <button onClick={handleAddToWishlist}>
+              {user && course?.studentsEnrolled.includes(user?._id) ? (
+                <></>
+              ) : bookmark ? (
+                <FaBookmark className="text-caribbeangreen-200" />
+              ) : (
+                <FaRegBookmark style={{ color: "#05BF8E" }} />
+              )}
+            </button>
           </div>
           <div className="flex flex-col gap-4">
             <button
@@ -100,7 +132,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
                     <BsFillCaretRightFill />
                     <span className="max-w-[306px]">{item}</span>
                   </p>
-                )
+                );
               })}
             </div>
           </div>
@@ -115,7 +147,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default CourseDetailsCard
+export default CourseDetailsCard;

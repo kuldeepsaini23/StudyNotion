@@ -36,11 +36,18 @@ export const sidebarLinks = [
   },
   {
     id: 6,
-    name: "Purchase History",
-    path: "/dashboard/purchase-history",
+    name: "Wishlist",
+    path: "/dashboard/bookmarked-courses",
     type: ACCOUNT_TYPE.STUDENT,
-    icon: "VscHistory",
+    icon: "VscBookmark",
   },
+  // {
+  //   id: 6,
+  //   name: "Purchase History",
+  //   path: "/dashboard/purchase-history",
+  //   type: ACCOUNT_TYPE.STUDENT,
+  //   icon: "VscHistory",
+  // },
   //! For admin
   {
     id: 7,

@@ -4,16 +4,16 @@ import ReactStars from "react-rating-stars-component";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaStar } from "react-icons/fa";
 import GetAvgRating from "../../../../../utils/avgRating";
-import { removeFromCart } from "../../../../../slices/cartSlice";
-import {addToWishlist} from "../../../../../slices/wishlistSlice"
+import { removeFromWishlist } from "../../../../../slices/wishlistSlice";
+import { addToCart } from "../../../../../slices/cartSlice";
 
-const RenderCartCourse = () => {
-  const { cart } = useSelector((state) => state.cart);
+const RenderWishlistCourse = () => {
+  const { wishlist } = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
 
   return (
     <div className="flex flex-1 flex-col">
-      {cart.map((course, index) => {
+      {wishlist.map((course, index) => {
         const count = GetAvgRating(course?.ratingAndReviews);
         const avgReviewCount = count;
 
@@ -21,7 +21,7 @@ const RenderCartCourse = () => {
           <div
             key={index}
             className={`flex w-full flex-wrap items-start justify-between gap-6 ${
-              index !== cart.length - 1 &&
+              index !== wishlist.length - 1 &&
               "border-b border-b-richblack-400 pb-6"
             } ${index !== 0 && "mt-6"} `}
           >
@@ -65,8 +65,8 @@ const RenderCartCourse = () => {
             {/* Right Section */}
             <div className="flex flex-col items-end space-y-2">
               <button
-                onClick={() => {dispatch(removeFromCart(course._id))}}
-                className="flex items-center gap-x-1 rounded-md border-b-richblack-600 bg-richblack-700 py-3 px-[12px] text-pink-200"
+                onClick={() => {dispatch(removeFromWishlist(course._id))}}
+                className="flex items-center gap-x-1 rounded-md border border-richblack-600 bg-richblack-700 py-3 px-[12px] text-pink-200"
               >
                 <RiDeleteBinLine />
                 <span>Remove</span>
@@ -76,13 +76,13 @@ const RenderCartCourse = () => {
                 Rs {course?.price}
               </p>
 
-              <button className="text-xl font-medium hover:underline text-caribbeangreen-100"
+              <button className="rounded-md border border-richblack-600 bg-richblack-800 py-3 px-[17px]   text-yellow-50 hover:bg-richblack-200 hover:border-richblack-5 hover:text-richblack-5 hover:font-bold"
                 onClick={()=>{
-                  dispatch(removeFromCart(course._id))
-                  dispatch(addToWishlist(course))
+                  dispatch(removeFromWishlist(course._id))
+                  dispatch(addToCart(course))
                 }}
               >
-                Save for later
+                Add to Cart
               </button>
             </div>
           </div>
@@ -92,4 +92,4 @@ const RenderCartCourse = () => {
   );
 };
 
-export default RenderCartCourse;
+export default RenderWishlistCourse;

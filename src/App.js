@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import Home from "./pages/Home";
@@ -32,12 +32,12 @@ import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import AllUsers from "./components/core/Dashboard/Admin/AllUsers/Index";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from "react";
-import { useRef } from "react";
+// import { useEffect } from "react";
+// import { useRef } from "react";
 import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instructor";
 import { logout } from "./services/operations/authAPI";
 import { toast } from "react-hot-toast";
-
+import BookmarkedCourses from "./components/core/Dashboard/Student/Wishlist/index"
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -140,6 +140,7 @@ function App() {
                 element={<EnrolledCourses />}
               />
               <Route path="dashboard/cart" element={<Cart />} />
+              <Route path="dashboard/bookmarked-courses" element={<BookmarkedCourses/>}/>
             </>
           )}
 

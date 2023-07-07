@@ -49,13 +49,17 @@ const Navbar = () => {
     return matchPath({ path: route }, location.pathname);
   };
 
-
-
   return (
     <div
       className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
-        location.pathname !== "/" ? "bg-richblack-800" : "bg-[#010914]"
-      } transition-all duration-200`}
+        location.pathname !== "/" ? "bg-richblack-800" : "bg-[#000c23]"
+      } transition-all duration-200 ${
+        location.pathname.split("/").includes("dashboard") ||
+        location.pathname.split("/").includes("view-course") || 
+        location.pathname.split("/").includes("courses")
+          ? ""
+          : "fixed top-0 w-screen z-20"
+      }`}
     >
       <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto md:flex-row flex-row-reverse">
         {/* image adding */}
@@ -160,7 +164,11 @@ const Navbar = () => {
 
         {/* Mobile navabr */}
         <nav className="inline-block md:hidden">
-            <NavbarMobile loading={loading} subLinks={subLinks} matchRoute={matchRoute}/>
+          <NavbarMobile
+            loading={loading}
+            subLinks={subLinks}
+            matchRoute={matchRoute}
+          />
         </nav>
       </div>
     </div>
