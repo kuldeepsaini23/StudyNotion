@@ -54,7 +54,7 @@ export default function EnrolledCourses() {
               key={i}
             >
               <div
-                className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
+                className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3 md:flex-row flex-col"
                 onClick={() => {
                   navigate(
                     `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
@@ -64,7 +64,7 @@ export default function EnrolledCourses() {
                 <img
                   src={course.thumbnail}
                   alt="course_img"
-                  className="h-14 w-14 rounded-lg object-cover"
+                  className="md:h-14 md:w-14 rounded-lg object-cover h-[100px] w-[300px]"
                 />
                 <div className="flex max-w-xs flex-col gap-2">
                   <p className="font-semibold">{course.courseName}</p>

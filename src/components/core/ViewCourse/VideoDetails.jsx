@@ -201,7 +201,7 @@ const VideoDetails = () => {
   };
 
   return (
-    <div className="mx-6">
+    <div className="lg:mx-6 lg:mt-0 mt-20 mx-0">
       <div className="flex flex-col gap-5 text-white">
         {!videoData ? (
           <img
@@ -296,8 +296,8 @@ const VideoDetails = () => {
           </Player>
         )}
 
-        <h1 className="mt-4 text-3xl font-semibold">{videoData?.title}</h1>
-        <p className="pt-2 pb-6">{videoData?.description}</p>
+        <h1 className="mt-4 text-3xl font-semibold mx-6 lg:mx-0">{videoData?.title}</h1>
+        <p className="pt-2 pb-6 mx-6 lg:mx-0">{videoData?.description}</p>
       </div>
     </div>
   );

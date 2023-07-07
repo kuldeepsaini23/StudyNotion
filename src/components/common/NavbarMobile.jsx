@@ -160,6 +160,7 @@ const NavbarMobile = ({ loading, subLinks, matchRoute }) => {
                     style={{
                       height: sectionHeight,
                     }}
+                    onClick={handleClick}
                   >
                     {/* first 3 links */}
                     <div className="flex flex-col">
