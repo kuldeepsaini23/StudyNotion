@@ -46,7 +46,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mt-5">
       {/* Section 1 */}
       <section className="relative mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 text-white">
         <Link to={"/signup"}>

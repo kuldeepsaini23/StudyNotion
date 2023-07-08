@@ -173,7 +173,7 @@ function CourseDetails() {
   }
 
   return (
-    <>
+    <div className="mt-10 z-0">
       <div className={`relative w-full bg-richblack-800`}>
         {/* Hero Section */}
         <div className="mx-auto box-content px-4 lg:w-[1260px] 2xl:relative ">
@@ -366,7 +366,7 @@ function CourseDetails() {
       </div>
       <Footer />
       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
-    </>
+    </div>
   );
 }
 

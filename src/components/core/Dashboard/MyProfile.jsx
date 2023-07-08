@@ -6,6 +6,7 @@ import { RiEditBoxLine } from "react-icons/ri";
 import { formattedDate } from "../../../utils/dateFormatter";
 import { ACCOUNT_TYPE } from "../../../utils/constants";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
@@ -18,9 +19,9 @@ const MyProfile = () => {
       </h1>
 
       {/* section 1 */}
-      <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+      <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12 xs:flex-row flex-col-reverse gap-y-8">
         {/* left Part */}
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-4 flex-col sm:flex-row">
           <Link to={`/instructor/${user._id}`}>
             <img
               src={user?.image}
@@ -31,12 +32,12 @@ const MyProfile = () => {
 
           <div className="space-y-1">
             <Link to={`/instructor/${user._id}`}>
-              <p className="text-lg font-semibold text-richblack-5 hover:underline hover:text-caribbeangreen-300">
+              <p className="text-sm xs:text-lg text-center sm:text-left font-semibold text-richblack-5 hover:underline hover:text-caribbeangreen-300">
                 {user?.firstName + " " + user?.lastName}
               </p>
             </Link>
 
-            <p className="text-lg font-semibold text-richblack-5">
+            <p className="text-sm xs:text-lg font-semibold text-richblack-5 text-center sm:text-left">
               {user?.email}
             </p>
           </div>
@@ -56,7 +57,7 @@ const MyProfile = () => {
       {/* section 2 */}
       <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
         {/* left Part */}
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between gap-4 flex-col-reverse xs:flex-row">
           <p className="text-lg font-semibold text-richblack-5">About</p>
           {/* Right part button */}
           <IconBtn
@@ -96,7 +97,7 @@ const MyProfile = () => {
           </IconBtn>
         </div>
 
-        <div className="flex max-w-[500px] justify-between">
+        <div className="flex max-w-[500px] justify-between flex-col xs:flex-row">
           {/* left part */}
           <div className="flex flex-col gap-y-5">
             {/* First name  */}
@@ -157,7 +158,7 @@ const MyProfile = () => {
       {/* Section 4 Social Media */}
 
       {user.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
-        <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 sm:p-8 sm:px-12 px-2 py-2">
           {/* Left part */}
           <div className="flex w-full items-center justify-between">
             <p className="text-lg font-semibold text-richblack-5">
@@ -178,37 +179,32 @@ const MyProfile = () => {
             </IconBtn>
           </div>
 
-          <div className="flex max-w-[500px] justify-between">
-            {/* left part */}
-            <div className="flex flex-col gap-y-5">
-              {/* Platform  */}
-              <div>
-                <p className="mb-2 text-sm text-richblack-600">Platform</p>
-                <div className="flex flex-col gap-6">
-                  {user?.socials.map((social, i) => (
-                    <p className="text-sm font-medium text-richblack-5" key={i}>
-                      {social.name}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </div>
+          
+          {/*Social Links */}
+          <Table>
+            <Thead>
+              <Tr className="flex gap-x-14 px-6 py-2 justify-between">
+                <Th className="text-lg sm:text-sm font-medium text-richblack-600">Platform</Th>
+                <Th className="flex flex-1 text-lg sm:text-sm font-medium text-richblack-600">Link</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {
+                user?.socials.map((social,i)=>(
+                  <Tr key={i} className="flex gap-x-14 px-6 py-3 justify-between !border-richblack-300 sm:border-0">
+                    <Td className="text-base sm:text-sm font-medium text-richblack-5">{social.name}</Td>
+                    <Td className="flex flex-1 text-base sm:text-smfont-medium text-richblack-5">{social.link}</Td>
+                  </Tr>
+                ))
+              }
+            </Tbody>
+          </Table>
+            
+     
 
-            {/* Right part */}
-            <div className="flex flex-col gap-y-5">
-              {/* Last Name*/}
-              <div>
-                <p className="mb-2 text-sm text-richblack-600">Link</p>
-                <div className="flex flex-col gap-6">
-                  {user?.socials.map((social, i) => (
-                    <p className="text-sm font-medium text-richblack-5" key={i}>
-                      {social.link}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+        
+
+         
         </div>
       )}
     </div>

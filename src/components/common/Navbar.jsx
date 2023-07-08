@@ -55,8 +55,8 @@ const Navbar = () => {
         location.pathname !== "/" ? "bg-richblack-800" : "bg-[#000c23]"
       } transition-all duration-200 ${
         location.pathname.split("/").includes("dashboard") ||
-        location.pathname.split("/").includes("view-course") || 
-        location.pathname.split("/").includes("courses")
+        location.pathname.split("/").includes("view-course") 
+        // location.pathname.split("/").includes("courses")
           ? ""
           : "fixed top-0 w-screen z-20"
       }`}

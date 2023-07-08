@@ -32,7 +32,7 @@ const EditProfile = () => {
     <>
     <form onSubmit={handleSubmit(submitProfileForm)}>
       {/* Profile Information */}
-      <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+      <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 xs:p-8 xs:px-12 p-2 px-4">
         <h2 className="text-lg font-semibold text-richblack-5">
           Profile Information
         </h2>

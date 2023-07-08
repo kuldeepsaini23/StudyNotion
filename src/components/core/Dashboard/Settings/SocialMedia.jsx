@@ -112,7 +112,7 @@ const SocialMedia = () => {
 
   return (
     <>
-      <div className="my-10 flex flex-col gap-y-5 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+      <div className="my-10 flex flex-col gap-y-5 rounded-md border-[1px] border-richblack-700 bg-richblack-800 xs:p-8 xs:px-12 p-2 px-4">
         {/* Left part */}
         <div className="flex w-full items-center justify-between">
           <p className="text-lg font-semibold text-richblack-5">
@@ -160,7 +160,7 @@ const SocialMedia = () => {
                       Link
                     </label>
                     <input
-                      type="text"
+                      type="url"
                       name="link"
                       id="link"
                       placeholder="Enter Your link"
@@ -201,15 +201,15 @@ const SocialMedia = () => {
             <Thead>
               <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-800 px-6 py-2 justify-between">
                 {/* 1st grid */}
-                <Th className="text-left text-sm font-medium uppercase text-richblack-100">
+                <Th className="text-left text-xs sm:text-base font-medium uppercase text-richblack-100">
                   Name
                 </Th>
                 {/* 2nd grid */}
-                <Th className="text-left text-sm font-medium uppercase text-richblack-100">
+                <Th className="text-left text-xs sm:text-base font-medium uppercase text-richblack-100">
                   Link
                 </Th>
                 {/* 3rd grid */}
-                <Th className="text-left text-sm font-medium uppercase text-richblack-100">
+                <Th className="text-left text-xs sm:text-base font-medium uppercase text-richblack-100">
                   Actions
                 </Th>
               </Tr>
@@ -222,13 +222,13 @@ const SocialMedia = () => {
                 const Icon = Icons[iconName];
                 return (
                   <Tr className="flex gap-x-10 px-6 py-8 justify-between" key={i}>
-                    <Td className="text-left text-sm font-medium uppercase text-richblack-100">
-                      <Icon className="text-lg text-richblack-5" />
+                    <Td className="text-left text-xs sm:text-sm font-medium uppercase text-richblack-100 sm:border-b-0 sm:my-0 my-5">
+                      <Icon className="text-base sm:text-3xl text-richblack-5" />
                     </Td>
-                    <Td className="text-left text-sm font-medium text-richblack-100 pivoted">
+                    <Td className="text-left text-xs sm:text-base font-medium text-richblack-100 pivoted sm:mb-0 mb-5">
                       {social.link}
                     </Td>
-                    <Td className="text-left text-sm font-medium uppercase text-richblack-100 pivoted">
+                    <Td className="text-left text-xs sm:text-base font-medium uppercase text-richblack-100 pivoted sm:mb-0 mb-5">
                       <button
                          className="px-2 Transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300"
                         onClick={() =>

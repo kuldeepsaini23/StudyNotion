@@ -4,7 +4,7 @@ import { NavbarLinks } from "../../data/navbar-links";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { sidebarLinks } from "../../data/dashboard-links";
-import { AiOutlineDown, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineDownCircle, AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
 import { logout } from "../../services/operations/authAPI";
@@ -154,6 +154,17 @@ const NavbarMobile = ({ loading, subLinks, matchRoute }) => {
                 )}
               </Link>
             )}
+            {token !== null && (
+              <div
+                onClick={() => {
+                  dispatch(logout(navigate));
+                }}
+                className="flex items-center text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25 gap-3 self-start ml-10 font-bold"
+              >
+                <VscSignOut className="text-2xl" />
+                Logout
+              </div>
+            )}
           </div>
           <div className="w-full h-[1.5px] bg-white my-5"></div>
 
@@ -166,10 +177,11 @@ const NavbarMobile = ({ loading, subLinks, matchRoute }) => {
                   className="flex gap-2 items-center"
                   onClick={handleDashboardClick}
                 >
+                  
                   <p className="text-lg text-richblack-5 font-bold mx-3 my-2">
                     Dashboard
                   </p>
-                  <AiOutlineDown
+                  <AiOutlineDownCircle
                     className={`${
                       isDashboardOpen ? "rotate-180" : "rotate-0"
                     } text-lg font-bold text-richblack-5 transition-all duration-1000`}
@@ -219,7 +231,10 @@ const NavbarMobile = ({ loading, subLinks, matchRoute }) => {
                           text1: "Are you Sure ?",
                           text2: "You will be logged out of your account.",
                           btn1Text: "Logout",
-                          btn1Handler: () => dispatch(logout(navigate)),
+                          btn1Handler: () => {
+                            dispatch(logout(navigate));
+                            setConfirmationModal(null);
+                          },
                           btn2Text: "Cancel",
                           btn2Handler: () => setConfirmationModal(null),
                         });
@@ -306,7 +321,7 @@ const NavbarMobile = ({ loading, subLinks, matchRoute }) => {
                         matchRoute(link?.path)
                           ? "text-yellow-25"
                           : "text-richblack-100"
-                      } text-center flex gap-1 justify-center items-stretch`}
+                      } flex gap-1 justify-center items-center`}
                     >
                       {link.icon}
                       {link.title}
