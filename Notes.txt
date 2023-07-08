@@ -1,6 +1,8 @@
-Bugs --> 
+Bugs --> So whats happening is when we give wrong info to signup form and after that it reset every then account goes to student
 Not Now -->instructor profile showing 2 reviews but we have only oen 
 
-
+Return --> new courses / most popular courses
 
 Photo/Video --> cloudinary delete after course delete
+
+Features --> No request button to change account till Now

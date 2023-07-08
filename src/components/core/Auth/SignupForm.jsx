@@ -115,7 +115,7 @@ function SignupForm() {
       password: "",
       confirmPassword: "",
     })
-    setAccountType(ACCOUNT_TYPE.STUDENT)
+    setAccountType(ACCOUNT_TYPE.INSTRUCTOR)
   }
 
   // data to pass to Tab component

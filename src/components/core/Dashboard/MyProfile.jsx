@@ -179,32 +179,34 @@ const MyProfile = () => {
             </IconBtn>
           </div>
 
-          
           {/*Social Links */}
           <Table>
             <Thead>
               <Tr className="flex gap-x-14 px-6 py-2 justify-between">
-                <Th className="text-lg sm:text-sm font-medium text-richblack-600">Platform</Th>
-                <Th className="flex flex-1 text-lg sm:text-sm font-medium text-richblack-600">Link</Th>
+                <Th className="text-lg sm:text-sm font-medium text-richblack-600">
+                  Platform
+                </Th>
+                <Th className="flex flex-1 text-lg sm:text-sm font-medium text-richblack-600">
+                  Link
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
-              {
-                user?.socials.map((social,i)=>(
-                  <Tr key={i} className="flex gap-x-14 px-6 py-3 justify-between !border-richblack-300 sm:border-0">
-                    <Td className="text-base sm:text-sm font-medium text-richblack-5">{social.name}</Td>
-                    <Td className="flex flex-1 text-base sm:text-smfont-medium text-richblack-5">{social.link}</Td>
-                  </Tr>
-                ))
-              }
+              {user?.socials.map((social, i) => (
+                <Tr
+                  key={i}
+                  className="flex gap-x-14 px-6 py-3 justify-between !border-richblack-300 sm:border-0"
+                >
+                  <Td className="text-base sm:text-sm font-medium text-richblack-5">
+                    {social.name}
+                  </Td>
+                  <Td className="flex flex-1 text-base sm:text-smfont-medium text-richblack-5">
+                    {social.link}
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
-            
-     
-
-        
-
-         
         </div>
       )}
     </div>

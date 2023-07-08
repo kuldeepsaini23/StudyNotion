@@ -34,7 +34,7 @@ export function sendOtp(email, navigate) {
       navigate("/verify-email");
     } catch (error) {
       console.log("SENDOTP API ERROR............", error);
-      toast.error(error?.response?.data?.message || "Failed");
+      toast.error(error?.response?.data?.message || "Check Your mail");
     }
     dispatch(setLoading(false));
     toast.dismiss(toastId);
