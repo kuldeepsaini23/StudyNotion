@@ -11,11 +11,12 @@ import InstructorSection from "../components/core/HomePage/InstructorSection";
 import Footer from "../components/common/Footer";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
 import ReviewSlider from "../components/common/ReviewSlider";
-
+import 'react-loading-skeleton/dist/skeleton.css'
 import { apiConnector } from "../services/apiconnector";
 import { ratingsEndpoints } from "../services/apis";
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "../utils/constants";
+import Skeleton from "react-loading-skeleton";
 
 const Home = () => {
   const { user } = useSelector((state) => state.profile);
@@ -219,7 +220,10 @@ const Home = () => {
           Reviews from Other Learners
         </h2>
         {/* Review Slider here */}
-        <ReviewSlider reviews={reviews} />
+
+         <ReviewSlider reviews={reviews} />
+      
+        
       </div>
 
       {/* Footer */}

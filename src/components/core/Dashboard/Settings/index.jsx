@@ -2,7 +2,7 @@ import ChangeProfilePicture from "./ChangeProfilePicture";
 import DeleteAccount from "./DeleteAccount";
 import EditProfile from "./EditProfile";
 import UpdatePassword from "./UpdatePassword";
-import RequestAccount from "./RequestAccount";
+// import RequestAccount from "./RequestAccount";
 import SocialMedia from "./SocialMedia";
 import { ACCOUNT_TYPE } from "../../../../utils/constants";
 import { useSelector } from "react-redux";

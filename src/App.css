@@ -38,7 +38,7 @@ body {
 
 *::-webkit-scrollbar-thumb:hover {
   z-index: 1;
-  background-color: #F1F2FF;
+  background-color: #f1f2ff;
 }
 
 /* Hide default styling of details/summary */
@@ -249,4 +249,48 @@ details > summary::-webkit-details-marker {
 }
 .section_heading {
   @apply text-2xl font-bold text-richblack-5 lg:text-4xl;
+}
+
+/** For search Bar */
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  position: relative;
+  width: 12px;
+  height: 12px;
+  right: 5px;
+   background: linear-gradient(
+      45deg,
+      rgba(247, 247, 247, 0) 0%,
+      rgba(0, 0, 0, 0) 43%,
+      #fff 45%,
+      #fff 55%,
+      rgba(0, 0, 0, 0) 57%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      #fff 45%,
+      #fff 55%,
+      transparent 57%,
+      transparent 100%
+    );
+    opacity: 0;
+  pointer-events: none;
+ 
+}
+
+input[type="search"]:focus::-webkit-search-cancel-button {
+  opacity: 1;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+/* Transition on Display */
+@initial {
+  .btnlogin{
+    opacity: 0;
+  }
 }
