@@ -80,3 +80,8 @@ export const settingsEndpoints = {
 export const contactusEndpoint = {
   CONTACT_US_API: BASE_URL + "/reach/contact",
 };
+
+//* Search APIs
+export const searchEndpoints = {
+  SEARCH_PREDEFINED_RESULT_API: BASE_URL + "/search/getAllCourses"
+}
