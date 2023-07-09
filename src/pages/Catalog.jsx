@@ -61,7 +61,7 @@ const Catalog = () => {
 
 
   return (
-    <div>
+    <div className='mt-14'>
       <div className='box-content bg-richblack-800 px-4'>
         <div className='mx-auto flex min-h-[260px] flex-col justify-center gap-4 max-w-maxContentTab px-4 py-12 lg:max-w-maxContent'>
           {/* Path of page */}

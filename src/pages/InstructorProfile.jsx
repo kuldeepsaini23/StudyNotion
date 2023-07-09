@@ -75,7 +75,7 @@ const InstructorProfile = () => {
 
   // console.log(instructorDetails)
   return (
-    <div className="relative">
+    <div className="relative mt-14">
       {/* Section1 */}
       <div className="w-full bg-richblack-800">
         <div className="grid place-items-center">
