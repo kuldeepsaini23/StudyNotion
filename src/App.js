@@ -38,6 +38,7 @@ import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instruc
 import { logout } from "./services/operations/authAPI";
 import { toast } from "react-hot-toast";
 import BookmarkedCourses from "./components/core/Dashboard/Student/Wishlist/index"
+import Searchpage from "./pages/Searchpage";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -114,6 +115,8 @@ function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="catalog/:catalogName" element={<Catalog />} />
         <Route path="courses/:courseId" element={<CourseDetails />} />
+        <Route path="search/:query" element={<Searchpage />} />
+
         <Route
           path="instructor/:instructorId"
           element={<InstructorProfile />}

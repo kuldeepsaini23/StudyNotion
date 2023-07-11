@@ -48,7 +48,7 @@ const RenderWishlistCourse = () => {
                   {/* stars */}
                   <ReactStars
                     count={5}
-                    value={course?.ratingAndReviews?.length}
+                    value={avgReviewCount || 0}
                     size={20}
                     edit={false}
                     activeColor="#ffd700"
@@ -56,7 +56,7 @@ const RenderWishlistCourse = () => {
                     fullIcon={<FaStar />}
                   />
                   <span className="text-richblack-400">
-                    {course?.ratingAndReviews.legth} Rating
+                    {course?.ratingAndReviews.length} Rating
                   </span>
                 </div>
               </div>

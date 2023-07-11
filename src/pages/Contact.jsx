@@ -35,7 +35,7 @@ const Contact = () => {
 
 
   return (
-    <div>
+    <div className="mt-14">
     
       {/* Section 1 */}
       <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white lg:flex-row">

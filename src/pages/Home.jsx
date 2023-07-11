@@ -16,7 +16,7 @@ import { apiConnector } from "../services/apiconnector";
 import { ratingsEndpoints } from "../services/apis";
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "../utils/constants";
-import Skeleton from "react-loading-skeleton";
+// import Skeleton from "react-loading-skeleton";
 
 const Home = () => {
   const { user } = useSelector((state) => state.profile);

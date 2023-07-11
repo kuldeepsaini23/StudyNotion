@@ -5,7 +5,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { FaStar } from "react-icons/fa";
 import GetAvgRating from "../../../../../utils/avgRating";
 import { removeFromCart } from "../../../../../slices/cartSlice";
-import {addToWishlist} from "../../../../../slices/wishlistSlice"
+import { addToWishlist } from "../../../../../slices/wishlistSlice";
 
 const RenderCartCourse = () => {
   const { cart } = useSelector((state) => state.cart);
@@ -16,6 +16,7 @@ const RenderCartCourse = () => {
       {cart.map((course, index) => {
         const count = GetAvgRating(course?.ratingAndReviews);
         const avgReviewCount = count;
+        console.log(course);
 
         return (
           <div
@@ -48,15 +49,16 @@ const RenderCartCourse = () => {
                   {/* stars */}
                   <ReactStars
                     count={5}
-                    value={course?.ratingAndReviews?.length}
+                    value={avgReviewCount || 0}
                     size={20}
                     edit={false}
                     activeColor="#ffd700"
                     emptyIcon={<FaStar />}
+                    halfIcon={<FaStar />}
                     fullIcon={<FaStar />}
                   />
                   <span className="text-richblack-400">
-                    {course?.ratingAndReviews.legth} Rating
+                    {course?.ratingAndReviews.length} Rating
                   </span>
                 </div>
               </div>
@@ -65,7 +67,9 @@ const RenderCartCourse = () => {
             {/* Right Section */}
             <div className="flex flex-col items-end space-y-2">
               <button
-                onClick={() => {dispatch(removeFromCart(course._id))}}
+                onClick={() => {
+                  dispatch(removeFromCart(course._id));
+                }}
                 className="flex items-center gap-x-1 rounded-md border-b-richblack-600 bg-richblack-700 py-3 px-[12px] text-pink-200"
               >
                 <RiDeleteBinLine />
@@ -76,10 +80,11 @@ const RenderCartCourse = () => {
                 Rs {course?.price}
               </p>
 
-              <button className="text-xl font-medium hover:underline text-caribbeangreen-100"
-                onClick={()=>{
-                  dispatch(removeFromCart(course._id))
-                  dispatch(addToWishlist(course))
+              <button
+                className="text-xl font-medium hover:underline text-caribbeangreen-100"
+                onClick={() => {
+                  dispatch(removeFromCart(course._id));
+                  dispatch(addToWishlist(course));
                 }}
               >
                 Save for later

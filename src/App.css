@@ -258,6 +258,7 @@ input[type="search"]::-webkit-search-cancel-button {
   position: relative;
   width: 12px;
   height: 12px;
+  margin-left: 20px;
   right: 5px;
    background: linear-gradient(
       45deg,
@@ -288,9 +289,3 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
-/* Transition on Display */
-@initial {
-  .btnlogin{
-    opacity: 0;
-  }
-}

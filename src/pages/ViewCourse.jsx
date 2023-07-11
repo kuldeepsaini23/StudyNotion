@@ -40,17 +40,19 @@ const ViewCourse = () => {
   }, [courseId, dispatch, token]);
 
   return (
-    <div className="flex relative min-h-[calc(100vh-14rem)] lg:flex-row flex-col-reverse">
-      {/* Sidebar */}
-      <VideoDetailsSidebar setReviewModal={setReviewModal} />
+    <>
+      <div className="flex relative min-h-[calc(100vh-14rem)] lg:flex-row flex-col-reverse">
+        {/* Sidebar */}
+        <VideoDetailsSidebar setReviewModal={setReviewModal} />
 
-      {/* For Video */}
-      <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
-        <Outlet />
+        {/* For Video */}
+        <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
+          <Outlet />
+        </div>
       </div>
-      <Footer/>
+      <Footer />
       {reviewModal && <CourseReviewModal setReviewModal={setReviewModal} />}
-    </div>
+    </>
   );
 };
 

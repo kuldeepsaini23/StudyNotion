@@ -83,5 +83,7 @@ export const contactusEndpoint = {
 
 //* Search APIs
 export const searchEndpoints = {
-  SEARCH_PREDEFINED_RESULT_API: BASE_URL + "/search/getAllCourses"
+  SEARCH_PREDEFINED_RESULT_API: BASE_URL + "/search/getAllCourses",
+  QUERY_SEARCH_API: BASE_URL + "/search/dropdown",
+  SEARCH_PAGE_API: BASE_URL + "/search"
 }
