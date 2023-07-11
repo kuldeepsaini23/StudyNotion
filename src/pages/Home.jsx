@@ -11,7 +11,7 @@ import InstructorSection from "../components/core/HomePage/InstructorSection";
 import Footer from "../components/common/Footer";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
 import ReviewSlider from "../components/common/ReviewSlider";
-import 'react-loading-skeleton/dist/skeleton.css'
+import "react-loading-skeleton/dist/skeleton.css";
 import { apiConnector } from "../services/apiconnector";
 import { ratingsEndpoints } from "../services/apis";
 import { useSelector } from "react-redux";
@@ -221,9 +221,7 @@ const Home = () => {
         </h2>
         {/* Review Slider here */}
 
-         <ReviewSlider reviews={reviews} />
-      
-        
+        <ReviewSlider reviews={reviews} />
       </div>
 
       {/* Footer */}

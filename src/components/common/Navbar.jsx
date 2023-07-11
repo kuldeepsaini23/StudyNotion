@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { Link, NavLink, useLocation, matchPath } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
@@ -10,6 +10,9 @@ import { apiConnector } from "../../services/apiconnector";
 import { categories } from "../../services/apis";
 import { ACCOUNT_TYPE } from "../../utils/constants";
 import NavbarMobile from "./NavbarMobile";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import SearchMobile from "../core/Search/SearchMobile/SearchMobile";
+import SearchWeb from "../core/Search/SearchWeb/SearchWeb";
 
 const Navbar = () => {
   //* Redux hooks
@@ -25,6 +28,7 @@ const Navbar = () => {
   //* Api call
   const [subLinks, setSubLinks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const fetchSubLinks = async () => {
     (async () => {
@@ -49,35 +53,45 @@ const Navbar = () => {
     return matchPath({ path: route }, location.pathname);
   };
 
+  //Mobile navbar
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+  useOnClickOutside(ref, () => setIsOpen(false));
+
   return (
     <div
       className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
         location.pathname !== "/" ? "bg-richblack-800" : "bg-[#000c23]"
       } transition-all duration-200 ${
         location.pathname.split("/").includes("dashboard") ||
-        location.pathname.split("/").includes("view-course") 
-        // location.pathname.split("/").includes("courses")
-          ? ""
+        location.pathname.split("/").includes("view-course")
+          ? // location.pathname.split("/").includes("courses")
+            ""
           : "fixed top-0 w-screen z-20"
       }`}
     >
-      <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto md:flex-row flex-row-reverse">
-        {/* image adding */}
-        <Link to="/">
-          <img
-            src={logo}
-            width={160}
-            height={42}
-            loading="lazy"
-            alt="logo"
-            className="w-[120px] xs:w-[160px]"
-          />
-        </Link>
+      <div className="flex w-11/12 max-w-maxContent items-center justify-between mx-auto lg:flex-row flex-row-reverse">
+        {/* image adding and search box*/}
+        <div className={`flex items-center gap-2`}>
+          <Link to="/">
+            <img
+              src={logo}
+              width={160}
+              height={42}
+              loading="lazy"
+              alt="logo"
+              className={`transition-[width] duration-1000 ${
+                searchOpen ? "w-0" : "w-[120px] xs:w-[160px]"
+              }`}
+            />
+          </Link>
+          <SearchMobile searchOpen={searchOpen} setSearchOpen={setSearchOpen} subLinks={subLinks}/>
+        </div>
 
         {/* Desktop Navbar */}
 
         {/* Main tab */}
-        <nav className="md:inline-block hidden">
+        <nav className="lg:inline-block hidden">
           <ul className="flex gap-x-6 text-richblack-25 hover:cursor-pointer">
             {NavbarLinks.map((link, index) => (
               <li key={index}>
@@ -133,7 +147,37 @@ const Navbar = () => {
         </nav>
 
         {/*login signup and dashboard  */}
-        <div className="md:flex gap-x-4 items-center hidden">
+        <div className="lg:flex gap-x-4 items-center hidden">
+          {token === null && (
+            <Link to="/login">
+              <button
+                className={`border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] rounded-md text-richblack-5 ${
+                  searchOpen ? "hidden" : "inline-block"
+                }`}
+              >
+                Login
+              </button>
+            </Link>
+          )}
+          {token === null && (
+            <Link to="/signup">
+              <button
+                className={`border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] rounded-md text-richblack-5 ${
+                  searchOpen ? "hidden" : "inline-block"
+                }`}
+              >
+                {/* need to change text color */}
+                Sign Up
+              </button>
+            </Link>
+          )}
+
+          <SearchWeb
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            subLinks={subLinks}
+          />
+
           {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
             <Link to="/dashboard/cart" className="relative">
               <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
@@ -144,30 +188,20 @@ const Navbar = () => {
               )}
             </Link>
           )}
-          {token === null && (
-            <Link to="/login">
-              <button className="border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] rounded-md text-richblack-5">
-                Login
-              </button>
-            </Link>
-          )}
-          {token === null && (
-            <Link to="/signup">
-              <button className="border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] rounded-md text-richblack-5">
-                {/* need to change text color */}
-                Sign Up
-              </button>
-            </Link>
-          )}
           {token !== null && <ProfileDropDown />}
         </div>
 
         {/* Mobile navabr */}
-        <nav className="inline-block md:hidden">
+        <nav
+          className={`inline-block lg:hidden ${searchOpen ? "hidden" : ""}`}
+          ref={ref}
+        >
           <NavbarMobile
             loading={loading}
             subLinks={subLinks}
             matchRoute={matchRoute}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
           />
         </nav>
       </div>
