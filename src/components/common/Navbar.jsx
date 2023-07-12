@@ -112,8 +112,8 @@ const Navbar = () => {
                       {loading ? (
                         <div className="w-full">
                           <Skeleton
-                            count={subLinks?.length || 0}
-                            className="w-[90%] m-5"
+                            count={5}
+                            className="w-[90%] m-5 h-[15px]"
                             baseColor="#C5C7D4"
                             highlightColor="#AFB2BF"
                           />

@@ -288,7 +288,7 @@ const NavbarMobile = ({ loading, subLinks, matchRoute, isOpen, setIsOpen }) => {
                         {loading ? (
                           
                             <Skeleton
-                              count={subLinks?.length || 0}
+                              count={5}
                               className="w-[28vw] mx-auto my-5 h-[10px]"
                               baseColor="#585D69"
                               highlightColor="#F2F4FF"
