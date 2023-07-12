@@ -54,7 +54,7 @@ const Searchpage = () => {
               <div className="grid flex-1 place-items-center h-[60vh]">
                 <div className="spinner"></div>
               </div>
-            ) : (
+            ) : courses?.length > 0 ? (
               <div className="mt-8 flex items-start gap-y-10 flex-col">
                 <div className="flex flex-row text-richblue-5 gap-x-5">
                   <button
@@ -73,52 +73,34 @@ const Searchpage = () => {
                     </div>
                     <AiOutlineDown className="" />
                   </button>
-
-                  {/* <form className="bg-transparent" onClick={handleClick}>
-                    <select className="text-lg px-6 py-6 border border-richblue-50 items-center bg-transparent">
-                      sort by
-                      {[
-                        "Most Relevant",
-                        "Most Reviewed",
-                        "Highest Rated",
-                        "Newest",
-                      ].map((item, i) => (
-                        <option
-                          key={i}
-                          className="bg-richblack-800 text-richblue-100"
-                        >
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                  </form> */}
                 </div>
-
-                {courses?.length > 0 ? (
-                  <div className="flex items-start gap-x-10 w-full">
-                    <FilterSection className="" />
-                    <CoursesSection courses={courses} />
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-4 items-start justify-start px-4">
-                    <p className="text-xl text-richblue-200 font-bold">
-                      Try adjusting your search. here are some ideas:
-                    </p>
-                    <div className="mx-4 px-4">
-                      <ul className="list-disc">
-                        <li className="text-base text-richblack-200">
-                          Make sure all words are spelled correctly
-                        </li>
-                        <li className="text-base text-richblack-200">
-                          Try different search terms
-                        </li>
-                        <li className="text-base text-richblack-200">
-                          Try more general search terms
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                )}
+                <div className="flex items-start gap-x-10 w-full">
+                  <FilterSection className="" />
+                  <CoursesSection courses={courses} />
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4 items-start justify-start px-4">
+                <p className="text-xl text-richblue-200 font-bold">
+                  Try adjusting your search. Here are some ideas:
+                </p>
+                <div className="mx-4 px-4">
+                  <ul className="list-disc">
+                    <li className="text-base text-richblack-200">
+                      No course related to search term:{" "}
+                      <span className="text-pink-300">"{query}"</span>
+                    </li>
+                    <li className="text-base text-richblack-200">
+                      Make sure all words are spelled correctly
+                    </li>
+                    <li className="text-base text-richblack-200">
+                      Try different search terms
+                    </li>
+                    <li className="text-base text-richblack-200">
+                      Try more general search terms
+                    </li>
+                  </ul>
+                </div>
               </div>
             )}
           </div>

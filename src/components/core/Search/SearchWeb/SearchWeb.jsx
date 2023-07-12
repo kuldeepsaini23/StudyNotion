@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import SearchDropDown from "../SearchDropDown";
-import useOnClickOutside from "../../../../hooks/useOnClickOutside";
+import { useNavigate } from "react-router-dom";
 
 const SearchWeb = ({ searchOpen, setSearchOpen, subLinks }) => {
   const [searchList, setSearchList] = useState(false);
   const [query, setQuery] = useState("");
-
-  useOnClickOutside(() => setSearchList(false));
+  const navigate = useNavigate();
 
   return (
     <div className="relative">
@@ -23,6 +22,9 @@ const SearchWeb = ({ searchOpen, setSearchOpen, subLinks }) => {
           onChange={(e) => setQuery(e.target.value)}
           onClick={() => setSearchList(true)}
           value={query}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") return navigate(`/search/${query}`);
+          }}
           autoComplete="off"
           className={`search__input ${
             searchOpen ? "w-[43vw] opacity-100 p-4" : "w-0 opacity-0 p-0"

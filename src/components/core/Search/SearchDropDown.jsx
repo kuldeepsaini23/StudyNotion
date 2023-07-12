@@ -29,6 +29,7 @@ const SearchDropDown = ({
   const [querySearchCourses, setQuerySearchCourses] = useState([]);
   const [instructorProfile, setInstructorProfile] = useState([]);
   const [autoComplete, setAutoComplete] = useState([]);
+  const [autoCompleteTags, setAutoCompleteTags] = useState([]);
 
   useEffect(() => {
     const fetchAllCourses = async () => {
@@ -54,8 +55,9 @@ const SearchDropDown = ({
           setQuerySearchCourses(res?.data?.populatedCourses);
           setInstructorProfile(res?.data?.instructorDetails);
           setAutoComplete(res?.data?.autoComplete);
+          setAutoCompleteTags(res?.data?.allAutoCompleteTags);
         }
-        setTimeout(() => setLoading(false), 1000);
+        setLoading(false);
       };
 
       fetchSearchQuery();
@@ -122,7 +124,15 @@ const SearchDropDown = ({
         <div className="w-full">
           <Skeleton
             count={
-              querySearchCourses?.length === 0 ? 5 : querySearchCourses?.length
+              querySearchCourses?.length === 0
+                ? instructorProfile?.length === 0
+                  ? autoComplete?.length === 0
+                    ? autoCompleteTags?.length === 0
+                      ? 5
+                      : autoCompleteTags?.length
+                    : autoComplete?.length
+                  : instructorProfile?.length
+                : querySearchCourses?.length
             }
             className="w-[90%] m-5"
             baseColor="#C5C7D4"
@@ -133,8 +143,29 @@ const SearchDropDown = ({
         <div className="w-full my-5 flex flex-col items-center justify-start gap-y-7 overflow-auto">
           {querySearchCourses?.length > 0 ||
           instructorProfile?.length > 0 ||
-          autoComplete?.length > 0 ? (
+          autoComplete?.length > 0 ||
+          autoCompleteTags.length > 0 ? (
             <>
+              {autoCompleteTags.map((tag, i) => (
+                <div
+                  className="w-full px-5 py-4 bg-transparent hover:bg-richblue-700"
+                  key={i}
+                >
+                  <button
+                    className="flex items-center justify-start gap-4"
+                    onClick={() => {
+                      setQuery(tag);
+                      setAutoCompleteTags([]);
+                    }}
+                  >
+                    <AiOutlineSearch className="font-semibold text-3xl font-mono" />
+                    <div>
+                      <p className="font-semibold text-left">{tag}</p>
+                    </div>
+                  </button>
+                </div>
+              ))}
+
               {autoComplete?.map((item, i) => (
                 <div
                   className="w-full px-5 py-4 bg-transparent hover:bg-richblue-700"

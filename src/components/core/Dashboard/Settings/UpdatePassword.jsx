@@ -45,10 +45,7 @@ const UpdatePassword = () => {
                 placeholder="Enter Current Password"
                 className="form-style"
                 {...register("oldPassword", {
-                  required: true,
-                  pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$ /,
-                })}
+                  required: true})}
               />
               <span
                 onClick={() => setShowOldPassword((prev) => !prev)}
@@ -94,7 +91,7 @@ const UpdatePassword = () => {
               </span>
               {errors.newPassword && (
                 <span className="-mt-1 text-[12px] text-yellow-100">
-                  Please enter your New Password.
+                  {errors.newPassword.message}
                 </span>
               )}
             </div>

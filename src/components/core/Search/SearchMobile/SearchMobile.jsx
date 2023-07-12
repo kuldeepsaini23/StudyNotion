@@ -2,13 +2,14 @@ import React from "react";
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import SearchDropDown from "../SearchDropDown";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const SearchMobile = ({ searchOpen, setSearchOpen,subLinks }) => {
-
+const SearchMobile = ({ searchOpen, setSearchOpen, subLinks }) => {
   const [searchList, setSearchList] = useState(false);
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
-  console.log(query);
+  // console.log(query);
 
   return (
     <>
@@ -23,8 +24,11 @@ const SearchMobile = ({ searchOpen, setSearchOpen,subLinks }) => {
           type="search"
           name="search"
           placeholder="Search...."
-          onChange={(e)=>setQuery(e.target.value)}
-          onClick={()=>setSearchList(true)}
+          onChange={(e) => setQuery(e.target.value)}
+          onClick={() => setSearchList(true)}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") return navigate(`/search/${query}`);
+          }}
           value={query}
           autoComplete="off"
           className={`search__input ${
@@ -32,7 +36,10 @@ const SearchMobile = ({ searchOpen, setSearchOpen,subLinks }) => {
           } transition-all duration-1000 h-[35px] bg-richblue-400 border-none outline-none font-semibold text-richblack-5`}
         />
         <button
-           onClick={() => {setSearchOpen((prev) => !prev); setQuery("")}}
+          onClick={() => {
+            setSearchOpen((prev) => !prev);
+            setQuery("");
+          }}
           className="w-8 h-8 bg-richblue-600 rounded-full absolute top-[1.1px] right-1 mx-auto grid place-items-center place-content-center transition-[transform] duration-[0.6s]"
         >
           <AiOutlineSearch
@@ -47,7 +54,7 @@ const SearchMobile = ({ searchOpen, setSearchOpen,subLinks }) => {
           />
         </button>
       </div>
-      
+
       <SearchDropDown
         subLinks={subLinks}
         searchList={searchList}
