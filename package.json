@@ -5,6 +5,7 @@
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.0.3",
     "@reduxjs/toolkit": "^1.9.5",
+    "@typeform/embed-react": "^2.26.0",
     "@vercel/analytics": "^1.0.1",
     "@vidstack/react": "^0.6.13",
     "axios": "^1.4.0",

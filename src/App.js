@@ -30,7 +30,6 @@ import InstructorProfile from "./pages/InstructorProfile";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import AllUsers from "./components/core/Dashboard/Admin/AllUsers/Index";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import { useEffect } from "react";
 // import { useRef } from "react";
@@ -39,6 +38,7 @@ import { logout } from "./services/operations/authAPI";
 import { toast } from "react-hot-toast";
 import BookmarkedCourses from "./components/core/Dashboard/Student/Wishlist/index"
 import Searchpage from "./pages/Searchpage";
+import ReportBtn from "./components/common/ReportBtn";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -229,7 +229,9 @@ function App() {
           )}
         </Route>
       </Routes>
-      <ToastContainer/>
+      <div className="fixed bottom-20 right-10">
+        <ReportBtn/>
+      </div>
     </div>
   );
 }
