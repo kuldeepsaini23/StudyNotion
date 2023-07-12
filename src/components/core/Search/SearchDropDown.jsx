@@ -76,7 +76,7 @@ const SearchDropDown = ({
       } ${customClass} text-white`}
       ref={searchRef}
     >
-      {loading ? (
+          {/* {loading ? (
         <div className="w-full">
           <Skeleton
             count={
@@ -139,7 +139,8 @@ const SearchDropDown = ({
             ))}
           </li>
         </ul>
-      ) : loading ? (
+      ) : */}
+      {loading ? (
         <div className="w-full">
           <Skeleton
             count={
