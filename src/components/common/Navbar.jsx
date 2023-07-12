@@ -13,6 +13,7 @@ import NavbarMobile from "./NavbarMobile";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import SearchMobile from "../core/Search/SearchMobile/SearchMobile";
 import SearchWeb from "../core/Search/SearchWeb/SearchWeb";
+import Skeleton from "react-loading-skeleton";
 
 const Navbar = () => {
   //* Redux hooks
@@ -85,7 +86,11 @@ const Navbar = () => {
               }`}
             />
           </Link>
-          <SearchMobile searchOpen={searchOpen} setSearchOpen={setSearchOpen} subLinks={subLinks}/>
+          <SearchMobile
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            subLinks={subLinks}
+          />
         </div>
 
         {/* Desktop Navbar */}
@@ -105,7 +110,14 @@ const Navbar = () => {
                       <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
 
                       {loading ? (
-                        <p className="text-center">Loading...</p>
+                        <div className="w-full">
+                          <Skeleton
+                            count={subLinks?.length || 0}
+                            className="w-[90%] m-5"
+                            baseColor="#C5C7D4"
+                            highlightColor="#AFB2BF"
+                          />
+                        </div>
                       ) : subLinks?.length ? (
                         <>
                           {subLinks

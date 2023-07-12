@@ -76,7 +76,26 @@ const SearchDropDown = ({
       } ${customClass} text-white`}
       ref={searchRef}
     >
-      {query?.length === 0 ? (
+      {loading ? (
+        <div className="w-full">
+          <Skeleton
+            count={
+              querySearchCourses?.length === 0
+                ? instructorProfile?.length === 0
+                  ? autoComplete?.length === 0
+                    ? autoCompleteTags?.length === 0
+                      ? 5
+                      : autoCompleteTags?.length
+                    : autoComplete?.length
+                  : instructorProfile?.length
+                : querySearchCourses?.length
+            }
+            className="w-[90%] m-5"
+            baseColor="#585D69"
+            highlightColor="#F2F4FF"
+          />
+        </div>
+      ) : query?.length === 0 ? (
         <ul className="overflow-auto w-full">
           <li className="w-full my-2 flex flex-col items-center justify-start gap-y-4">
             {subLinks
@@ -135,8 +154,8 @@ const SearchDropDown = ({
                 : querySearchCourses?.length
             }
             className="w-[90%] m-5"
-            baseColor="#C5C7D4"
-            highlightColor="#AFB2BF"
+            baseColor="#585D69"
+            highlightColor="#F2F4FF"
           />
         </div>
       ) : (
