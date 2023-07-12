@@ -33,10 +33,10 @@ const CoursesSection = ({ courses }) => {
                 <p className="text-sm text-richblack-300">
                   {course?.data[0]?.courseDescription.split(" ").length >
                   TRUNCATE_LENGTH
-                    ? course?.data.courseDescription
-                        .split(" ")
-                        .slice(0, TRUNCATE_LENGTH)
-                        .join(" ") + "..."
+                    ? course?.data[0].courseDescription
+                        ?.split(" ")
+                        ?.slice(0, TRUNCATE_LENGTH)
+                        ?.join(" ") + "..."
                     : course?.data.courseDescription}
                 </p>
 

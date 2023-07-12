@@ -24,7 +24,7 @@ const SearchDropDown = ({
 
   const searchRef = useRef(null);
   useOnClickOutside(searchRef, () => setSearchList(false));
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [querySearchCourses, setQuerySearchCourses] = useState([]);
   const [instructorProfile, setInstructorProfile] = useState([]);
@@ -33,25 +33,25 @@ const SearchDropDown = ({
 
   useEffect(() => {
     const fetchAllCourses = async () => {
-      setLoading(true);
+      // setLoading(true);
       const res = await getAllCourses();
       if (res) {
         // console.log(res);
-        setCourses(res);
+        // setCourses(res);
       }
-      setLoading(false);
+      // setLoading(false);
     };
 
     fetchAllCourses();
   }, []);
 
   useEffect(() => {
-    setLoading(true);
     if (query.length > 3) {
       const fetchSearchQuery = async () => {
+        setLoading(true);
         const res = await getQueryCourses(query);
         if (res) {
-          console.log(res);
+          console.log(res)
           setQuerySearchCourses(res?.data?.populatedCourses);
           setInstructorProfile(res?.data?.instructorDetails);
           setAutoComplete(res?.data?.autoComplete);
@@ -76,7 +76,7 @@ const SearchDropDown = ({
       } ${customClass} text-white`}
       ref={searchRef}
     >
-          {/* {loading ? (
+      {loading ? (
         <div className="w-full">
           <Skeleton
             count={
@@ -116,7 +116,7 @@ const SearchDropDown = ({
                   </div>
                 </Link>
               ))}
-
+            {/* 
             {courses?.map((course, i) => (
               <Link
                 to={`/courses/${course._id}`}
@@ -136,11 +136,10 @@ const SearchDropDown = ({
                   </p>
                 </div>
               </Link>
-            ))}
+            ))} */}
           </li>
         </ul>
-      ) : */}
-      {loading ? (
+      ) : loading ? (
         <div className="w-full">
           <Skeleton
             count={
