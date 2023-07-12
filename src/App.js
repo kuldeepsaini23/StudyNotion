@@ -229,7 +229,7 @@ function App() {
           )}
         </Route>
       </Routes>
-      <div className="fixed bottom-20 right-10">
+      <div className="fixed bottom-8 md:right-10 right-4">
         <ReportBtn/>
       </div>
     </div>
