@@ -127,10 +127,10 @@ export default function CourseInformationForm() {
           formData.append("thumbnailImage", data.courseImage);
         }
 
-        if (currentValues.courseLanguage !== course.courseLanguage) {
+        if (currentValues.courseLanguage !== course.language) {
           formData.append("courseLanguage", data.courseLanguage);
         }
-        if (currentValues.level !== course.courseLevel) {
+        if (currentValues.courseLevel !== course.level) {
           formData.append("courseLevel", data.courseLevel);
         }
         // console.log("Edit Form data: ", formData)
@@ -295,12 +295,21 @@ export default function CourseInformationForm() {
           Course Language(ex: English/Hindi){" "}
           <sup className="text-pink-200">*</sup>
         </label>
-        <input
+        <select
           id="courseLanguage"
-          placeholder="Enter Course Language"
           {...register("courseLanguage", { required: true })}
           className="form-style w-full"
-        />
+        >
+          <option value="" disabled>
+            Choose a Language
+          </option>
+          {!loading &&
+            ["English", "Hindi"]?.map((level, indx) => (
+              <option key={indx} value={level}>
+                {level}
+              </option>
+            ))} 
+        </select>
         {errors.courseLanguage && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">
             Course Language is required
