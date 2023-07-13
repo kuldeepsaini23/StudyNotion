@@ -51,7 +51,7 @@ const CourseBuilderForm = () => {
     }
 
     // if section doesnot contain any Subsection
-    if (course.courseContent.some((section) => section.subSection === 0)) {
+    if (course.courseContent.some((section) => section.subSection.length === 0)) {
       toast.error("Please add atleast one lecture in each section");
       return;
     }
