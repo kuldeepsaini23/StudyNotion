@@ -7,7 +7,6 @@ import { Link, useParams } from "react-router-dom";
 import CourseSlider from "../components/core/Catalog/CourseSlider";
 import Footer from "../components/common/Footer";
 import ReviewSlider from "../components/common/ReviewSlider";
-import { useSelector } from "react-redux";
 import * as Icons from "react-icons/fa";
 
 const InstructorProfile = () => {
@@ -17,8 +16,6 @@ const InstructorProfile = () => {
   const [toatalEnrolledStudents, setToatalEnrolledStudents] = useState(0);
   const [toatalNoOfReviews, setToatalNoOfReviews] = useState(0);
   const [allInstructorReviews, setAllInstructorReviews] = useState([]);
-
-  const { user } = useSelector((state) => state.profile);
 
   const [loading, setLoading] = useState(false);
 
@@ -58,8 +55,6 @@ const InstructorProfile = () => {
       setAllInstructorReviews(allReviews);
     }
   }, [instructorCourses]);
-
-
 
   if (loading || !instructorDetails) {
     return (
@@ -121,9 +116,9 @@ const InstructorProfile = () => {
               />
 
               {/* Instruvtor Social media */}
-              {user?.socials.length > 0 && (
+              {instructorDetails?.socials.length > 0 && (
                 <div className="flex flex-col justify-center items-center gap-4">
-                  {user?.socials.map((social, i) => {
+                  {instructorDetails?.socials.map((social, i) => {
                     const iconName =
                       social.name === "Website"
                         ? "FaGlobe"
@@ -164,7 +159,16 @@ const InstructorProfile = () => {
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
-          <ReviewSlider reviews={allInstructorReviews} />
+          {allInstructorReviews.length > 0 ? (
+            <ReviewSlider reviews={allInstructorReviews} />
+          ) : (
+            <div className="w-full mx-auto">
+              <p className="text-center mt-10 text-3xl text-caribbeangreen-200">
+                No Reviews Till Now
+              </p>
+            </div>
+          )}
+          
         </div>
 
         {/* Other courses from instructor */}
@@ -172,11 +176,19 @@ const InstructorProfile = () => {
           <h2 className="text-center text-4xl font-semibold mt-4">
             My Courses ({instructorCourses.length})
           </h2>
-          <div className="py-8 w-11/12">
-            {instructorCourses?.length > 0 && (
+        
+            {instructorCourses?.length > 0 ? (
+                <div className="py-8 w-11/12">
               <CourseSlider Courses={instructorCourses} />
+              </div>
+            ) : (
+              <div className="w-full mx-auto">
+                <p className="text-center mt-10 text-3xl text-caribbeangreen-200">
+                  No More Courses are Present
+                </p>
+              </div>
             )}
-          </div>
+         
         </div>
       </div>
 

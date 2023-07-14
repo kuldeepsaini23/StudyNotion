@@ -4,6 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addToWishlist } from "../../../../slices/wishlistSlice";
+import { Link } from "react-router-dom";
 
 const CoursesSection = ({ courses }) => {
   const TRUNCATE_LENGTH = 15;
@@ -13,14 +14,14 @@ const CoursesSection = ({ courses }) => {
     <div className="flex flex-1 flex-col w-full">
       {courses.map((course, index) => {
         const count = GetAvgRating(course?.data[0]?.ratingAndReviews);
-        console.log(course);
+
         return (
           <div
             key={index}
             className={`flex w-full flex-wrap items-start justify-between gap-6 border-b border-b-richblack-400 pb-6 mt-6"} `}
           >
             {/* left section */}
-            <div className="flex flex-1 flex-col gap-4 md:flex-row">
+            <Link className="flex flex-1 flex-col gap-4 md:flex-row" to={`/courses/${course?.data[0]?._id}`}>
               <img
                 src={course?.data[0]?.thumbnail}
                 alt={course?.data[0]?.courseName}
@@ -80,7 +81,7 @@ const CoursesSection = ({ courses }) => {
                 </div>
 
               </div>
-            </div>
+            </Link>
 
             {/* Right Section */}
             <div className="flex flex-col items-center justify-center">

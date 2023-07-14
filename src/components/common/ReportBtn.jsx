@@ -4,7 +4,7 @@ import React from "react";
 const ReportBtn = () => {
   return (
     <SliderButton id="M8zxqaw8" style={{ fontSize: 20 }} className="my-button">
-      <button class="btn-pink">Report Bug</button>
+      <p className="btn-pink">Report Bug</p>
     </SliderButton>
   );
 };

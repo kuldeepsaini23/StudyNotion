@@ -27,7 +27,10 @@ const SearchMobile = ({ searchOpen, setSearchOpen, subLinks }) => {
           onChange={(e) => setQuery(e.target.value)}
           onClick={() => setSearchList(true)}
           onKeyUp={(e) => {
-            if (e.key === "Enter") return navigate(`/search/${query}`);
+            if (e.key === "Enter") {
+              setSearchList(false)
+              return navigate(`/search/${query}`);
+            }
           }}
           value={query}
           autoComplete="off"

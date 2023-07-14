@@ -14,7 +14,7 @@ export const getAllCourses = async () => {
       null
     
     );
-    console.log("INSTRUCTOR COURSES API RESPONSE............", response);
+    // console.log("INSTRUCTOR COURSES API RESPONSE............", response);
     if (!response?.data?.success) {
       throw new Error("Could Not Fetch Instructor Courses");
     }
@@ -38,7 +38,7 @@ export const getQueryCourses = async (query) => {
       null
     
     );
-    console.log("QUERY SEARCH_API API RESPONSE............", response);
+    // console.log("QUERY SEARCH_API API RESPONSE............", response);
     if (!response?.data?.success) {
       throw new Error("Could Not Fetch Instructor Courses");
     }
@@ -61,7 +61,7 @@ export const getSearchPageData = async (query) => {
       null
     
     );
-    console.log("SEARCH_PAGE_API API RESPONSE............", response);
+    // console.log("SEARCH_PAGE_API API RESPONSE............", response);
     if (!response?.data?.success) {
       throw new Error("Could Not Fetch Instructor Courses");
     }

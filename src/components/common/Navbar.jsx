@@ -164,8 +164,9 @@ const Navbar = () => {
             <Link to="/login">
               <button
                 className={`border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] rounded-md text-richblack-5 ${
-                  searchOpen ? "hidden" : "inline-block"
-                }`}
+                  searchOpen ? "absolute -translate-y-[100px] right-[300px] top-1" : 
+                  "static translate-y-0"
+                } transition-all duration-200`}
               >
                 Login
               </button>
@@ -175,8 +176,8 @@ const Navbar = () => {
             <Link to="/signup">
               <button
                 className={`border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] rounded-md text-richblack-5 ${
-                  searchOpen ? "hidden" : "inline-block"
-                }`}
+                  searchOpen ? "absolute -translate-y-[100px] right-[200px] top-1" : "translate-y-0 static"
+                } transition-all duration-500`}
               >
                 {/* need to change text color */}
                 Sign Up

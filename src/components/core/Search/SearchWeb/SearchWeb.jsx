@@ -12,7 +12,9 @@ const SearchWeb = ({ searchOpen, setSearchOpen, subLinks }) => {
     <div className="relative">
       <div
         className={`relative overflow-hidden ${
-          searchOpen ? "w-[45vw] rounded-3xl bg-richblue-400" : "w-[40px] rounded-full bg-transparent"
+          searchOpen
+            ? "2xl:w-[40vw] w-[45vw] rounded-3xl bg-richblue-400"
+            : "w-[40px] rounded-full bg-transparent"
         } transition-all duration-1000`}
       >
         <input
@@ -23,7 +25,10 @@ const SearchWeb = ({ searchOpen, setSearchOpen, subLinks }) => {
           onClick={() => setSearchList(true)}
           value={query}
           onKeyUp={(e) => {
-            if (e.key === "Enter") return navigate(`/search/${query}`);
+            if (e.key === "Enter") {
+              setSearchList(false)
+              return navigate(`/search/${query}`);
+            }
           }}
           autoComplete="off"
           className={`search__input ${
@@ -31,7 +36,10 @@ const SearchWeb = ({ searchOpen, setSearchOpen, subLinks }) => {
           } transition-all duration-1000 h-[35px] bg-richblue-400 border-none outline-none font-semibold text-richblack-5`}
         />
         <button
-          onClick={() => {setSearchOpen((prev) => !prev); setQuery("")}}
+          onClick={() => {
+            setSearchOpen((prev) => !prev);
+            setQuery("");
+          }}
           className="w-8 h-8 bg-richblue-600 rounded-full absolute top-[1.1px] right-1 mx-auto grid place-items-center place-content-center transition-[transform] duration-[0.6s]"
         >
           <AiOutlineSearch
@@ -51,7 +59,7 @@ const SearchWeb = ({ searchOpen, setSearchOpen, subLinks }) => {
         subLinks={subLinks}
         searchList={searchList}
         setSearchList={setSearchList}
-        customClass="w-[45vw] h-auto max-h-[50vh]"
+        customClass="2xl:w-[38vw] w-[45vw] h-auto max-h-[50vh]"
         query={query}
         setQuery={setQuery}
         setSearchOpen={setSearchOpen}

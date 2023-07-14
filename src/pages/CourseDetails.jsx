@@ -62,7 +62,7 @@ function CourseDetails() {
     });
     setAvgReviewCount(count);
     setReviews(allReviews);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   // console.log("avgReviewCount: ", avgReviewCount)
 
@@ -152,15 +152,14 @@ function CourseDetails() {
     );
   }
 
-
   const handleAddToCart = () => {
     if (user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR) {
-      toast.error("You are an Instructor. You can't buy a course.")
-      return
+      toast.error("You are an Instructor. You can't buy a course.");
+      return;
     }
     if (token) {
-      dispatch(addToCart(response.data?.courseDetails))
-      return
+      dispatch(addToCart(response.data?.courseDetails));
+      return;
     }
     setConfirmationModal({
       text1: "You are not logged in!",
@@ -169,8 +168,8 @@ function CourseDetails() {
       btn2Text: "Cancel",
       btn1Handler: () => navigate("/login"),
       btn2Handler: () => setConfirmationModal(null),
-    })
-  }
+    });
+  };
 
   return (
     <div className="mt-10 z-0">
@@ -196,7 +195,7 @@ function CourseDetails() {
               </div>
               <p className={`text-richblack-200`}>{courseDescription}</p>
               <div className="text-md flex flex-wrap items-center gap-2">
-              {/* Changed this conditionS */}
+                {/* Changed this conditionS */}
                 <span className="text-yellow-25">{avgReviewCount || 0}</span>
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
                 <a
@@ -230,22 +229,31 @@ function CourseDetails() {
                 Rs. {price}
               </p>
               <button
-              className="yellowButton"
-              onClick={
-                user && response?.data?.courseDetails?.studentsEnrolled.includes(user?._id)
-                  ? () => navigate("/dashboard/enrolled-courses")
-                  : handleBuyCourse
-              }
-            >
-              {user && response?.data?.courseDetails?.studentsEnrolled.includes(user?._id)
-                ? "Go To Course"
-                : "Buy Now"}
-            </button>
-            {(!user || !response?.data?.courseDetails?.studentsEnrolled.includes(user?._id)) && (
-              <button onClick={handleAddToCart} className="blackButton">
-                Add to Cart
+                className="yellowButton"
+                onClick={
+                  user &&
+                  response?.data?.courseDetails?.studentsEnrolled.includes(
+                    user?._id
+                  )
+                    ? () => navigate("/dashboard/enrolled-courses")
+                    : handleBuyCourse
+                }
+              >
+                {user &&
+                response?.data?.courseDetails?.studentsEnrolled.includes(
+                  user?._id
+                )
+                  ? "Go To Course"
+                  : "Buy Now"}
               </button>
-            )}
+              {(!user ||
+                !response?.data?.courseDetails?.studentsEnrolled.includes(
+                  user?._id
+                )) && (
+                <button onClick={handleAddToCart} className="blackButton">
+                  Add to Cart
+                </button>
+              )}
             </div>
           </div>
           {/* Courses Card */}
@@ -339,17 +347,22 @@ function CourseDetails() {
       {/* Section 3 */}
       <div className="w-full flex flex-col gap-5 mb-10 text-richblack-5">
         {/* Reviews from student for this course */}
-        <div id="reviews" className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+        <div
+          id="reviews"
+          className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white"
+        >
           <h2 className="text-center text-4xl font-semibold">
             Reviews from Students
           </h2>
-          {
-            avgReviewCount ? (<ReviewSlider reviews={reviews} />) : (
-              <div className="w-full mx-auto">
-                <p className="text-center mt-10 text-3xl text-caribbeangreen-200">No Reviews Till Now</p>
-              </div>
-            )
-          }
+          {avgReviewCount ? (
+            <ReviewSlider reviews={reviews} />
+          ) : (
+            <div className="w-full mx-auto">
+              <p className="text-center mt-10 text-3xl text-caribbeangreen-200">
+                No Reviews Till Now
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Other courses from instructor */}
@@ -358,8 +371,14 @@ function CourseDetails() {
             More Courses by {`${instructor.firstName} ${instructor.lastName}`}
           </h2>
           <div className="py-8 w-11/12">
-            {otherCourses?.length > 0 && (
+            {otherCourses?.length > 0 ? (
               <CourseSlider Courses={otherCourses} />
+            ) : (
+              <div className="w-full mx-auto">
+                <p className="text-center mt-10 text-3xl text-caribbeangreen-200">
+                  No More Courses are Present
+                </p>
+              </div>
             )}
           </div>
         </div>

@@ -292,13 +292,14 @@ export default function CourseInformationForm() {
       {/* Course language */}
       <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="courseLanguage">
-          Course Language(ex: English/Hindi){" "}
+          Course Language
           <sup className="text-pink-200">*</sup>
         </label>
         <select
           id="courseLanguage"
           {...register("courseLanguage", { required: true })}
           className="form-style w-full"
+          defaultValue=""
         >
           <option value="" disabled>
             Choose a Language
