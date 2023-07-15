@@ -1,13 +1,11 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CountryCode from "../../data/countrycode.json";
-import 'react-loading-skeleton/dist/skeleton.css'
-import {contactUsForm} from "../../services/operations/contactAPI"
-
+import "react-loading-skeleton/dist/skeleton.css";
+import { contactUsForm } from "../../services/operations/contactAPI";
 
 const ContactUsForm = () => {
-  
- const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -17,16 +15,22 @@ const ContactUsForm = () => {
   } = useForm();
 
   const submitContactForm = async (data) => {
-    setLoading(true)
     const { countrycode, email, firstName, lastaName, message, phoneNo } = data;
-    contactUsForm(countrycode, email, firstName, lastaName, message, phoneNo)
-    setLoading(false)
-    
+    setLoading(true);
+    await contactUsForm(
+      countrycode,
+      email,
+      firstName,
+      lastaName,
+      message,
+      phoneNo
+    );
+    setLoading(false);
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      if(loading === false ){
+      if (loading === false) {
         reset({
           email: "",
           firstName: "",
@@ -35,7 +39,6 @@ const ContactUsForm = () => {
           phoneNo: "",
         });
       }
-      
     }
   }, [reset, isSubmitSuccessful, loading]);
 
