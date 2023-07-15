@@ -1,15 +1,13 @@
-import React, {  useEffect } from "react";
+import React, {  useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CountryCode from "../../data/countrycode.json";
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useDispatch, useSelector } from "react-redux";
 import {contactUsForm} from "../../services/operations/contactAPI"
 
 
 const ContactUsForm = () => {
   
-  const { loading } = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
+ const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -19,9 +17,10 @@ const ContactUsForm = () => {
   } = useForm();
 
   const submitContactForm = async (data) => {
-  
+    setLoading(true)
     const { countrycode, email, firstName, lastaName, message, phoneNo } = data;
-    dispatch(contactUsForm(countrycode, email, firstName, lastaName, message, phoneNo))
+    contactUsForm(countrycode, email, firstName, lastaName, message, phoneNo)
+    setLoading(false)
     
   };
 
