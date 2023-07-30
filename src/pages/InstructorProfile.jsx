@@ -34,7 +34,7 @@ const InstructorProfile = () => {
   useEffect(() => {
     let enrolledStudents = 0;
     if (instructorCourses) {
-      instructorCourses.forEach((course) => {
+      instructorCourses?.forEach((course) => {
         enrolledStudents += course.studentsEnrolled.length || 0;
       });
       setToatalNoOfReviews(enrolledStudents);
@@ -45,7 +45,7 @@ const InstructorProfile = () => {
     let totalReviews = 0;
     let allReviews = [];
     if (instructorCourses) {
-      instructorCourses.forEach((course) => {
+      instructorCourses?.forEach((course) => {
         totalReviews += course.ratingAndReviews.length || 0;
         course?.ratingAndReviews.forEach((review) => {
           allReviews = [...allReviews, review];
@@ -64,7 +64,7 @@ const InstructorProfile = () => {
     );
   }
 
-  if (instructorDetails.accountType !== ACCOUNT_TYPE.INSTRUCTOR) {
+  if (instructorDetails?.accountType !== ACCOUNT_TYPE.INSTRUCTOR) {
     return <Error />;
   }
 
@@ -82,7 +82,7 @@ const InstructorProfile = () => {
               <div>
                 <p className="text-richblack-200 text-xl mb-2">Instructor</p>
                 <p className="text-4xl font-bold text-richblack-5 sm:text-[42px]">
-                  {instructorDetails.firstName} {instructorDetails.lastName}
+                  {instructorDetails?.firstName} {instructorDetails?.lastName}
                 </p>
               </div>
 
@@ -102,7 +102,7 @@ const InstructorProfile = () => {
                   About me
                 </p>
                 <p className="text-richblack-200">
-                  {instructorDetails.additionalDetails.about}
+                  {instructorDetails?.additionalDetails.about}
                 </p>
               </div>
             </div>
@@ -110,7 +110,7 @@ const InstructorProfile = () => {
             {/* Instructor Image */}
             <div className="mx-auto w-11/12 max-w-[250px] md:mx-0 md:relative place-content-center">
               <img
-                src={instructorDetails.image}
+                src={instructorDetails?.image}
                 alt="instructor img"
                 className="w-[78px] h-[78px] xs:w-[150px] xs:h-[150px] sm:w-[200px] sm:h-[200px] rounded-full object-cover mb-5 mx-auto"
               />
@@ -174,7 +174,7 @@ const InstructorProfile = () => {
         {/* Other courses from instructor */}
         <div className="mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
           <h2 className="text-center text-4xl font-semibold mt-4">
-            My Courses ({instructorCourses.length})
+            My Courses ({instructorCourses?.length})
           </h2>
         
             {instructorCourses?.length > 0 ? (
