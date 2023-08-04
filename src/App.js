@@ -41,14 +41,17 @@ import Searchpage from "./pages/Searchpage";
 import ReportBtn from "./components/common/ReportBtn";
 
 function App() {
-  const { user } = useSelector((state) => state.profile);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.profile)
 
-  setTimeout(()=>{ 
-    dispatch(logout(navigate));
-    toast.error("SessionExpired");
-  },3 * 24 * 60 * 60 * 1000)
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = JSON.parse(localStorage.getItem("token"))
+      dispatch(getUserDetails(token, navigate))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // const location = useLocation();
   // const intervalRef = useRef(null);
