@@ -1,5 +1,6 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
+import { useEffect } from "react";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -34,11 +35,12 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { useEffect } from "react";
 // import { useRef } from "react";
 import Instructor from "./components/core/Dashboard/Instructor/Dashboard/Instructor";
-import { logout } from "./services/operations/authAPI";
-import { toast } from "react-hot-toast";
+// import { logout } from "./services/operations/authAPI";
+// import { toast } from "react-hot-toast";
 import BookmarkedCourses from "./components/core/Dashboard/Student/Wishlist/index"
 import Searchpage from "./pages/Searchpage";
 import ReportBtn from "./components/common/ReportBtn";
+import { getUserDetails } from "./services/operations/profileAPI";
 
 function App() {
   const dispatch = useDispatch()
