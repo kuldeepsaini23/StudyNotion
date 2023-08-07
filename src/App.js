@@ -55,60 +55,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // const location = useLocation();
-  // const intervalRef = useRef(null);
-  // const timeoutRef = useRef(null);
-
-  // const displayToast = () => {
-  //   toast.info("🪲 Click Here!! To report Bug To help us to make your experience better", {
-  //     position: "top-right",
-  //     autoClose: 5000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: "dark",
-  //     onClick: () => {
-  //       navigate("/contact");
-  //     },
-  //   });
-  // };
-
-  // useEffect(() => {
-
-  //   if (location.pathname === "/view-course/:courseId/section/:sectionId/sub-section/:subSectionId" ||
-  //       location.pathname === "dashboard/enrolled-courses" || location.pathname === "dashboard/add-course" ) {
-  //     return; // Do not display the toast on the excluded route
-  //   }
-
-  //   // Clear previous interval
-  //   if (timeoutRef.current) {
-  //     clearTimeout(timeoutRef.current);
-  //   }
-  //   if (intervalRef.current) {
-  //     clearInterval(intervalRef.current);
-  //   }
-
-  //   //setTimeout
-  //   timeoutRef.current = setTimeout(displayToast, 10000);
-
-  //   // Set new interval
-  //   if(user){
-  //     intervalRef.current = setInterval(displayToast, 5 * 60 * 1000);
-  //   }else{
-  //     intervalRef.current = setInterval(displayToast, 10 * 60 * 1000);
-  //   }
-   
-
-  //   // Clear interval on component unmount
-  //   return () => {
-  //     clearTimeout(timeoutRef.current)
-  //     clearInterval(intervalRef.current);
-  //   };
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -237,6 +183,18 @@ function App() {
       <div className="fixed bottom-8 md:right-10 right-4">
         <ReportBtn/>
       </div>
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-YEQJ9S4MNC"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){
+        dataLayer.push(arguments)
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YEQJ9S4MNC');
+      </script>
     </div>
   );
 }
