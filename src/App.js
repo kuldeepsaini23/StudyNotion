@@ -183,18 +183,6 @@ function App() {
       <div className="fixed bottom-8 md:right-10 right-4">
         <ReportBtn/>
       </div>
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-YEQJ9S4MNC"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){
-        dataLayer.push(arguments)
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-YEQJ9S4MNC');
-      </script>
     </div>
   );
 }
