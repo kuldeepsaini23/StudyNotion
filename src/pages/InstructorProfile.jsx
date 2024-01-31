@@ -35,7 +35,7 @@ const InstructorProfile = () => {
     let enrolledStudents = 0;
     if (instructorCourses) {
       instructorCourses?.forEach((course) => {
-        enrolledStudents += course.studentsEnrolled.length || 0;
+        enrolledStudents += course?.studentsEnrolled?.length || 0;
       });
       setToatalNoOfReviews(enrolledStudents);
     }
@@ -68,7 +68,7 @@ const InstructorProfile = () => {
     return <Error />;
   }
 
-  // console.log(instructorDetails)
+  console.log(instructorDetails)
   return (
     <div className="relative mt-14">
       {/* Section1 */}
@@ -120,18 +120,19 @@ const InstructorProfile = () => {
                 <div className="flex flex-col justify-center items-center gap-4">
                   {instructorDetails?.socials.map((social, i) => {
                     const iconName =
-                      social.name === "Website"
+                      social?.name === "Website"
                         ? "FaGlobe"
-                        : `Fa${social.name}`;
+                        : `Fa${social?.name}`;
                     const Icon = Icons[iconName];
 
                     return (
                       <Link
-                        to={social.link}
+                        to={social?.link || "#"}
                         key={i}
+                        target="_blank"
                         className="bg-transparent hover:bg-yellow-200 text-yellow-50 font-semibold hover:text-white py-2 px-10 border border-yellow-50 hover:border-transparent rounded flex gap-3 items-center justify-center"
                       >
-                        <Icon /> {social.name}
+                        <Icon /> {social?.name}
                       </Link>
                     );
                   })}
